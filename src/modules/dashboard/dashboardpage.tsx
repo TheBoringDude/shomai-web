@@ -1,8 +1,11 @@
+import DashLayout from '../../layouts/Dash';
+import ShowCollections from './collections';
+
 const DashboardPage = () => {
   return (
-    <div>
-      <div></div>
-    </div>
+    <DashLayout title="Dashboard">
+      <ShowCollections />
+    </DashLayout>
   );
 };
 
