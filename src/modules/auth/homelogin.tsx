@@ -16,19 +16,19 @@ const HomeLogin = () => {
         className="fixed w-full h-full bg-black/60 z-50 inset-0 flex items-center justify-center"
         overlayClassname="absolute h-full w-full z-30"
       >
-        <div className="z-50 bg-white w-full max-w-lg rounded-xl p-8 text-center">
-          <h4 className="font-bold text-xl text-gunmetal">Authenticate your Wax Wallet</h4>
+        <div className="z-50 bg-gray-100 w-full max-w-lg rounded-xl p-8 text-center">
+          <h4 className="font-black text-2xl text-gunmetal">Authenticate your Wax Wallet</h4>
 
           <div className="mt-6 flex flex-col">
             <button
-              className="my-1 bg-gray-800 hover:bg-gray-900 text-white py-2 rounded-md px-4 text-lg"
+              className="my-1 bg-gray-800 hover:bg-gray-900 text-white py-3 rounded-md px-4 text-lg font-light tracking-wide"
               type="button"
             >
               Login with Wax Cloud Wallet
             </button>
 
             <button
-              className="my-1 bg-blue-700 hover:bg-blue-800 text-white py-2 rounded-md px-4 text-lg"
+              className="my-1 bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-md px-4 text-lg font-light tracking-wide"
               type="button"
             >
               Login with Anchor

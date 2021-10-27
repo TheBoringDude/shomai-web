@@ -8,7 +8,7 @@ const Hero = () => {
           <span className="text-6xl">
             Blend <span className="text-atomic-tangerine">NFTs</span>
           </span>{' '}
-          <br />
+          <br className="hidden md:block" />
           to generate and craft a <br />
           better asset.
         </h2>
