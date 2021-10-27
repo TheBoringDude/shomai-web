@@ -1,3 +1,3 @@
-import NewBlendPage from '../../../../modules/dashboard/collections/blends/newblendpage';
+import NewBlendPage from '../../../../modules/blends/newblendpage';
 
 export default NewBlendPage;

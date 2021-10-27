@@ -1,7 +1,7 @@
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { useCollection } from '../../../../lib/dash/colprovider';
+import { useCollection } from '../../lib/dash/colprovider';
 
 type BlendContaineProps = {
   children: ReactNode;

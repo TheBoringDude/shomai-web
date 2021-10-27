@@ -1,17 +1,17 @@
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
-import DashLayout from '../../../../layouts/Dash';
-import { useCollection } from '../../../../lib/dash/colprovider';
+import DashLayout from '../../layouts/Dash';
+import { useCollection } from '../../lib/dash/colprovider';
 import BlendContainer from './_container';
 
-const SimpleBlend = () => {
+const MultiBlend = () => {
   const { collection } = useCollection();
 
   return (
-    <DashLayout title="Simple Blend">
+    <DashLayout title="Multi Blend">
       <BlendContainer
-        title="Simple Blend"
-        info="Simple blends are blends that are within just a single collection."
+        title="Multi Blend"
+        info="Cross-collection NFT blending to craft another better nft."
       >
         <div className="w-11/12 mx-auto">
           {/* add ingredients */}
@@ -64,4 +64,4 @@ const SimpleBlend = () => {
   );
 };
 
-export default SimpleBlend;
+export default MultiBlend;

@@ -1,4 +1,4 @@
-import DashLayout from '../../../../layouts/Dash';
+import DashLayout from '../../layouts/Dash';
 
 const UnknownBlend = () => {
   return (
