@@ -6,7 +6,7 @@ import fetcher from '../../lib/fetcher';
 import { AuthorizedCollectionsProps } from '../../typings/acount/authcol';
 
 const ShowCollections = () => {
-  const { data } = useSWR<AuthorizedCollectionsProps>(GET_AUTHORIZED_COLLECTIONS_API, fetcher);
+  const { data } = useSWR<AuthorizedCollectionsProps>(GET_AUTHORIZED_COLLECTIONS_API(), fetcher);
 
   if (!data) {
     return (

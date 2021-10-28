@@ -2,7 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import ColProvider from '../../lib/dash/colprovider';
 import joinString from '../../lib/joinstring';
 import MultiBlend from './multi';
-import SimpleBlend from './simple';
+import SimpleBlend from './simple/page';
 import SwapBlend from './swap';
 import UnknownBlend from './unknown';
 

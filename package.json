@@ -11,10 +11,12 @@
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
+    "atomicassets": "^1.4.2",
     "next": "^11.1.2",
     "next-seo": "^4.28.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.18.0",
     "swr": "^1.0.1",
     "unstyled-lightbox": "^0.0.3"
   },

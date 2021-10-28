@@ -1,6 +1,8 @@
-interface SimpleIngredient {
+type SimpleIngredients = {
   collection: string;
-  templateid: string;
-}
+  schema: string;
+  template: string;
+  image: string;
+};
 
-export type { SimpleIngredient };
+export type { SimpleIngredients };
