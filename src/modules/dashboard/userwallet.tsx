@@ -14,6 +14,8 @@ const UserWallet = () => {
 
   useEffect(() => {
     const f = async () => {
+      if (!user) return;
+
       const x: string[] = await postFetcher(GET_WALLET_BALANCE(), {
         account: user.wallet,
         code: 'eosio.token',
@@ -21,9 +23,11 @@ const UserWallet = () => {
       });
 
       const z = x[0];
-      const bal = z.split(' ');
+      const bal = z?.split(' ');
 
-      setData(String(Number(bal[0]).toFixed(2)) + ' ' + bal[1]);
+      if (z && bal) {
+        setData(String(Number(bal[0]).toFixed(2)) + ' ' + bal[1]);
+      }
     };
 
     f();

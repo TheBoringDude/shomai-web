@@ -4,13 +4,17 @@ import { ISchema } from 'atomicassets/build/API/Explorer/Objects';
 import { useEffect, useState } from 'react';
 import { GET_COLLECTION_SCHEMAS } from '../../lib/account/getauthcol';
 import useCallAPI from '../../lib/hooks/useCallAPI';
+import { useAuth } from '../../modules/auth/provider';
 import ListBox from './Listbox';
 import { useAssetPicker } from './provider';
 
 const SchemaPicker = () => {
+  const { user } = useAuth();
   const { collection, schema, setSchema } = useAssetPicker();
   const [selected, setSelected] = useState<ISchema>();
-  const data = useCallAPI<ISchema[]>(collection ? GET_COLLECTION_SCHEMAS(collection) : null);
+  const data = useCallAPI<ISchema[]>(
+    collection ? GET_COLLECTION_SCHEMAS(user.wallet, collection) : null
+  );
 
   useEffect(() => {
     if (!selected || selected?.schema_name === '') return;

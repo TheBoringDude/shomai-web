@@ -16,8 +16,6 @@ const SimpleBlendIngredients = () => {
             <div key={i.template} className="relative bg-charcoal rounded-xl p-2">
               <button
                 onClick={() => {
-                  console.log('helo');
-                  console.log(i.template)
                   dispatchIngredients({ type: 'remove-ingredient', template: i.template });
                 }}
                 className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"

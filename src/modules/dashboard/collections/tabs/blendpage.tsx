@@ -3,6 +3,7 @@ import { ChevronDownIcon, DocumentAddIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { useCollection } from '../../../../lib/dash/colprovider';
+import ShowBlends from '../../../blends/showblends';
 
 const BlendPage = () => {
   const { collection } = useCollection();
@@ -61,6 +62,10 @@ const BlendPage = () => {
             </Menu.Items>
           </Transition>
         </Menu>
+      </div>
+
+      <div>
+        <ShowBlends title="Simple Blends" table="simblender" />
       </div>
     </div>
   );

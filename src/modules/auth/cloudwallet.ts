@@ -11,4 +11,4 @@ const loginWithCloudWallet = async (): Promise<WalletUser> => {
   return { type: 'cloudwallet', wallet: userAccount, pubKeys };
 };
 
-export { loginWithCloudWallet };
+export { loginWithCloudWallet, wax };

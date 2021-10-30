@@ -5,4 +5,9 @@ type SimpleIngredients = {
   image: string;
 };
 
-export type { SimpleIngredients };
+type SimpleAssetIngredient = {
+  assetid: number;
+  template: number;
+};
+
+export type { SimpleIngredients, SimpleAssetIngredient };
