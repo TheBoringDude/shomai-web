@@ -45,10 +45,11 @@ const HomeLogin = () => {
 
             <button
               onClick={async () => {
-                const d = await loginWithAnchor();
+                await loginWithAnchor().then((d) => {
+                  login(d);
 
-                login(d);
-                setOpen(false);
+                  setOpen(false);
+                });
               }}
               className="my-1 bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-md px-4 text-lg font-light tracking-wide"
               type="button"

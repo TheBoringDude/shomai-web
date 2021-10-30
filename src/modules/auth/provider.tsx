@@ -62,6 +62,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = (user: WalletUser) => {
     if (!window) return;
 
+    setUser(user);
     window.localStorage.setItem('wax-user', JSON.stringify(user));
 
     router.push('/dashboard');
