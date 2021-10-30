@@ -32,30 +32,18 @@ const BlendPage = () => {
             <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-deep-champagne rounded-lg focus:outline-none">
               <div className="py-3 px-2">
                 <Menu.Item>
-                  {({ active }) => (
-                    <Link href={`/dashboard/${collection}/new/simple`}>
-                      <a
-                        className={`${
-                          active ? 'bg-sage' : 'text-gray-900'
-                        } group flex rounded-md items-center w-full px-4 py-2 text-sm`}
-                      >
-                        Simple Blend
-                      </a>
-                    </Link>
-                  )}
+                  <Link href={`/dashboard/${collection}/new/simple`}>
+                    <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      Simple Blend
+                    </a>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  {({ active }) => (
-                    <Link href={`/dashboard/${collection}/new/multi`}>
-                      <a
-                        className={`${
-                          active ? 'bg-sage' : 'text-gray-900'
-                        } group flex rounded-md items-center w-full px-4 py-2 text-sm`}
-                      >
-                        Multi Blend
-                      </a>
-                    </Link>
-                  )}
+                  <Link href={`/dashboard/${collection}/new/multi`}>
+                    <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      Multi Blend
+                    </a>
+                  </Link>
                 </Menu.Item>
 
                 <hr className="my-1 border-sage" />
@@ -63,11 +51,7 @@ const BlendPage = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <Link href={`/dashboard/${collection}/new/swap`}>
-                      <a
-                        className={`${
-                          active ? 'bg-sage' : 'text-gray-900'
-                        } group flex rounded-md items-center w-full px-4 py-2 text-sm`}
-                      >
+                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Swap
                       </a>
                     </Link>

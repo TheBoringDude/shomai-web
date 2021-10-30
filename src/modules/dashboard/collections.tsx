@@ -2,11 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { GET_AUTHORIZED_COLLECTIONS_API } from '../../lib/account/getauthcol';
-import fetcher from '../../lib/fetcher';
+import { fetcher } from '../../lib/fetcher';
 import { AuthorizedCollectionsProps } from '../../typings/acount/authcol';
+import { useAuth } from '../auth/provider';
 
 const ShowCollections = () => {
-  const { data } = useSWR<AuthorizedCollectionsProps>(GET_AUTHORIZED_COLLECTIONS_API(), fetcher);
+  const { user } = useAuth();
+  const { data } = useSWR<AuthorizedCollectionsProps>(
+    GET_AUTHORIZED_COLLECTIONS_API(user.wallet),
+    fetcher
+  );
 
   if (!data) {
     return (

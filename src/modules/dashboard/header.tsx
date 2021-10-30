@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import UserWallet from './userwallet';
 
 const DashHeader = () => {
   return (
@@ -20,8 +21,7 @@ const DashHeader = () => {
         </ul>
 
         <div className="text-center">
-          <h3 className="text-sage font-black text-sm">@5g2vm.wam</h3>
-          <p className="text-xs text-gray-300 font-bold tracking-tight">( 8.33 WAX )</p>
+          <UserWallet />
         </div>
       </nav>
     </header>

@@ -1,11 +1,14 @@
 import DashLayout from '../../layouts/Dash';
+import ProtectPage from '../protectpage/protectpage';
 import ShowCollections from './collections';
 
 const DashboardPage = () => {
   return (
-    <DashLayout title="Dashboard">
-      <ShowCollections />
-    </DashLayout>
+    <ProtectPage>
+      <DashLayout title="Dashboard">
+        <ShowCollections />
+      </DashLayout>
+    </ProtectPage>
   );
 };
 

@@ -4,13 +4,15 @@ import { ICollection } from 'atomicassets/build/API/Explorer/Objects';
 import { useEffect, useState } from 'react';
 import { GET_AUTHORIZED_COLLECTIONS_API } from '../../lib/account/getauthcol';
 import useCallAPI from '../../lib/hooks/useCallAPI';
+import { useAuth } from '../../modules/auth/provider';
 import ListBox from './Listbox';
 import { useAssetPicker } from './provider';
 
 const CollectionPicker = () => {
+  const {user} = useAuth();
   const { collection, defCollection, lockCollection, setCollection } = useAssetPicker();
   const [selected, setSelected] = useState<ICollection | undefined>(undefined);
-  const data = useCallAPI<ICollection[]>(GET_AUTHORIZED_COLLECTIONS_API());
+  const data = useCallAPI<ICollection[]>(GET_AUTHORIZED_COLLECTIONS_API(user.wallet));
 
   useEffect(() => {
     if (data) {
