@@ -65,11 +65,11 @@ const BlendPage = () => {
       </div>
 
       <div>
-        <ShowBlends title="Simple Blends" table="simblender" type="sb" />
+        <ShowBlends action="remblsimple" title="Simple Blends" table="simblender" type="sb" />
 
         <hr className="my-8 border-gunmetal" />
 
-        <ShowBlends title="Simple Swaps" table="simswap" type="sw" />
+        <ShowBlends action="remswsimple" title="Simple Swaps" table="simswap" type="sw" />
       </div>
     </div>
   );

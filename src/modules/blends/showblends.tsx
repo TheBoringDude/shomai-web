@@ -13,8 +13,9 @@ type ShowBlendsProps = {
   title: string;
   table: string;
   type: string;
+  action: string;
 };
-const ShowBlends = ({ title, table, type }: ShowBlendsProps) => {
+const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
   const { user } = useAuth();
   const { collection } = useCollection();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
@@ -27,7 +28,7 @@ const ShowBlends = ({ title, table, type }: ShowBlendsProps) => {
         actions: [
           {
             account: process.env.NEXT_PUBLIC_CONTRACTNAME,
-            name: 'remblsimple',
+            name: action,
             authorization: [
               {
                 actor: user.wallet,
