@@ -2,6 +2,7 @@ import { XCircleIcon } from '@heroicons/react/solid';
 import { ITemplate } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useBlending } from '../blending-provider';
 import { useSimpleBlender } from './provider';
 import SetAsset from './set-asset';
 
@@ -12,6 +13,7 @@ type ManageIngredientProps = {
 };
 const ManageIngredient = ({ templateid, data, index }: ManageIngredientProps) => {
   const { dispatchIngredients, ingredients } = useSimpleBlender();
+  const { ignoreAssets, setIgnoreAssets } = useBlending();
 
   const x = useMemo(() => {
     return data.filter((i) => i.template_id === templateid.toString())[0];
@@ -29,6 +31,9 @@ const ManageIngredient = ({ templateid, data, index }: ManageIngredientProps) =>
         <button
           type="button"
           onClick={() => {
+            const ignore = ignoreAssets.filter((i) => i !== ingredients[index].assetid);
+            setIgnoreAssets(ignore);
+
             dispatchIngredients({
               type: 'set-ingredient',
               index: index,

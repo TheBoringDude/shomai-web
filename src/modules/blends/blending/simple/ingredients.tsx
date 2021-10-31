@@ -74,7 +74,9 @@ const SimpleBlenderIngredients = () => {
 
   return (
     <div className="my-12 w-11/12 mx-auto">
-      <div className="grid grid-cols-4 gap-4">
+      <h4 className="font-black text-2xl text-gray-100">Ingredients</h4>
+
+      <div className="grid grid-cols-4 gap-6 mt-6">
         {config.ingredients.map((i, index) => (
           <ManageIngredient key={index} index={index} templateid={i} data={data?.data} />
         ))}
@@ -82,28 +84,32 @@ const SimpleBlenderIngredients = () => {
 
       <hr className="my-12 border-charcoal" />
 
-      <div className="flex items-center justify-center">
-        {target && (
-          <div className="bg-charcoal p-2 rounded-lg">
-            <Image
-              src={`https://ipfs.io/ipfs/${target?.data.immutable_data.img}`}
-              alt={target?.data.immutable_data.name}
-              height="300"
-              width="200"
-              objectFit="contain"
-            />
-          </div>
-        )}
+      <div className="text-center">
+        <h4 className="font-black text-2xl text-gray-100">Target</h4>
 
-        <div className="text-center ml-12">
-          <button
-            type="button"
-            onClick={callBlend}
-            className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
-          >
-            <DuplicateIcon className="h-5 w-5" />
-            Blend
-          </button>
+        <div className="flex items-center justify-center mt-6">
+          {target && (
+            <div className="bg-charcoal p-2 rounded-lg">
+              <Image
+                src={`https://ipfs.io/ipfs/${target?.data.immutable_data.img}`}
+                alt={target?.data.immutable_data.name}
+                height="300"
+                width="200"
+                objectFit="contain"
+              />
+            </div>
+          )}
+
+          <div className="text-center ml-12">
+            <button
+              type="button"
+              onClick={callBlend}
+              className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
+            >
+              <DuplicateIcon className="h-5 w-5" />
+              Blend
+            </button>
+          </div>
         </div>
       </div>
     </div>

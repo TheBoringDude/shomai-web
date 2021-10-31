@@ -13,8 +13,8 @@ type ShowAssetProps = {
 };
 
 const ShowAsset = ({ onClose }: ShowAssetProps) => {
-  const {user} = useAuth();
-  const { defCollection, templateid, pick } = useAssetSetter();
+  const { user } = useAuth();
+  const { defCollection, templateid, pick, ignoreAssets } = useAssetSetter();
   const [selected, setSelected] = useState<number>(undefined);
 
   const { data } = useSWR<AtomicRequest<IAsset[]>>(
@@ -25,24 +25,29 @@ const ShowAsset = ({ onClose }: ShowAssetProps) => {
   return (
     <div>
       <div className="grid grid-cols-3 gap-4">
-        {data?.data.map((i, index) => (
-          <button
-            key={index}
-            type="button"
-            onClick={() => setSelected(Number(i.asset_id))}
-            className={`${
-              selected?.toString() === i.asset_id ? `border-2 border-deep-champagne rounded-xl` : ''
-            }`}
-          >
-            <Image
-              src={`https://ipfs.io/ipfs/${i.data.img}`}
-              alt={i.name}
-              height="200"
-              width="150"
-              objectFit="contain"
-            />
-          </button>
-        ))}
+        {data?.data
+          // this prevents choosing already picked assets
+          .filter((i) => !ignoreAssets?.includes(Number(i.asset_id)))
+          .map((i, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setSelected(Number(i.asset_id))}
+              className={`${
+                selected?.toString() === i.asset_id
+                  ? `border-2 border-deep-champagne rounded-xl`
+                  : ''
+              }`}
+            >
+              <Image
+                src={`https://ipfs.io/ipfs/${i.data.img}`}
+                alt={i.name}
+                height="200"
+                width="150"
+                objectFit="contain"
+              />
+            </button>
+          ))}
       </div>
 
       <div className="flex items-center justify-center mt-8">

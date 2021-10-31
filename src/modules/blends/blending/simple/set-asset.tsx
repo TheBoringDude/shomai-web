@@ -13,6 +13,7 @@ type SetAssetProps = {
 const SetAsset = ({ templateid, index }: SetAssetProps) => {
   const { collection } = useBlending();
   const { dispatchIngredients } = useSimpleBlender();
+  const { ignoreAssets, setIgnoreAssets } = useBlending();
   const [open, setOpen] = useState(false);
 
   const pick = (asset: number) => {
@@ -27,11 +28,19 @@ const SetAsset = ({ templateid, index }: SetAssetProps) => {
       }
     });
 
+    const ignore = [...ignoreAssets, asset];
+    setIgnoreAssets(ignore);
+
     setOpen(false);
   };
 
   return (
-    <AssetSetterProvider templateid={templateid} defCollection={collection} pick={pick}>
+    <AssetSetterProvider
+      ignoreAssets={ignoreAssets}
+      templateid={templateid}
+      defCollection={collection}
+      pick={pick}
+    >
       <AssetSetter open={open} onClose={() => setOpen(false)} />
 
       <button

@@ -4,14 +4,14 @@ import SimpleBlendingProvider from './provider';
 
 const SimpleBlending = () => {
   return (
-    <SimpleBlendingProvider>
-      <BlendingPage>
+    <BlendingPage>
+      <SimpleBlendingProvider>
         <hr className="border-charcoal my-12" />
         <div>
           <SimpleBlenderIngredients />
         </div>
-      </BlendingPage>
-    </SimpleBlendingProvider>
+      </SimpleBlendingProvider>
+    </BlendingPage>
   );
 };
 

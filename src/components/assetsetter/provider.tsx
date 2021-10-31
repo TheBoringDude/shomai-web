@@ -5,6 +5,7 @@ type AssetSetterProviderProps = {
   children: ReactNode;
   defCollection: string;
   templateid: number;
+  ignoreAssets: number[];
   pick: (assetid: number) => void;
 };
 
@@ -13,6 +14,7 @@ type AssetSetterContextProps = {
   setAsset: Dispatch<SetStateAction<SimpleAssetIngredient | undefined>>;
   defCollection: string;
   templateid: number;
+  ignoreAssets: number[];
   pick: (assetid: number) => void;
 };
 
@@ -20,6 +22,7 @@ const AssetSetterContext = createContext<AssetSetterContextProps>({
   setAsset: () => {},
   defCollection: '',
   templateid: 0,
+  ignoreAssets: [],
   pick: () => {}
 });
 
@@ -27,12 +30,15 @@ const AssetSetterProvider = ({
   children,
   defCollection,
   templateid,
-  pick
+  pick,
+  ignoreAssets
 }: AssetSetterProviderProps) => {
   const [asset, setAsset] = useState<SimpleAssetIngredient | undefined>(undefined);
 
   return (
-    <AssetSetterContext.Provider value={{ asset, setAsset, defCollection, templateid, pick }}>
+    <AssetSetterContext.Provider
+      value={{ asset, setAsset, defCollection, templateid, pick, ignoreAssets }}
+    >
       {children}
     </AssetSetterContext.Provider>
   );
