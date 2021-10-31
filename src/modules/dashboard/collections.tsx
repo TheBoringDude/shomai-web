@@ -1,8 +1,10 @@
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { GET_AUTHORIZED_COLLECTIONS_API } from '../../lib/account/getauthcol';
 import { fetcher } from '../../lib/fetcher';
+import { dapp } from '../../lib/waxnet';
 import { AuthorizedCollectionsProps } from '../../typings/acount/authcol';
 import { useAuth } from '../auth/provider';
 
@@ -16,7 +18,7 @@ const ShowCollections = () => {
   if (!data) {
     return (
       <div className="py-32 text-center">
-        <p>Loading authorized collections...</p>
+        <p className="text-white">Loading authorized collections...</p>
       </div>
     );
   }
@@ -29,14 +31,22 @@ const ShowCollections = () => {
         <div className="w-11/12 mx-auto items-center justify-center grid grid-cols-3 gap-6 mt-12">
           {data.data.map((col, index) => (
             <Link href={`/dashboard/${col.collection_name}`} key={index}>
-              <a className="flex flex-col text-center">
+              <a className="flex flex-col text-center relative">
+                {col.authorized_accounts.includes(dapp) && (
+                  <span
+                    className="absolute -top-2 -right-2 text-atomic-tangerine z-20"
+                    title="dApp is Authorized in this collection"
+                  >
+                    <CheckCircleIcon className="h-8 w-8" />
+                  </span>
+                )}
                 <Image
                   src={`https://ipfs.io/ipfs/${col.img}`}
                   alt={col.name}
                   height="300"
                   width="300"
                   objectFit="cover"
-                  className="rounded-t-md"
+                  className="rounded-t-md z-10"
                 />
                 <h3 className="py-4 bg-deep-champagne font-black text-lg tracking-wide text-gunmetal rounded-b-md">
                   {col.collection_name}
