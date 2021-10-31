@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import { useCollection } from '../../lib/dash/colprovider';
 import UserWallet from './userwallet';
 
 const DashHeader = () => {
+  const { collection } = useCollection();
+
   return (
     <header className="bg-gunmetal py-4">
       <nav className="mx-auto w-11/12 flex items-center justify-between">
@@ -9,15 +12,17 @@ const DashHeader = () => {
 
         <ul className="text-sm text-gray-100 flex items-center">
           <li className="mx-8">
-            <Link href="/dashboard">
+            <Link href="/d/">
               <a className="hover:text-atomic-tangerine tracking-wide font-bold">Collections</a>
             </Link>
           </li>
-          <li className="mx-8">
-            <Link href="/dashboard/my-nfts/">
-              <a className="hover:text-atomic-tangerine tracking-wide font-bold">My NFTs</a>
-            </Link>
-          </li>
+          {collection && (
+            <li className="mx-8">
+              <Link href={`/d/${collection}/my-nfts`}>
+                <a className="hover:text-atomic-tangerine tracking-wide font-bold">My NFTs</a>
+              </Link>
+            </li>
+          )}
         </ul>
 
         <div className="text-center">

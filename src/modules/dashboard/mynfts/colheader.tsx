@@ -5,7 +5,6 @@ import EmptyComponent from '../../../components/empty-component';
 import { useCollection } from '../../../lib/dash/colprovider';
 import { fetcher } from '../../../lib/fetcher';
 import { AtomicRequest } from '../../../typings/atomicrequest';
-import ColMenu from './menu';
 
 const ColHeader = () => {
   const { collection } = useCollection();
@@ -36,7 +35,7 @@ const ColHeader = () => {
         </div>
       </div>
 
-      <ColMenu />
+      <h5 className="text-3xl font-black text-gray-200 tracking-wide">My NFTs</h5>
     </div>
   );
 };

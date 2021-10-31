@@ -79,7 +79,7 @@ const ShowBlends = ({ title, table, type }: ShowBlendsProps) => {
                 >
                   <TrashIcon className="h-5 w-5 mr-1" /> Remove
                 </button>
-                <Link href={`/c/${i.collection}/${i.blenderid}-${type}`}>
+                <Link href={`/d/${i.collection}/blends/${i.blenderid}-${type}`}>
                   <a
                     target="_blank"
                     className="bg-charcoal hover:bg-gunmetal py-2 px-4 rounded-md text-white text-sm my-1 inline-flex items-center"

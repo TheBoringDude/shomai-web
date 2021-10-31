@@ -30,7 +30,7 @@ const ShowCollections = () => {
 
         <div className="w-11/12 mx-auto items-center justify-center grid grid-cols-3 gap-6 mt-12">
           {data.data.map((col, index) => (
-            <Link href={`/dashboard/${col.collection_name}`} key={index}>
+            <Link href={`/d/${col.collection_name}`} key={index}>
               <a className="flex flex-col text-center relative">
                 {col.authorized_accounts.includes(dapp) && (
                   <span

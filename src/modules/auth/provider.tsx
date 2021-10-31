@@ -1,4 +1,3 @@
-import { useRouter } from 'next/dist/client/router';
 import {
   createContext,
   Dispatch,
@@ -40,8 +39,6 @@ const getUser = (): WalletUser => {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const router = useRouter();
-
   const [user, setUser] = useState<WalletUser | undefined>(undefined);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const mounted = useHasMounted();
@@ -55,8 +52,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     setIsLoggedIn(false);
     setUser(undefined);
-
-    router.push('/');
   };
 
   const login = (user: WalletUser) => {
@@ -64,8 +59,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     setUser(user);
     window.localStorage.setItem('wax-user', JSON.stringify(user));
-
-    router.push('/dashboard');
   };
 
   useEffect(() => {

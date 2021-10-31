@@ -54,7 +54,7 @@ const MultiBlend = () => {
             <button className="bg-deep-champagne hover:bg-atomic-tangerine duration-300 py-3 px-8 rounded-lg mx-1">
               Create Blend
             </button>
-            <Link href={`/dashboard/${collection}`}>
+            <Link href={`/d/${collection}`}>
               <a className="bg-charcoal text-gray-100 py-3 px-8 rounded-lg mx-1">Cancel</a>
             </Link>
           </div>

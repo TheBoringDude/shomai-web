@@ -4,7 +4,6 @@ import DashLayout from '../../../layouts/Dash';
 import ColProvider from '../../../lib/dash/colprovider';
 import joinString from '../../../lib/joinstring';
 import ColHeader from './colheader';
-import ColMenu from './menu';
 import BlendPage from './tabs/blendpage';
 import SettingsPage from './tabs/settingspage';
 import StatsPage from './tabs/statspage';
@@ -23,12 +22,9 @@ const CollectionPage = () => {
         <div className="py-10">
           <div className="w-5/6 mx-auto">
             <Tab.Group>
-              <div className="flex items-center justify-between">
-                <ColHeader collection_name={joinString(colname)} />
-                <ColMenu />
-              </div>
+              <ColHeader />
 
-              <hr className="border-gray-400 my-4" />
+              <hr className="border-gray-400 my-8" />
 
               <Tab.Panels className="mt-6 w-11/12 mx-auto">
                 <Tab.Panel>

@@ -14,7 +14,7 @@ const BlendContainer = ({ children, title, info }: BlendContaineProps) => {
   return (
     <div className="w-11/12 mx-auto">
       <div className="m-12 bg-gunmetal rounded-xl py-12 px-14 relative">
-        <Link href={`/dashboard/${collection}`}>
+        <Link href={`/d/${collection}`}>
           <a className="inline-flex items-center text-gray-300 hover:text-gray-200 hover:underline text-sm absolute top-4 left-6">
             <ArrowNarrowLeftIcon className="h-4 w-5 mr-1" /> Return to Collection
           </a>

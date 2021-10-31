@@ -1,15 +1,11 @@
 import DashLayout from '../../layouts/Dash';
-import ProtectPage from '../protectpage/protectpage';
+import { useAuth } from '../auth/provider';
 import ShowCollections from './collections';
 
 const DashboardPage = () => {
-  return (
-    <ProtectPage>
-      <DashLayout title="Dashboard">
-        <ShowCollections />
-      </DashLayout>
-    </ProtectPage>
-  );
+  const { user } = useAuth();
+
+  return <DashLayout title="Dashboard">{user && <ShowCollections />}</DashLayout>;
 };
 
 export default DashboardPage;

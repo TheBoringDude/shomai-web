@@ -33,14 +33,14 @@ const BlendPage = () => {
             <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-deep-champagne rounded-lg focus:outline-none">
               <div className="py-3 px-2">
                 <Menu.Item>
-                  <Link href={`/dashboard/${collection}/new/simple`}>
+                  <Link href={`/d/${collection}/new/simple`}>
                     <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                       Simple Blend
                     </a>
                   </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link href={`/dashboard/${collection}/new/multi`}>
+                  <Link href={`/d/${collection}/new/multi`}>
                     <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                       Multi Blend
                     </a>
@@ -51,7 +51,7 @@ const BlendPage = () => {
 
                 <Menu.Item>
                   {({ active }) => (
-                    <Link href={`/dashboard/${collection}/new/swap`}>
+                    <Link href={`/d/${collection}/new/swap`}>
                       <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Swap
                       </a>
