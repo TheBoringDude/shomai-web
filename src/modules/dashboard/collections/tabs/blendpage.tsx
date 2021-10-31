@@ -66,6 +66,10 @@ const BlendPage = () => {
 
       <div>
         <ShowBlends title="Simple Blends" table="simblender" type="sb" />
+
+        <hr className="my-8 border-gunmetal" />
+
+        <ShowBlends title="Simple Swaps" table="simswap" type="sw" />
       </div>
     </div>
   );

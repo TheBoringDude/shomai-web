@@ -3,7 +3,7 @@ import ColProvider from '../../lib/dash/colprovider';
 import joinString from '../../lib/joinstring';
 import MultiBlend from './multi';
 import SimpleBlend from './simple/page';
-import SwapBlend from './swap';
+import SimpleSwap from './simpleswap/page';
 import UnknownBlend from './unknown';
 
 const NewBlendPage = () => {
@@ -21,7 +21,7 @@ const NewBlendPage = () => {
       ) : blend === 'multi' ? (
         <MultiBlend />
       ) : blend === 'swap' ? (
-        <SwapBlend />
+        <SimpleSwap />
       ) : (
         <UnknownBlend />
       )}
