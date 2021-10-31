@@ -7,6 +7,7 @@ import {
   GET_COLLECTION_TEMPLATES
 } from '../../../../lib/account/getauthcol';
 import { fetcher } from '../../../../lib/fetcher';
+import { dapp } from '../../../../lib/waxnet';
 import { AtomicRequest } from '../../../../typings/atomicrequest';
 import getTransact from '../../../auth/getTransact';
 import { useAuth } from '../../../auth/provider';
@@ -46,8 +47,8 @@ const SimpleBlenderIngredients = () => {
       .transact({
         actions: [
           {
-            account: process.env.NEXT_PUBLIC_CONTRACTNAME,
-            name: 'callblsimple',
+            account: 'atomicassets',
+            name: 'transfer',
             authorization: [
               {
                 actor: user.wallet,
@@ -55,14 +56,37 @@ const SimpleBlenderIngredients = () => {
               }
             ],
             data: {
-              blenderid: id,
-              blender: user.wallet,
-              scope: collection,
-              assetids: assets
+              from: user.wallet,
+              to: dapp,
+              asset_ids: assets,
+              memo: ''
             }
           }
         ]
       })
+      .then(
+        async () =>
+          await session.transact({
+            actions: [
+              {
+                account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+                name: 'callblsimple',
+                authorization: [
+                  {
+                    actor: user.wallet,
+                    permission: user.permission ?? 'active'
+                  }
+                ],
+                data: {
+                  blenderid: id,
+                  blender: user.wallet,
+                  scope: collection,
+                  assetids: assets
+                }
+              }
+            ]
+          })
+      )
       .catch((e) => {
         console.error(e);
       });

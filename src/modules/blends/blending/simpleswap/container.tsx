@@ -4,14 +4,18 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import { GET_COLLECTION_TEMPLATE } from '../../../../lib/account/getauthcol';
 import { fetcher } from '../../../../lib/fetcher';
+import { dapp } from '../../../../lib/waxnet';
 import { AtomicRequest } from '../../../../typings/atomicrequest';
+import getTransact from '../../../auth/getTransact';
+import { useAuth } from '../../../auth/provider';
 import { useBlending } from '../blending-provider';
 import ManageSimpleSwapIngredient from './manage-ingredient';
 import { useSimpleSwapBlender } from './provider';
 
 const SimpleSwapBlendingContainer = () => {
-  const { collection } = useBlending();
-  const { config } = useSimpleSwapBlender();
+  const { collection, id } = useBlending();
+  const { config, ingredient } = useSimpleSwapBlender();
+  const { user } = useAuth();
   const { data } = useSWR<AtomicRequest<ITemplate>>(
     config ? GET_COLLECTION_TEMPLATE(collection, config.ingredient) : null,
     fetcher
@@ -22,7 +26,53 @@ const SimpleSwapBlendingContainer = () => {
     fetcher
   );
 
-  const callBlend = async () => {};
+  const callBlend = async () => {
+    const session = await getTransact(user);
+
+    await session
+      .transact({
+        actions: [
+          {
+            account: 'atomicassets',
+            name: 'transfer',
+            authorization: [
+              {
+                actor: user.wallet,
+                permission: user.permission ?? 'active'
+              }
+            ],
+            data: {
+              from: user.wallet,
+              to: dapp,
+              asset_ids: [ingredient.assetid],
+              memo: ''
+            }
+          }
+        ]
+      })
+      .then(async () =>
+        session.transact({
+          actions: [
+            {
+              account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+              name: 'callswsimple',
+              authorization: [
+                {
+                  actor: user.wallet,
+                  permission: user.permission ?? 'active'
+                }
+              ],
+              data: {
+                blenderid: id,
+                blender: user.wallet,
+                scope: collection,
+                asset: ingredient.assetid
+              }
+            }
+          ]
+        })
+      );
+  };
 
   if (!data) return <></>;
 
