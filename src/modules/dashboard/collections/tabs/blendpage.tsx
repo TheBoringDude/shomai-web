@@ -65,7 +65,7 @@ const BlendPage = () => {
       </div>
 
       <div>
-        <ShowBlends title="Simple Blends" table="simblender" />
+        <ShowBlends title="Simple Blends" table="simblender" type="sb" />
       </div>
     </div>
   );
