@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import HomeLogin from '../auth/homelogin';
+import HomeLogin from './homelogin';
 
 const Header = () => {
   return (

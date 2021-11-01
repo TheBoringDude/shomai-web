@@ -3,8 +3,8 @@ import { ArrowRightIcon, ChartSquareBarIcon, ChevronDownIcon } from '@heroicons/
 import { useRouter } from 'next/dist/client/router';
 import { Fragment, useState } from 'react';
 import { useHasMounted } from '../../hooks/useHasMounted';
-import AuthLogin from './login';
-import { useAuth } from './provider';
+import AuthLogin from '../auth/login';
+import { useAuth } from '../auth/provider';
 
 const HomeLogin = () => {
   const router = useRouter();
@@ -51,7 +51,7 @@ const HomeLogin = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() => router.push('/dashboard')}
+                      onClick={() => router.push('/d')}
                       className={`${
                         active ? 'bg-deep-champagne text-gunmetal' : 'text-white'
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm my-1`}

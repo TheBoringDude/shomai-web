@@ -73,38 +73,22 @@ const UserWallet = () => {
             <Menu.Items className="absolute z-20 right-0 w-56 mt-2 origin-top-right bg-deep-champagne divide-y rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1 px-4">
                 <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => router.push('/dashboard')}
-                      className={`${
-                        active ? 'bg-deep-champagne' : ''
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm my-1`}
-                    >
-                      {active ? (
-                        <ChartSquareBarIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <ChartSquareBarIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      My Collections
-                    </button>
-                  )}
+                  <button
+                    onClick={() => router.push('/dashboard')}
+                    className="hover:bg-sage group flex rounded-md items-center w-full px-2 py-2 text-sm my-1"
+                  >
+                    <ChartSquareBarIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    My Collections
+                  </button>
                 </Menu.Item>
                 <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => logout()}
-                      className={`${
-                        active ? 'bg-deep-champagne' : ''
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm my-1`}
-                    >
-                      {active ? (
-                        <ArrowRightIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      ) : (
-                        <ArrowRightIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                      )}
-                      Logout
-                    </button>
-                  )}
+                  <button
+                    onClick={() => logout()}
+                    className="hover:bg-sage group flex rounded-md items-center w-full px-2 py-2 text-sm my-1"
+                  >
+                    <ArrowRightIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                    Logout
+                  </button>
                 </Menu.Item>
               </div>
             </Menu.Items>

@@ -1,5 +1,6 @@
 import { ICollection } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
+import Link from 'next/link';
 import useSWR from 'swr';
 import EmptyComponent from '../../../components/empty-component';
 import { useCollection } from '../../../lib/dash/colprovider';
@@ -30,7 +31,11 @@ const ColHeader = () => {
           className="rounded-lg"
         />
         <div className="ml-3 flex flex-col">
-          <h3 className="text-4xl font-black text-atomic-tangerine">{data.data.collection_name}</h3>
+          <Link href={`/d/${collection}`}>
+            <a className="text-4xl font-black text-atomic-tangerine hover:underline">
+              <h3 className="">{data.data.collection_name}</h3>
+            </a>
+          </Link>
           <p className="text-xl mt-2 font-bold text-gray-300">{data.data.name}</p>
         </div>
       </div>

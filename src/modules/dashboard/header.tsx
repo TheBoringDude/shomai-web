@@ -17,11 +17,18 @@ const DashHeader = () => {
             </Link>
           </li>
           {collection && (
-            <li className="mx-8">
-              <Link href={`/d/${collection}/my-nfts`}>
-                <a className="hover:text-atomic-tangerine tracking-wide font-bold">My NFTs</a>
-              </Link>
-            </li>
+            <>
+              <li className="mx-8">
+                <Link href={`/d/${collection}/my-nfts`}>
+                  <a className="hover:text-atomic-tangerine tracking-wide font-bold">My NFTs</a>
+                </Link>
+              </li>
+              <li className="mx-8">
+                <Link href={`/d/${collection}/my-nfts`}>
+                  <a className="hover:text-atomic-tangerine tracking-wide font-bold">ReFUND</a>
+                </Link>
+              </li>
+            </>
           )}
         </ul>
 

@@ -8,9 +8,11 @@ import BlendPage from './tabs/blendpage';
 import SettingsPage from './tabs/settingspage';
 import StatsPage from './tabs/statspage';
 
+const tabmenus = ['stats', 'blends', 'settings'];
+
 const CollectionPage = () => {
   const router = useRouter();
-  const { colname } = router.query;
+  const { colname, p } = router.query;
 
   if (!colname) {
     return <></>;
@@ -19,9 +21,9 @@ const CollectionPage = () => {
   return (
     <ColProvider collection={joinString(colname)}>
       <DashLayout title={joinString(colname)}>
-        <div className="py-10">
+        <div className="py-16">
           <div className="w-5/6 mx-auto">
-            <Tab.Group>
+            <Tab.Group defaultIndex={tabmenus.indexOf(joinString(p)) ?? 0}>
               <ColHeader />
 
               <hr className="border-gray-400 my-8" />

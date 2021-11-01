@@ -43,7 +43,7 @@ const CallAction = () => {
       >
         Create Blend
       </button>
-      <Link href={`/d/${collection}`}>
+      <Link href={`/d/${collection}?p=blends`}>
         <a className="bg-charcoal text-gray-100 py-3 px-8 rounded-lg mx-1">Cancel</a>
       </Link>
     </div>

@@ -50,13 +50,11 @@ const BlendPage = () => {
                 <hr className="my-1 border-sage" />
 
                 <Menu.Item>
-                  {({ active }) => (
-                    <Link href={`/d/${collection}/new/swap`}>
-                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
-                        Swap
-                      </a>
-                    </Link>
-                  )}
+                  <Link href={`/d/${collection}/new/swap`}>
+                    <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      Swap
+                    </a>
+                  </Link>
                 </Menu.Item>
               </div>
             </Menu.Items>
