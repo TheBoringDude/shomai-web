@@ -2,7 +2,7 @@ import { PlusCircleIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import AssetPicker from '../../../components/AssetPicker';
 import AssetProvider from '../../../components/assetpicker/provider';
-import { useCollection } from '../../../lib/dash/colprovider';
+import { useCollection } from '../../../lib/collections/colprovider';
 import { useSimpleSwap } from './provider';
 
 const AddIngredientSimpleSwap = () => {

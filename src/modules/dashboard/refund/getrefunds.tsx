@@ -2,7 +2,7 @@ import { ReceiptRefundIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import { useEffect, useState } from 'react';
 import EmptyComponent from '../../../components/empty-component';
-import { useCollection } from '../../../lib/dash/colprovider';
+import { useCollection } from '../../../lib/collections/colprovider';
 import { RefundNFTAsset } from '../../../typings/refund';
 import { wax } from '../../auth/cloudwallet';
 import getTransact from '../../auth/getTransact';

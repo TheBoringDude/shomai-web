@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import DashLayout from '../../../layouts/Dash';
-import ColProvider from '../../../lib/dash/colprovider';
+import ColProvider from '../../../lib/collections/colprovider';
 import joinString from '../../../lib/joinstring';
 import ColPageHeader from '../colpageheader';
 import GetRefundNFTs from './getrefunds';

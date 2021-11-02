@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useCollection } from '../../../lib/dash/colprovider';
+import { useCollection } from '../../../lib/collections/colprovider';
 import getTransact from '../../auth/getTransact';
 import { useAuth } from '../../auth/provider';
 import { useSimpleSwap } from './provider';

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import EmptyComponent from '../../../components/empty-component';
 import { GET_SPECIFIC_ASSETS } from '../../../lib/account/getassets';
-import { useCollection } from '../../../lib/dash/colprovider';
+import { useCollection } from '../../../lib/collections/colprovider';
 import { fetcher } from '../../../lib/fetcher';
 import { AtomicRequest } from '../../../typings/atomicrequest';
 

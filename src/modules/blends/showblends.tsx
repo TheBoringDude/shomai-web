@@ -2,7 +2,7 @@ import { LinkIcon, TrashIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useCollection } from '../../lib/dash/colprovider';
+import { useCollection } from '../../lib/collections/colprovider';
 import { SIMPLEBLENDS } from '../../typings/blends/blends';
 import { wax } from '../auth/cloudwallet';
 import getTransact from '../auth/getTransact';

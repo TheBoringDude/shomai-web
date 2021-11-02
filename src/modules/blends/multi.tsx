@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import DashLayout from '../../layouts/Dash';
-import { useCollection } from '../../lib/dash/colprovider';
+import { useCollection } from '../../lib/collections/colprovider';
 import BlendContainer from './_container';
 
 const MultiBlend = () => {

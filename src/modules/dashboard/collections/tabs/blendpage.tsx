@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, DocumentAddIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { useCollection } from '../../../../lib/dash/colprovider';
+import { useCollection } from '../../../../lib/collections/colprovider';
 import ShowBlends from '../../../blends/showblends';
 
 const BlendPage = () => {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useCollection } from '../../lib/dash/colprovider';
+import { useCollection } from '../../lib/collections/colprovider';
 import UserWallet from './userwallet';
 
 const DashHeader = () => {
@@ -12,10 +12,13 @@ const DashHeader = () => {
 
         <ul className="text-sm text-gray-100 flex items-center">
           <li className="mx-8">
-            <Link href="/d/">
-              <a className="hover:text-atomic-tangerine tracking-wide font-bold">Collections</a>
+            {/* route to collection page if it is under it */}
+            <Link href={`/d/${collection ? collection : ''}`}>
+              <a className="hover:text-atomic-tangerine tracking-wide font-bold">Collection</a>
             </Link>
           </li>
+
+          {/* show menus only if under a collection */}
           {collection && (
             <>
               <li className="mx-8">

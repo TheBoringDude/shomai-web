@@ -1,25 +1,14 @@
-import { ICollection } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
 import Link from 'next/link';
-import useSWR from 'swr';
 import EmptyComponent from '../../components/empty-component';
-import { useCollection } from '../../lib/dash/colprovider';
-import { fetcher } from '../../lib/fetcher';
-import { AtomicRequest } from '../../typings/atomicrequest';
+import { useCollection } from '../../lib/collections/colprovider';
 
 type ColPageHeaderProps = {
   title: string;
 };
 
 const ColPageHeader = ({ title }: ColPageHeaderProps) => {
-  const { collection } = useCollection();
-
-  const { data } = useSWR<AtomicRequest<ICollection>>(
-    collection
-      ? `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/collections/${collection}`
-      : null,
-    fetcher
-  );
+  const { collection, coldata: data } = useCollection();
 
   if (!data) return <EmptyComponent />;
 
@@ -27,8 +16,8 @@ const ColPageHeader = ({ title }: ColPageHeaderProps) => {
     <div className="flex items-center justify-between">
       <div className="inline-flex items-center">
         <Image
-          src={`https://ipfs.io/ipfs/${data.data.img}`}
-          alt={data.data.name}
+          src={`https://ipfs.io/ipfs/${data.img}`}
+          alt={data.name}
           height="80"
           width="80"
           objectFit="contain"
@@ -37,10 +26,10 @@ const ColPageHeader = ({ title }: ColPageHeaderProps) => {
         <div className="ml-3 flex flex-col">
           <Link href={`/d/${collection}`}>
             <a className="text-4xl font-black text-atomic-tangerine hover:underline">
-              <h3 className="">{data.data.collection_name}</h3>
+              <h3 className="">{data.collection_name}</h3>
             </a>
           </Link>
-          <p className="text-xl mt-2 font-bold text-gray-300">{data.data.name}</p>
+          <p className="text-xl mt-2 font-bold text-gray-300">{data.name}</p>
         </div>
       </div>
 
