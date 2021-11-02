@@ -3,9 +3,9 @@ import DashLayout from '../../../layouts/Dash';
 import ColProvider from '../../../lib/dash/colprovider';
 import joinString from '../../../lib/joinstring';
 import ColPageHeader from '../colpageheader';
-import GetNFTs from './getnfts';
+import GetRefundNFTs from './getrefunds';
 
-const MyNFTs = () => {
+const RefundPage = () => {
   const router = useRouter();
   const { colname } = router.query;
 
@@ -14,11 +14,11 @@ const MyNFTs = () => {
       <DashLayout title={joinString(colname)}>
         <div className="py-10">
           <div className="w-5/6 mx-auto bg-gunmetal rounded-xl m-12 py-12 px-14">
-            <ColPageHeader title="My NFTs" />
+            <ColPageHeader title="Refunds" />
 
             <hr className="border-charcoal my-8" />
 
-            <GetNFTs />
+            <GetRefundNFTs />
           </div>
         </div>
       </DashLayout>
@@ -26,4 +26,4 @@ const MyNFTs = () => {
   );
 };
 
-export default MyNFTs;
+export default RefundPage;

@@ -2,12 +2,16 @@ import { ICollection } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
 import Link from 'next/link';
 import useSWR from 'swr';
-import EmptyComponent from '../../../components/empty-component';
-import { useCollection } from '../../../lib/dash/colprovider';
-import { fetcher } from '../../../lib/fetcher';
-import { AtomicRequest } from '../../../typings/atomicrequest';
+import EmptyComponent from '../../components/empty-component';
+import { useCollection } from '../../lib/dash/colprovider';
+import { fetcher } from '../../lib/fetcher';
+import { AtomicRequest } from '../../typings/atomicrequest';
 
-const ColHeader = () => {
+type ColPageHeaderProps = {
+  title: string;
+};
+
+const ColPageHeader = ({ title }: ColPageHeaderProps) => {
   const { collection } = useCollection();
 
   const { data } = useSWR<AtomicRequest<ICollection>>(
@@ -40,9 +44,9 @@ const ColHeader = () => {
         </div>
       </div>
 
-      <h5 className="text-3xl font-black text-gray-200 tracking-wide">My NFTs</h5>
+      <h5 className="text-3xl font-black text-gray-200 tracking-wide">{title}</h5>
     </div>
   );
 };
 
-export default ColHeader;
+export default ColPageHeader;

@@ -24,7 +24,7 @@ const DashHeader = () => {
                 </Link>
               </li>
               <li className="mx-8">
-                <Link href={`/d/${collection}/my-nfts`}>
+                <Link href={`/d/${collection}/refunds`}>
                   <a className="hover:text-atomic-tangerine tracking-wide font-bold">ReFUND</a>
                 </Link>
               </li>

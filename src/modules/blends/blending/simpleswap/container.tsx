@@ -45,7 +45,7 @@ const SimpleSwapBlendingContainer = () => {
               from: user.wallet,
               to: dapp,
               asset_ids: [ingredient.assetid],
-              memo: ''
+              memo: collection
             }
           }
         ]

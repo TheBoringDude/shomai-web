@@ -59,7 +59,7 @@ const SimpleBlenderIngredients = () => {
               from: user.wallet,
               to: dapp,
               asset_ids: assets,
-              memo: ''
+              memo: collection
             }
           }
         ]

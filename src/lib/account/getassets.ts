@@ -6,4 +6,9 @@ const GET_USER_ASSETS = (collection: string, owner: string) => {
   return `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/assets?collection_name=${collection}&page=1&limit=1000&order=desc&sort=asset_id&owner=${owner}`;
 };
 
-export { GET_TEMPLATE_ASSETS, GET_USER_ASSETS };
+const GET_SPECIFIC_ASSETS = (collection: string, assets: number[]) => {
+  return `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/assets?collection_name=${collection}&page=1&limit=1000&order=desc&sort=asset_id&ids=${assets.join(',')}`;
+
+}
+
+export { GET_TEMPLATE_ASSETS, GET_USER_ASSETS, GET_SPECIFIC_ASSETS };
