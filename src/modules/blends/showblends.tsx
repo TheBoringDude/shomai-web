@@ -3,6 +3,7 @@ import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useCollection } from '../../lib/collections/colprovider';
+import useAuthorized from '../../lib/hooks/useAuthorized';
 import { SIMPLEBLENDS } from '../../typings/blends/blends';
 import { wax } from '../auth/cloudwallet';
 import getTransact from '../auth/getTransact';
@@ -18,6 +19,7 @@ type ShowBlendsProps = {
 const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
   const { user } = useAuth();
   const { collection } = useCollection();
+  const authorized = useAuthorized();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
 
   const removeAction = async (col: string, blenderid: number) => {
@@ -73,13 +75,15 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
           <div key={index} className="relative bg-gunmetal rounded-lg group">
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">
               <div className="inline-flex flex-col items-center">
-                <button
-                  type="button"
-                  onClick={async () => await removeAction(i.collection, i.blenderid)}
-                  className="bg-red-500 hover:bg-red-600 py-2 px-4 rounded-md text-white text-sm my-1 inline-flex items-center"
-                >
-                  <TrashIcon className="h-5 w-5 mr-1" /> Remove
-                </button>
+                {authorized && (
+                  <button
+                    type="button"
+                    onClick={async () => await removeAction(i.collection, i.blenderid)}
+                    className="bg-red-500 hover:bg-red-600 py-2 px-4 rounded-md text-white text-sm my-1 inline-flex items-center"
+                  >
+                    <TrashIcon className="h-5 w-5 mr-1" /> Remove
+                  </button>
+                )}
                 <Link href={`/d/${i.collection}/blends/${i.blenderid}-${type}`}>
                   <a
                     target="_blank"

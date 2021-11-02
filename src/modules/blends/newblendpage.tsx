@@ -2,6 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import ColProvider from '../../lib/collections/colprovider';
 import joinString from '../../lib/joinstring';
 import MultiBlend from './multi';
+import RouteBlends from './routeblends';
 import SimpleBlend from './simple/page';
 import SimpleSwap from './simpleswap/page';
 import UnknownBlend from './unknown';
@@ -16,15 +17,17 @@ const NewBlendPage = () => {
 
   return (
     <ColProvider collection={joinString(colname)}>
-      {blend === 'simple' ? (
-        <SimpleBlend />
-      ) : blend === 'multi' ? (
-        <MultiBlend />
-      ) : blend === 'swap' ? (
-        <SimpleSwap />
-      ) : (
-        <UnknownBlend />
-      )}
+      <RouteBlends>
+        {blend === 'simple' ? (
+          <SimpleBlend />
+        ) : blend === 'multi' ? (
+          <MultiBlend />
+        ) : blend === 'swap' ? (
+          <SimpleSwap />
+        ) : (
+          <UnknownBlend />
+        )}
+      </RouteBlends>
     </ColProvider>
   );
 };

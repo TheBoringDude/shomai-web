@@ -72,7 +72,8 @@ const GetRefundNFTs = () => {
   return (
     <div>
       <div className="text-center my-4">
-        {assets.length > 0 && (
+        {/* show only the refund button if user is logged in and there are assets in it */}
+        {assets.length > 0 && user && (
           <button
             onClick={callRefund}
             title="Refund All NFTs"
