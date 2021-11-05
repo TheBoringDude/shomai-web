@@ -1,6 +1,15 @@
-import { createContext, Dispatch, ReactNode, useContext, useReducer } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useReducer,
+  useState
+} from 'react';
 import { SlotIngredients } from '../../../typings/blends/ingredients';
-import { SlotBlendTargets } from '../../../typings/blends/targets';
+import { SlotBlendTargetProps } from '../../../typings/blends/targets';
 import SlotBlendIngredientsReducer, {
   SlotBlendIngredientsReducerActions
 } from './reducer-ingredients';
@@ -13,24 +22,40 @@ type SlotBlendProviderProps = {
 type SlotBlendContextProps = {
   ingredients: SlotIngredients[];
   dispatchIngredients: Dispatch<SlotBlendIngredientsReducerActions>;
-  targets: SlotBlendTargets[];
+  targets: SlotBlendTargetProps[];
   dispatchTargets: Dispatch<SlotBlendTargetsReducerActions>;
+  odds: number;
+  setOdds: Dispatch<SetStateAction<number>>;
 };
 
 const SlotBlendContext = createContext<SlotBlendContextProps>({
   ingredients: [],
   dispatchIngredients: () => {},
   targets: [],
-  dispatchTargets: () => {}
+  dispatchTargets: () => {},
+  odds: 0,
+  setOdds: () => {}
 });
 
 const SlotBlendProvider = ({ children }: SlotBlendProviderProps) => {
   const [ingredients, dispatchIngredients] = useReducer(SlotBlendIngredientsReducer, []);
   const [targets, dispatchTargets] = useReducer(SlotBlendTargetsReducer, []);
+  const [odds, setOdds] = useState(0);
+
+  useEffect(() => {
+    if (targets.length === 0) return;
+
+    let x = 0;
+    for (const t of targets) {
+      x += t.odds;
+    }
+
+    setOdds(x);
+  }, [targets]);
 
   return (
     <SlotBlendContext.Provider
-      value={{ ingredients, dispatchIngredients, targets, dispatchTargets }}
+      value={{ ingredients, dispatchIngredients, targets, dispatchTargets, odds, setOdds }}
     >
       {children}
     </SlotBlendContext.Provider>
