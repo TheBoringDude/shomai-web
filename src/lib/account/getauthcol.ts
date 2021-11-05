@@ -2,8 +2,8 @@ const GET_AUTHORIZED_COLLECTIONS_API = (wallet: string) => {
   return `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/collections?authorized_account=${wallet}&page=1&limit=100&order=desc&sort=created`;
 };
 
-const GET_COLLECTION_SCHEMAS = (wallet: string, collection: string) => {
-  return `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/schemas?collection_name=${collection}&authorized_account=${wallet}&page=1&limit=100&order=desc&sort=created`;
+const GET_COLLECTION_SCHEMAS = (collection: string) => {
+  return `${process.env.NEXT_PUBLIC_ATOMICASSETS_API}/atomicassets/v1/schemas?collection_name=${collection}&page=1&limit=100&order=desc&sort=created`;
 };
 
 const GET_COLLECTION_TEMPLATES = (

@@ -10,4 +10,19 @@ type SimpleAssetIngredient = {
   template: number;
 };
 
-export type { SimpleIngredients, SimpleAssetIngredient };
+interface SlotIngredients {
+  collection: string;
+  schema: string;
+  schema_only: boolean;
+  from: string;
+  anyof: boolean;
+  attributes: SlotIngredientAttributes[];
+  display_text: string;
+}
+
+type SlotIngredientAttributes = {
+  attrib: string;
+  values: string[];
+};
+
+export type { SimpleIngredients, SimpleAssetIngredient, SlotIngredients, SlotIngredientAttributes };

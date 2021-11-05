@@ -15,17 +15,15 @@ const RouteBlends = ({ children }: RouteBlendsProps) => {
   const mounted = useHasMounted();
 
   useEffect(() => {
-    const routepush = () => {
-      router.push(`/d/${coldata.collection_name}?p=blends`);
-    };
-
     if (mounted) {
+      if (!coldata) return;
+
       // verify if user is authorized by collection
-      const authorized = coldata.authorized_accounts.includes(user?.wallet);
+      const authorized = coldata?.authorized_accounts.includes(user?.wallet);
 
       if (!authorized) {
         // if not authorized, router push to the collections page
-        routepush();
+        router.push(`/d/${coldata.collection_name}?p=blends`);
       }
     }
   }, [user, coldata, router, mounted, isLoggedIn]);

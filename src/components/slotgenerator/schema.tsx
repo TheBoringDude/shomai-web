@@ -4,13 +4,14 @@ import { ISchema } from 'atomicassets/build/API/Explorer/Objects';
 import { useEffect, useState } from 'react';
 import { GET_COLLECTION_SCHEMAS } from '../../lib/account/getauthcol';
 import useCallAPI from '../../lib/hooks/useCallAPI';
-import { useAuth } from '../../modules/auth/provider';
-import ListBox from './Listbox';
-import { useAssetPicker } from './provider';
+import ListBox from '../assetpicker/Listbox';
+import { useSlotGenerator } from './provider';
 
-const SchemaPicker = () => {
-  const { user } = useAuth();
-  const { collection, schema, setSchema } = useAssetPicker();
+const SchemaSlot = () => {
+  const {
+    state: { collection, schema },
+    dispatch
+  } = useSlotGenerator<'schema'>();
   const [selected, setSelected] = useState<ISchema>();
   const data = useCallAPI<ISchema[]>(collection ? GET_COLLECTION_SCHEMAS(collection) : null);
 
@@ -22,15 +23,25 @@ const SchemaPicker = () => {
   }, [collection, schema, selected]);
 
   useEffect(() => {
+    if (!data) return;
+
     if (schema !== selected?.schema_name) {
-      setSchema(selected?.schema_name);
+      setSelected(data.filter((s) => s.schema_name === schema)[0]);
     }
-  }, [collection, selected, schema, setSchema]);
+  }, [schema, selected, data]);
+
+  useEffect(() => {
+    if (!selected) return;
+
+    if (schema !== selected?.schema_name) {
+      dispatch({ type: 'set', key: 'schema', value: selected.schema_name });
+    }
+  }, [collection, selected, schema, dispatch]);
 
   return (
     <ListBox
       selected={selected}
-      showtext={selected?.schema_name}
+      showtext={schema !== '' ? schema : selected ? selected.schema_name : 'Select...'}
       setSelected={setSelected}
       label="Schema"
     >
@@ -68,4 +79,4 @@ const SchemaPicker = () => {
   );
 };
 
-export default SchemaPicker;
+export default SchemaSlot;

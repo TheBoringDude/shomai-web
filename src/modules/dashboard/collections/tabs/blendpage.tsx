@@ -49,6 +49,13 @@ const BlendPage = () => {
                       </a>
                     </Link>
                   </Menu.Item>
+                  <Menu.Item>
+                    <Link href={`/d/${collection}/new/slot`}>
+                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                        Slot Blend
+                      </a>
+                    </Link>
+                  </Menu.Item>
 
                   <hr className="my-1 border-sage" />
 

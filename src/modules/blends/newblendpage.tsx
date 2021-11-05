@@ -5,6 +5,7 @@ import MultiBlend from './multi';
 import RouteBlends from './routeblends';
 import SimpleBlend from './simple/page';
 import SimpleSwap from './simpleswap/page';
+import SlotBlend from './slotblend/page';
 import UnknownBlend from './unknown';
 
 const NewBlendPage = () => {
@@ -22,6 +23,8 @@ const NewBlendPage = () => {
           <SimpleBlend />
         ) : blend === 'multi' ? (
           <MultiBlend />
+        ) : blend === 'slot' ? (
+          <SlotBlend />
         ) : blend === 'swap' ? (
           <SimpleSwap />
         ) : (
