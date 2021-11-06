@@ -22,7 +22,7 @@ const SlotGeneratorContext = createContext<SlotGeneratorContextProps<any>>({
     collection: '',
     schema: '',
     schema_only: false,
-    from: '',
+    from: -1,
     anyof: false,
     attributes: [],
     display_text: ''
@@ -35,7 +35,7 @@ const SlotGeneratorProvider = ({ children, defCollection, pick }: SlotGeneratorP
     collection: defCollection, // default is the current collection
     schema: '',
     schema_only: false,
-    from: '',
+    from: -1,
     anyof: false,
     attributes: [],
     display_text: ''

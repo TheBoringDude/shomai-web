@@ -14,7 +14,7 @@ interface SlotIngredients {
   collection: string;
   schema: string;
   schema_only: boolean;
-  from: string;
+  from: number;
   anyof: boolean;
   attributes: SlotIngredientAttributes[];
   display_text: string;

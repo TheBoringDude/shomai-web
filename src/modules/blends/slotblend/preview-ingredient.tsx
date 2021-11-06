@@ -82,7 +82,11 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
-                      {slot.from}
+                      {slot.from === 0
+                        ? `templates`
+                        : slot.from === 1
+                        ? `immutable_data`
+                        : 'unknown'}
                     </Disclosure.Panel>
                   </>
                 )}

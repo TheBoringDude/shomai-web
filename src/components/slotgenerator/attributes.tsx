@@ -6,7 +6,7 @@ import ImmutableTemplateAttributesSlot from './attrib-templates';
 import { useSlotGenerator } from './provider';
 
 const AttributesSlot = () => {
-  const [state, setState] = useState('');
+  const [state, setState] = useState(-1);
 
   const {
     state: { attributes, anyof, from },
@@ -30,9 +30,9 @@ const AttributesSlot = () => {
         </label>
 
         <div className="inline-flex items-center">
-          {from === 'temp' ? (
+          {from === 0 ? (
             <ImmutableTemplateAttributesSlot />
-          ) : from === 'data' ? (
+          ) : from === 1 ? (
             <ImmutableDataAttributesSlot />
           ) : (
             <></>

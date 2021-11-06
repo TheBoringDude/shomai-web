@@ -5,24 +5,24 @@ import ListBox from '../assetpicker/Listbox';
 import { useSlotGenerator } from './provider';
 
 interface SlotFromProps {
-  id: 'temp' | 'data';
+  id: 0 | 1;
   value: string;
 }
 
 const froms: SlotFromProps[] = [
   {
-    id: 'temp',
+    id: 0,
     value: 'templates'
   },
   {
-    id: 'data',
+    id: 1,
     value: 'immutable_data'
   }
 ];
 
 const FromSlot = () => {
   const {
-    state: { schema_only, from },
+    state: { from },
     dispatch
   } = useSlotGenerator<'from'>();
   const [selected, setSelected] = useState<SlotFromProps>();
