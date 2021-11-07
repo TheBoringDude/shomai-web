@@ -47,7 +47,7 @@ const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
-        table: 'simblender',
+        table: 'simblenders',
         limit: 1,
         lower_bound: id
       });

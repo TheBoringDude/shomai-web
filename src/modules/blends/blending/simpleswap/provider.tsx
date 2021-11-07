@@ -45,15 +45,13 @@ const SimpleSwapBlendingProvider = ({ children }: SimpleSwapBlendingProviderProp
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
-        table: 'simswap',
+        table: 'simswaps',
         limit: 1,
         lower_bound: id
       });
 
       setConfig(x.rows[0]);
     };
-
-    console.log('asdas');
 
     f();
   }, [collection, id]);

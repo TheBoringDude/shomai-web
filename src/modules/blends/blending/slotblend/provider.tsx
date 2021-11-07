@@ -31,7 +31,8 @@ const SlotBlendingContext = createContext<SlotBlendingContextProps>({
     blenderid: 0,
     author: '',
     collection: '',
-    ingredients: []
+    ingredients: [],
+    title: ''
   },
   config_target: {
     blenderid: 0,
@@ -53,7 +54,7 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
-        table: 'slotblender',
+        table: 'slotblenders',
         limit: 1,
         lower_bound: id
       });
@@ -66,7 +67,7 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
-        table: 'mtargetpool',
+        table: 'targetpools',
         limit: 1,
         lower_bound: id
       });
