@@ -8,7 +8,7 @@ import {
   useState
 } from 'react';
 import { SLOTBLENDS, SLOTBLENDS_TARGET } from '../../../../typings/blends/blends';
-import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
+import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
 import { wax } from '../../../auth/cloudwallet';
 import { useBlending } from '../blending-provider';
 import SlotBlendingReducer, { SlotBlendingActions } from './reducer';
@@ -18,7 +18,7 @@ type SlotBlendingProviderProps = {
 };
 
 type SlotBlendingContextProps = {
-  ingredients: Record<number, SimpleAssetIngredient>;
+  ingredients: Record<number, SlotAssetIngredient>;
   dispatchIngredients: Dispatch<SlotBlendingActions>;
   config: SLOTBLENDS;
   config_target: SLOTBLENDS_TARGET;
@@ -78,6 +78,8 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
     fx();
     fy();
   }, [collection, id]);
+
+  if (!config || !configTarget) return <></>;
 
   return (
     <SlotBlendingContext.Provider

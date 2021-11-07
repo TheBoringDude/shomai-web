@@ -10,6 +10,14 @@ type SimpleAssetIngredient = {
   template: number;
 };
 
+interface SlotAssetIngredient {
+  collection: string;
+  assetid: number;
+  template: number;
+  image: string;
+  name: string;
+}
+
 interface SlotIngredients {
   collection: string;
   schema: string;
@@ -24,4 +32,10 @@ type SlotIngredientAttributes = {
   values: string[];
 };
 
-export type { SimpleIngredients, SimpleAssetIngredient, SlotIngredients, SlotIngredientAttributes };
+export type {
+  SimpleIngredients,
+  SimpleAssetIngredient,
+  SlotIngredients,
+  SlotIngredientAttributes,
+  SlotAssetIngredient
+};

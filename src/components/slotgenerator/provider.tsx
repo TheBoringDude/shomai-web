@@ -24,8 +24,7 @@ const SlotGeneratorContext = createContext<SlotGeneratorContextProps<any>>({
     schema_only: false,
     from: -1,
     anyof: false,
-    attributes: [],
-    display_text: ''
+    attributes: []
   },
   dispatch: () => {}
 });
@@ -37,8 +36,7 @@ const SlotGeneratorProvider = ({ children, defCollection, pick }: SlotGeneratorP
     schema_only: false,
     from: -1,
     anyof: false,
-    attributes: [],
-    display_text: ''
+    attributes: []
   });
 
   return (

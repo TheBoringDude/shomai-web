@@ -16,6 +16,8 @@ const GetRefundNFTs = () => {
   const [assets, setAssets] = useState<number[] | undefined>(undefined);
 
   const callRefund = async () => {
+    if (!assets) return;
+
     const session = await getTransact(user);
 
     await session.transact({
@@ -41,13 +43,14 @@ const GetRefundNFTs = () => {
 
   useEffect(() => {
     const f = async () => {
+      if (!user) return;
       if (data) return;
 
       const x = await wax.rpc.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        table: 'refundnft',
-        scope: collection,
+        table: 'nftrefunds',
+        scope: user.wallet,
         limit: 999
       });
 
@@ -55,11 +58,12 @@ const GetRefundNFTs = () => {
     };
 
     f();
-  }, [collection, data]);
+  }, [data, user]);
 
   useEffect(() => {
     if (!data) return;
     if (!user) return;
+    if (assets) return;
 
     const x = data.rows
       .filter((i: RefundNFTAsset) => i.from == user.wallet)

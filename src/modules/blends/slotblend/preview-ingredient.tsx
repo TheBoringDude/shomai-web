@@ -130,22 +130,6 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
               </Disclosure>
             </>
           )}
-
-          <Disclosure as="div" className="mt-2">
-            {({ open }) => (
-              <>
-                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
-                  <span>Display Text</span>
-                  <ChevronUpIcon
-                    className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-deep-champagne`}
-                  />
-                </Disclosure.Button>
-                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
-                  {slot.display_text}
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
         </div>
       </Dialogs>
 

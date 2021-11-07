@@ -1,13 +1,13 @@
-import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
+import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
 
 type SlotBlendingActions = {
   type: 'set-ingredient';
   index: number;
-  value: SimpleAssetIngredient;
+  value: SlotAssetIngredient;
 };
 
 const SlotBlendingReducer = (
-  state: Record<number, SimpleAssetIngredient>,
+  state: Record<number, SlotAssetIngredient>,
   action: SlotBlendingActions
 ) => {
   switch (action.type) {
