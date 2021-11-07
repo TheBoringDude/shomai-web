@@ -1,5 +1,4 @@
 import AttributesSlot from './attributes';
-import DisplayTextSlot from './displayText';
 import FromSlot from './from';
 import { useSlotGenerator } from './provider';
 import SchemaSlot from './schema';
@@ -47,7 +46,7 @@ const SlotForm = ({ onClose }: SlotFormProps) => {
                 <FromSlot />
               </div>
 
-              {state.from !== '' && (
+              {state.from !== -1 && (
                 <div className="flex flex-col my-2">
                   <AttributesSlot />
                 </div>
@@ -56,10 +55,6 @@ const SlotForm = ({ onClose }: SlotFormProps) => {
           )}
         </>
       )}
-
-      <div className="flex flex-col my-2">
-        <DisplayTextSlot />
-      </div>
 
       <div className="flex items-center justify-center mt-8">
         <button

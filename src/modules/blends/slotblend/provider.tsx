@@ -20,6 +20,8 @@ type SlotBlendProviderProps = {
 };
 
 type SlotBlendContextProps = {
+  title: string;
+  setTitle: Dispatch<SetStateAction<string>>;
   ingredients: SlotIngredients[];
   dispatchIngredients: Dispatch<SlotBlendIngredientsReducerActions>;
   targets: SlotBlendTargetProps[];
@@ -29,6 +31,8 @@ type SlotBlendContextProps = {
 };
 
 const SlotBlendContext = createContext<SlotBlendContextProps>({
+  title: '',
+  setTitle: () => {},
   ingredients: [],
   dispatchIngredients: () => {},
   targets: [],
@@ -40,6 +44,7 @@ const SlotBlendContext = createContext<SlotBlendContextProps>({
 const SlotBlendProvider = ({ children }: SlotBlendProviderProps) => {
   const [ingredients, dispatchIngredients] = useReducer(SlotBlendIngredientsReducer, []);
   const [targets, dispatchTargets] = useReducer(SlotBlendTargetsReducer, []);
+  const [title, setTitle] = useState('');
   const [odds, setOdds] = useState(0);
 
   useEffect(() => {
@@ -55,7 +60,16 @@ const SlotBlendProvider = ({ children }: SlotBlendProviderProps) => {
 
   return (
     <SlotBlendContext.Provider
-      value={{ ingredients, dispatchIngredients, targets, dispatchTargets, odds, setOdds }}
+      value={{
+        ingredients,
+        dispatchIngredients,
+        targets,
+        dispatchTargets,
+        odds,
+        setOdds,
+        title,
+        setTitle
+      }}
     >
       {children}
     </SlotBlendContext.Provider>

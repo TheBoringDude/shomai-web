@@ -4,19 +4,18 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useCollection } from '../../lib/collections/colprovider';
 import useAuthorized from '../../lib/hooks/useAuthorized';
-import { SIMPLEBLENDS, SIMPLESWAPS } from '../../typings/blends/blends';
+import { SLOTBLENDS } from '../../typings/blends/blends';
 import { wax } from '../auth/cloudwallet';
 import getTransact from '../auth/getTransact';
 import { useAuth } from '../auth/provider';
-import ShowTarget from './showtarget';
 
-type ShowBlendsProps = {
+type ShowBlendsSlotProps = {
   title: string;
   table: string;
   type: string;
   action: string;
 };
-const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
+const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => {
   const { user } = useAuth();
   const { collection } = useCollection();
   const authorized = useAuthorized();
@@ -71,7 +70,7 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
       <h4 className="text-xl font-black uppercase tracking-wide text-sage mb-8">{title}</h4>
 
       <div className="grid grid-cols-4 gap-6 items-center">
-        {data?.rows.map((i: SIMPLEBLENDS | SIMPLESWAPS, index) => (
+        {data?.rows.map((i: SLOTBLENDS, index) => (
           <div key={index} className="relative bg-gunmetal rounded-lg group">
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">
               <div className="inline-flex flex-col items-center">
@@ -98,7 +97,9 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
             <span className="absolute -top-1 -left-2 z-10 bg-deep-champagne py-2 px-3 rounded-sm font-bold text-xs text-gunmetal shadow-xl">
               #{i.blenderid}
             </span>
-            <ShowTarget collection={i.collection} templateid={i.target} />
+            <div className="h-80 w-full px-8 text-center flex items-center justify-center">
+              <strong className="text-sage text-xl">{i.title}</strong>
+            </div>
           </div>
         ))}
       </div>
@@ -106,4 +107,4 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
   );
 };
 
-export default ShowBlends;
+export default ShowBlendsSlot;

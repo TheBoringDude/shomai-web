@@ -7,10 +7,10 @@ import { useSlotBlend } from './provider';
 const SlotCallAction = () => {
   const { collection } = useCollection();
   const { user } = useAuth();
-  const { ingredients, targets } = useSlotBlend();
+  const { ingredients, targets, title } = useSlotBlend();
 
   const createTransaction = async () => {
-    if (ingredients.length === 0 || targets.length === 0) return;
+    if (ingredients.length === 0 || targets.length === 0 || !title) return;
     const session = await getTransact(user);
 
     const _targets = targets
@@ -38,7 +38,8 @@ const SlotCallAction = () => {
               author: user.wallet,
               collection: collection,
               targets: _targets,
-              ingredients
+              ingredients,
+              title
             }
           }
         ]

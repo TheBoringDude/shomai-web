@@ -14,7 +14,7 @@ const AssetPicker = ({ open, onClose }: AssetPickerProps) => {
     <Dialogs
       open={open}
       onClose={onClose}
-      className="inline-block w-full max-w-xl min-h-screen p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gunmetal shadow-xl rounded-2xl"
+      className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gunmetal shadow-xl rounded-2xl"
     >
       <Dialog.Title as="h4" className="font-black text-white text-2xl">
         <span className="text-atomic-tangerine">{defCollection}</span> | Asset Picker

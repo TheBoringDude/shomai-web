@@ -1,3 +1,5 @@
+import { SlotIngredients } from './ingredients';
+
 interface SIMPLEBLENDS {
   blenderid: number;
   author: string;
@@ -14,4 +16,21 @@ interface SIMPLESWAPS {
   ingredient: number;
 }
 
-export type { SIMPLEBLENDS, SIMPLESWAPS };
+interface SLOTBLENDS {
+  blenderid: number;
+  author: string;
+  collection: string;
+  ingredients: SlotIngredients[];
+  title: string;
+}
+
+interface SLOTBLENDS_TARGET {
+  blenderid: number;
+  collection: string;
+  targets: {
+    odds: number;
+    templateid: number;
+  }[];
+}
+
+export type { SIMPLEBLENDS, SIMPLESWAPS, SLOTBLENDS, SLOTBLENDS_TARGET };

@@ -17,7 +17,6 @@ interface SlotIngredients {
   from: number;
   anyof: boolean;
   attributes: SlotIngredientAttributes[];
-  display_text: string;
 }
 
 type SlotIngredientAttributes = {

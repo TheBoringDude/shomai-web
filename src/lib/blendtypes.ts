@@ -9,6 +9,10 @@ const getBlendTypes = (short: BlendTypes) => {
       return 'Simple Swap';
     }
 
+    case 'sl': {
+      return 'Slot Blend';
+    }
+
     default:
       throw new Error('Unknown Blend Type!');
   }

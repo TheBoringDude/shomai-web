@@ -41,8 +41,6 @@ const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
   const [state, dispatch] = useReducer(SimpleBlendingReducer, {});
   const [config, setConfig] = useState<SIMPLEBLENDS | undefined>(undefined);
 
-  console.log(config);
-
   useEffect(() => {
     const f = async () => {
       const x = await wax.rpc.get_table_rows({

@@ -14,6 +14,7 @@ module.exports = {
       sage: '#B8B08D',
       'deep-champagne': '#F2D492',
       'atomic-tangerine': '#F29559',
+      transparent: 'transparent',
 
       // add all default colors
       ...colors

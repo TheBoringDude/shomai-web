@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import { useCollection } from '../../../../lib/collections/colprovider';
 import useAuthorized from '../../../../lib/hooks/useAuthorized';
 import ShowBlends from '../../../blends/showblends';
+import ShowBlendsSlot from '../../../blends/showblendsslot';
 
 const BlendPage = () => {
   const { collection } = useCollection();
@@ -74,11 +75,15 @@ const BlendPage = () => {
       </div>
 
       <div>
-        <ShowBlends action="remblsimple" title="Simple Blends" table="simblender" type="sb" />
+        <ShowBlendsSlot action="remblslot" title="Slot Blends" table="slotblenders" type="sl" />
 
         <hr className="my-8 border-gunmetal" />
 
-        <ShowBlends action="remswsimple" title="Simple Swaps" table="simswap" type="sw" />
+        <ShowBlends action="remblsimple" title="Simple Blends" table="simblenders" type="sb" />
+
+        <hr className="my-8 border-gunmetal" />
+
+        <ShowBlends action="remswsimple" title="Simple Swaps" table="simswaps" type="sw" />
       </div>
     </div>
   );

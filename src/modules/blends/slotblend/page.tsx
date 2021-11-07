@@ -1,5 +1,6 @@
 import DashLayout from '../../../layouts/Dash';
 import BlendContainer from '../_container';
+import SlotAddTitle from './add-title';
 import SlotCallAction from './call-action';
 import SlotBlendIngredients from './ingredients';
 import SlotBlendProvider from './provider';
@@ -14,6 +15,10 @@ const SlotBlend = () => {
           info="Blend assets with specific slot values and configurations."
         >
           <div className="w-11/12 mx-auto">
+            <SlotAddTitle />
+
+            <hr className="my-6 border-gray-500" />
+
             <SlotBlendIngredients />
 
             <hr className="my-6 border-gray-500" />
