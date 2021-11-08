@@ -15,7 +15,7 @@ const AddSlotIngredient = () => {
     if (slot.schema === '') return;
 
     if (!slot.schema_only) {
-      if (slot.from === '') return;
+      if (slot.from === -1) return;
       if (slot.attributes.length === 0) return;
     }
 
