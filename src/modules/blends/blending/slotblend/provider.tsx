@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import {
   createContext,
   Dispatch,
@@ -9,7 +10,6 @@ import {
 } from 'react';
 import { SLOTBLENDS, SLOTBLENDS_TARGET } from '../../../../typings/blends/blends';
 import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
-import { wax } from '../../../auth/cloudwallet';
 import { useBlending } from '../blending-provider';
 import SlotBlendingReducer, { SlotBlendingActions } from './reducer';
 
@@ -42,6 +42,8 @@ const SlotBlendingContext = createContext<SlotBlendingContextProps>({
 });
 
 const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
+  const { rpc } = useWaxUser();
+
   const { collection, id } = useBlending();
 
   const [ingredients, dispatchIngredients] = useReducer(SlotBlendingReducer, {});
@@ -50,7 +52,7 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
 
   useEffect(() => {
     const fx = async () => {
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
@@ -59,11 +61,13 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
         lower_bound: id
       });
 
+      if (!x) return;
+
       setConfig(x.rows[0]);
     };
 
     const fy = async () => {
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
@@ -72,12 +76,14 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
         lower_bound: id
       });
 
+      if (!x) return;
+
       setConfigTarget(x.rows[0]);
     };
 
     fx();
     fy();
-  }, [collection, id]);
+  }, [collection, id, rpc]);
 
   if (!config || !configTarget) return <></>;
 

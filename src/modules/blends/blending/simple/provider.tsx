@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import {
   createContext,
   Dispatch,
@@ -7,9 +8,9 @@ import {
   useReducer,
   useState
 } from 'react';
+import EmptyComponent from '../../../../components/empty-component';
 import { SIMPLEBLENDS } from '../../../../typings/blends/blends';
 import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
-import { wax } from '../../../auth/cloudwallet';
 import { useBlending } from '../blending-provider';
 import SimpleBlendingReducer, { SimpleBlendingActions } from './reducer';
 
@@ -36,6 +37,8 @@ const SimpleBlendingContext = createContext<SimpleBlendingContextProps>({
 });
 
 const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
+  const { rpc } = useWaxUser();
+
   const { id, collection } = useBlending();
 
   const [state, dispatch] = useReducer(SimpleBlendingReducer, {});
@@ -43,7 +46,7 @@ const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
 
   useEffect(() => {
     const f = async () => {
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
@@ -52,11 +55,15 @@ const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
         lower_bound: id
       });
 
+      if (!x) return;
+
       setConfig(x.rows[0]);
     };
 
     f();
-  }, [collection, id]);
+  }, [collection, id, rpc]);
+
+  if (!config) return <EmptyComponent />;
 
   return (
     <SimpleBlendingContext.Provider

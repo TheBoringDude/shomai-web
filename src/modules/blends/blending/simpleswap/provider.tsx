@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import {
   createContext,
   Dispatch,
@@ -7,9 +8,9 @@ import {
   useEffect,
   useState
 } from 'react';
+import EmptyComponent from '../../../../components/empty-component';
 import { SIMPLESWAPS } from '../../../../typings/blends/blends';
 import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
-import { wax } from '../../../auth/cloudwallet';
 import { useBlending } from '../blending-provider';
 
 type SimpleSwapBlendingProviderProps = {
@@ -18,7 +19,7 @@ type SimpleSwapBlendingProviderProps = {
 
 type SimpleSwapBlendingContextProps = {
   ingredient?: SimpleAssetIngredient;
-  setIngredient: Dispatch<SetStateAction<SimpleAssetIngredient>>;
+  setIngredient: Dispatch<SetStateAction<SimpleAssetIngredient | undefined>>;
   config: SIMPLESWAPS;
 };
 
@@ -34,14 +35,16 @@ const SimpleSwapBlendingContext = createContext<SimpleSwapBlendingContextProps>(
 });
 
 const SimpleSwapBlendingProvider = ({ children }: SimpleSwapBlendingProviderProps) => {
+  const { rpc } = useWaxUser();
+
   const { id, collection } = useBlending();
 
-  const [ingredient, setIngredient] = useState<SimpleAssetIngredient>(undefined);
+  const [ingredient, setIngredient] = useState<SimpleAssetIngredient | undefined>(undefined);
   const [config, setConfig] = useState<SIMPLESWAPS | undefined>(undefined);
 
   useEffect(() => {
     const f = async () => {
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         scope: collection,
@@ -50,11 +53,15 @@ const SimpleSwapBlendingProvider = ({ children }: SimpleSwapBlendingProviderProp
         lower_bound: id
       });
 
+      if (!x) return;
+
       setConfig(x.rows[0]);
     };
 
     f();
-  }, [collection, id]);
+  }, [collection, id, rpc]);
+
+  if (!config) return <EmptyComponent />;
 
   return (
     <SimpleSwapBlendingContext.Provider value={{ ingredient, setIngredient, config }}>
