@@ -1,17 +1,21 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
 import { useCollection } from '../../../lib/collections/colprovider';
-import getTransact from '../../auth/getTransact';
-import { useAuth } from '../../auth/provider';
+import { dapp } from '../../../lib/waxnet';
 import { useSlotBlend } from './provider';
 
 const SlotCallAction = () => {
   const { collection } = useCollection();
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { ingredients, targets, title } = useSlotBlend();
 
   const createTransaction = async () => {
     if (ingredients.length === 0 || targets.length === 0 || !title) return;
-    const session = await getTransact(user);
+
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     const _targets = targets
       .map((t) => {
@@ -26,7 +30,7 @@ const SlotCallAction = () => {
       .transact({
         actions: [
           {
-            account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+            account: dapp,
             name: 'makeblslot',
             authorization: [
               {

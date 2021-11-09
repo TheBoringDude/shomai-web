@@ -1,16 +1,16 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { useRouter } from 'next/dist/client/router';
 import { ReactNode, useEffect } from 'react';
 import EmptyComponent from '../../components/empty-component';
 import { useHasMounted } from '../../hooks/useHasMounted';
 import { useCollection } from '../../lib/collections/colprovider';
-import { useAuth } from '../auth/provider';
 
 type RouteBlendsProps = {
   children: ReactNode;
 };
 const RouteBlends = ({ children }: RouteBlendsProps) => {
   const router = useRouter();
-  const { user, isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useWaxUser();
   const { coldata } = useCollection();
   const mounted = useHasMounted();
 
@@ -19,7 +19,7 @@ const RouteBlends = ({ children }: RouteBlendsProps) => {
       if (!coldata) return;
 
       // verify if user is authorized by collection
-      const authorized = coldata?.authorized_accounts.includes(user?.wallet);
+      const authorized = coldata?.authorized_accounts.includes(user?.wallet ?? '');
 
       if (!authorized) {
         // if not authorized, router push to the collections page

@@ -1,7 +1,5 @@
+import { useAuthFunctions } from '@cryptopuppie/next-waxauth';
 import { SimpleModal } from 'unstyled-lightbox';
-import { loginWithAnchor } from './anchor';
-import { loginWithCloudWallet } from './cloudwallet';
-import { useAuth } from './provider';
 
 type AuthLoginProps = {
   open: boolean;
@@ -9,7 +7,7 @@ type AuthLoginProps = {
 };
 
 const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
-  const { login } = useAuth();
+  const { loginWithAnchor, loginWithCloudWallet } = useAuthFunctions();
 
   return (
     <SimpleModal
@@ -25,9 +23,8 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
           {!(process.env.NEXT_PUBLIC_ISTESTNET === 'true') && (
             <button
               onClick={async () => {
-                const d = await loginWithCloudWallet();
+                loginWithCloudWallet();
 
-                login(d);
                 onClose();
               }}
               className="my-1 bg-gray-800 hover:bg-gray-900 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
@@ -39,11 +36,9 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
 
           <button
             onClick={async () => {
-              await loginWithAnchor().then((d) => {
-                login(d);
+              loginWithAnchor();
 
-                onClose();
-              });
+              onClose();
             }}
             className="my-1 bg-blue-600 hover:bg-blue-700 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
             type="button"

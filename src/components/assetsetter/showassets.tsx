@@ -1,10 +1,10 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { IAsset } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { GET_TEMPLATE_ASSETS } from '../../lib/account/getassets';
 import { fetcher } from '../../lib/fetcher';
-import { useAuth } from '../../modules/auth/provider';
 import { AtomicRequest } from '../../typings/atomicrequest';
 import { useAssetSetter } from './provider';
 
@@ -13,12 +13,12 @@ type ShowAssetProps = {
 };
 
 const ShowAsset = ({ onClose }: ShowAssetProps) => {
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { defCollection, templateid, pick, ignoreAssets } = useAssetSetter();
-  const [selected, setSelected] = useState<number>(undefined);
+  const [selected, setSelected] = useState<number | undefined>(undefined);
 
   const { data } = useSWR<AtomicRequest<IAsset[]>>(
-    GET_TEMPLATE_ASSETS(defCollection, templateid, user.wallet),
+    GET_TEMPLATE_ASSETS(defCollection, templateid, user?.wallet ?? ''),
     fetcher
   );
 

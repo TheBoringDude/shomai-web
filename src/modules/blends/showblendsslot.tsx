@@ -1,13 +1,12 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { LinkIcon, TrashIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useCollection } from '../../lib/collections/colprovider';
 import useAuthorized from '../../lib/hooks/useAuthorized';
+import { dapp } from '../../lib/waxnet';
 import { SLOTBLENDS } from '../../typings/blends/blends';
-import { wax } from '../auth/cloudwallet';
-import getTransact from '../auth/getTransact';
-import { useAuth } from '../auth/provider';
 
 type ShowBlendsSlotProps = {
   title: string;
@@ -16,19 +15,22 @@ type ShowBlendsSlotProps = {
   action: string;
 };
 const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => {
-  const { user } = useAuth();
+  const { user, rpc } = useWaxUser();
   const { collection } = useCollection();
   const authorized = useAuthorized();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
 
   const removeAction = async (col: string, blenderid: number) => {
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session
       .transact({
         actions: [
           {
-            account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+            account: dapp,
             name: action,
             authorization: [
               {
@@ -51,7 +53,7 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
     const f = async () => {
       if (data) return;
 
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         table: table,
@@ -63,7 +65,7 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
     };
 
     f();
-  }, [collection, data, table]);
+  }, [collection, data, rpc, table]);
 
   return (
     <div className="my-4">

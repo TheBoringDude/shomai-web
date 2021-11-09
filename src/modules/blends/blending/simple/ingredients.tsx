@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { DuplicateIcon } from '@heroicons/react/solid';
 import { ITemplate } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
@@ -9,8 +10,6 @@ import {
 import { fetcher } from '../../../../lib/fetcher';
 import { dapp } from '../../../../lib/waxnet';
 import { AtomicRequest } from '../../../../typings/atomicrequest';
-import getTransact from '../../../auth/getTransact';
-import { useAuth } from '../../../auth/provider';
 import { useBlending } from '../blending-provider';
 import ManageIngredient from './manage-ingredient';
 import { useSimpleBlender } from './provider';
@@ -18,10 +17,10 @@ import { useSimpleBlender } from './provider';
 const SimpleBlenderIngredients = () => {
   const { config, ingredients } = useSimpleBlender();
   const { collection, id } = useBlending();
-  const { user } = useAuth();
+  const { user } = useWaxUser();
 
   const { data } = useSWR<AtomicRequest<ITemplate[]>>(
-    config ? GET_COLLECTION_TEMPLATES(collection, null, config.ingredients) : null,
+    config ? GET_COLLECTION_TEMPLATES(collection, undefined, config.ingredients) : null,
     fetcher
   );
   const { data: target } = useSWR<AtomicRequest<ITemplate>>(
@@ -41,7 +40,10 @@ const SimpleBlenderIngredients = () => {
       return;
     }
 
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session
       .transact({
@@ -69,7 +71,7 @@ const SimpleBlenderIngredients = () => {
           await session.transact({
             actions: [
               {
-                account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+                account: dapp,
                 name: 'callblsimple',
                 authorization: [
                   {

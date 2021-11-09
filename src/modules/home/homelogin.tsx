@@ -1,18 +1,20 @@
+import { useAuthFunctions, useWaxUser } from '@cryptopuppie/next-waxauth';
 import { Menu, Transition } from '@headlessui/react';
 import { ArrowRightIcon, ChartSquareBarIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/dist/client/router';
 import { Fragment, useState } from 'react';
+import EmptyComponent from '../../components/empty-component';
 import { useHasMounted } from '../../hooks/useHasMounted';
 import AuthLogin from '../auth/login';
-import { useAuth } from '../auth/provider';
 
 const HomeLogin = () => {
   const router = useRouter();
   const mounted = useHasMounted;
   const [open, setOpen] = useState(false);
-  const { isLoggedIn, user, logout } = useAuth();
+  const { user, isLoggedIn } = useWaxUser();
+  const { logout } = useAuthFunctions();
 
-  if (!mounted) return;
+  if (!mounted) return <EmptyComponent />;
 
   return (
     <>

@@ -1,16 +1,15 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { ReceiptRefundIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import { useEffect, useState } from 'react';
 import EmptyComponent from '../../../components/empty-component';
 import { useCollection } from '../../../lib/collections/colprovider';
+import { dapp } from '../../../lib/waxnet';
 import { RefundNFTAsset } from '../../../typings/refund';
-import { wax } from '../../auth/cloudwallet';
-import getTransact from '../../auth/getTransact';
-import { useAuth } from '../../auth/provider';
 import ShowRefunds from './showrefunds';
 
 const GetRefundNFTs = () => {
-  const { user } = useAuth();
+  const { user, rpc } = useWaxUser();
   const { collection } = useCollection();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
   const [assets, setAssets] = useState<number[] | undefined>(undefined);
@@ -18,12 +17,15 @@ const GetRefundNFTs = () => {
   const callRefund = async () => {
     if (!assets) return;
 
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session.transact({
       actions: [
         {
-          account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+          account: dapp,
           name: 'refundnfts',
           authorization: [
             {
@@ -46,7 +48,7 @@ const GetRefundNFTs = () => {
       if (!user) return;
       if (data) return;
 
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         table: 'nftrefunds',
@@ -58,7 +60,7 @@ const GetRefundNFTs = () => {
     };
 
     f();
-  }, [data, user]);
+  }, [data, user, rpc]);
 
   useEffect(() => {
     if (!data) return;

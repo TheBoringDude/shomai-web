@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cryptopuppie/next-waxauth": "^0.0.3",
     "@eosdacio/ual-wax": "^1.5.1",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",

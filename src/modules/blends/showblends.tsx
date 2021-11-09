@@ -1,13 +1,12 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { LinkIcon, TrashIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useCollection } from '../../lib/collections/colprovider';
 import useAuthorized from '../../lib/hooks/useAuthorized';
+import { dapp } from '../../lib/waxnet';
 import { SIMPLEBLENDS, SIMPLESWAPS } from '../../typings/blends/blends';
-import { wax } from '../auth/cloudwallet';
-import getTransact from '../auth/getTransact';
-import { useAuth } from '../auth/provider';
 import ShowTarget from './showtarget';
 
 type ShowBlendsProps = {
@@ -17,24 +16,27 @@ type ShowBlendsProps = {
   action: string;
 };
 const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
-  const { user } = useAuth();
+  const { user, rpc } = useWaxUser();
   const { collection } = useCollection();
   const authorized = useAuthorized();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
 
   const removeAction = async (col: string, blenderid: number) => {
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session
       .transact({
         actions: [
           {
-            account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+            account: dapp,
             name: action,
             authorization: [
               {
                 actor: user.wallet,
-                permission: user.permission ?? 'active'
+                permission: user.permission
               }
             ],
             data: {
@@ -52,7 +54,7 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
     const f = async () => {
       if (data) return;
 
-      const x = await wax.rpc.get_table_rows({
+      const x = await rpc?.get_table_rows({
         json: true,
         code: process.env.NEXT_PUBLIC_CONTRACTNAME,
         table: table,
@@ -64,7 +66,7 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
     };
 
     f();
-  }, [collection, data, table]);
+  }, [collection, data, rpc, table]);
 
   return (
     <div className="my-4">

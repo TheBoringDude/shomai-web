@@ -1,21 +1,26 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
 import { useCollection } from '../../../lib/collections/colprovider';
-import getTransact from '../../auth/getTransact';
-import { useAuth } from '../../auth/provider';
+import { dapp } from '../../../lib/waxnet';
 import { useSimpleSwap } from './provider';
 
 const CallSimpleSwapAction = () => {
   const { collection } = useCollection();
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { ingredient, target } = useSimpleSwap();
 
   const createTransaction = async () => {
-    const session = await getTransact(user);
+    if (!target) return;
+    if (!ingredient) return;
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session.transact({
       actions: [
         {
-          account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+          account: dapp,
           name: 'makeswsimple',
           authorization: [
             {

@@ -1,15 +1,15 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { Listbox } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/solid';
 import { ISchema } from 'atomicassets/build/API/Explorer/Objects';
 import { useEffect, useState } from 'react';
 import { GET_COLLECTION_SCHEMAS } from '../../lib/account/getauthcol';
 import useCallAPI from '../../lib/hooks/useCallAPI';
-import { useAuth } from '../../modules/auth/provider';
 import ListBox from './Listbox';
 import { useAssetPicker } from './provider';
 
 const SchemaPicker = () => {
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { collection, schema, setSchema } = useAssetPicker();
   const [selected, setSelected] = useState<ISchema>();
   const data = useCallAPI<ISchema[]>(collection ? GET_COLLECTION_SCHEMAS(collection) : null);
@@ -23,7 +23,7 @@ const SchemaPicker = () => {
 
   useEffect(() => {
     if (schema !== selected?.schema_name) {
-      setSchema(selected?.schema_name);
+      setSchema(selected?.schema_name ?? '');
     }
   }, [collection, selected, schema, setSchema]);
 

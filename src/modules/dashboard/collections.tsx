@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,12 +7,11 @@ import { GET_AUTHORIZED_COLLECTIONS_API } from '../../lib/account/getauthcol';
 import { fetcher } from '../../lib/fetcher';
 import { dapp } from '../../lib/waxnet';
 import { AuthorizedCollectionsProps } from '../../typings/acount/authcol';
-import { useAuth } from '../auth/provider';
 
 const ShowCollections = () => {
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { data } = useSWR<AuthorizedCollectionsProps>(
-    GET_AUTHORIZED_COLLECTIONS_API(user.wallet),
+    GET_AUTHORIZED_COLLECTIONS_API(user?.wallet ?? ''),
     fetcher
   );
 

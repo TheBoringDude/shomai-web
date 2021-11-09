@@ -1,9 +1,8 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { DuplicateIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import genRand from '../../../../lib/claim';
 import { dapp } from '../../../../lib/waxnet';
-import getTransact from '../../../auth/getTransact';
-import { useAuth } from '../../../auth/provider';
 import { useBlending } from '../blending-provider';
 import SlotBlendingIngredients from './ingredients';
 import { useSlotBlender } from './provider';
@@ -11,19 +10,22 @@ import SlotBlendClaim from './showclaims';
 import SlotBlendingTargets from './targets';
 
 const SlotBlendingContainer = () => {
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { config, ingredients } = useSlotBlender();
   const [open, setOpen] = useState(false);
   const { id, collection } = useBlending();
 
   const [claimid] = useState(genRand());
 
-  console.log(claimid)
+  console.log(claimid);
 
   const callBlend = async () => {
     const assets = Object.values(ingredients).map((i) => i.assetid);
 
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session
       .transact({
@@ -51,7 +53,7 @@ const SlotBlendingContainer = () => {
           .transact({
             actions: [
               {
-                account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+                account: dapp,
                 name: 'callblslot',
                 authorization: [
                   {

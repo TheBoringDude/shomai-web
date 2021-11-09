@@ -1,9 +1,9 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { IAsset } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
 import { useState } from 'react';
 import { GET_USER_ASSETS } from '../../lib/account/getassets';
 import useCallAPI from '../../lib/hooks/useCallAPI';
-import { useAuth } from '../../modules/auth/provider';
 import { useSlotAssetSetter } from './provider';
 
 type SlotSetterSchemaOnlyProps = {
@@ -11,11 +11,13 @@ type SlotSetterSchemaOnlyProps = {
 };
 
 const SlotSetterSchemaOnly = ({ onClose }: SlotSetterSchemaOnlyProps) => {
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { config, ignoreAssets, pick } = useSlotAssetSetter();
-  const [selected, setSelected] = useState<IAsset>(undefined);
+  const [selected, setSelected] = useState<IAsset | undefined>(undefined);
 
-  const data = useCallAPI<IAsset[]>(GET_USER_ASSETS(config.collection, user.wallet, config.schema));
+  const data = useCallAPI<IAsset[]>(
+    GET_USER_ASSETS(config.collection, user?.wallet ?? '', config.schema)
+  );
 
   return (
     <div>
@@ -51,7 +53,7 @@ const SlotSetterSchemaOnly = ({ onClose }: SlotSetterSchemaOnlyProps) => {
               collection: config.collection,
               image: selected.data.img,
               name: selected.name,
-              template: Number(selected.template.template_id),
+              template: Number(selected.template?.template_id),
               assetid: Number(selected.asset_id)
             });
           }}

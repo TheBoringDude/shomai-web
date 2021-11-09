@@ -1,23 +1,27 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
 import { useCollection } from '../../../lib/collections/colprovider';
-import getTransact from '../../auth/getTransact';
-import { useAuth } from '../../auth/provider';
+import { dapp } from '../../../lib/waxnet';
 import { useSimpleBlend } from './provider';
 
 const CallAction = () => {
   const { collection } = useCollection();
-  const { user } = useAuth();
+  const { user } = useWaxUser();
   const { ingredients, target } = useSimpleBlend();
 
   const createTransaction = async () => {
-    const session = await getTransact(user);
+    if (!target) return;
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     const _ingredients = ingredients.map((i) => Number(i.template));
 
     await session.transact({
       actions: [
         {
-          account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+          account: dapp,
           name: 'makeblsimple',
           authorization: [
             {

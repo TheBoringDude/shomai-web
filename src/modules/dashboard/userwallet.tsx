@@ -1,16 +1,18 @@
+import { useAuthFunctions, useWaxUser } from '@cryptopuppie/next-waxauth';
 import { Menu, Transition } from '@headlessui/react';
 import { ArrowRightIcon, ChartSquareBarIcon, ChevronDownIcon } from '@heroicons/react/solid';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { GET_WALLET_BALANCE } from '../../lib/account/getwallet';
 import { postFetcher } from '../../lib/fetcher';
 import AuthLogin from '../auth/login';
-import { useAuth } from '../auth/provider';
 
 const UserWallet = () => {
   const router = useRouter();
 
-  const { user, logout, isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useWaxUser();
+  const { logout } = useAuthFunctions();
+
   const [data, setData] = useState<string | undefined>(undefined);
   const [open, setOpen] = useState(false);
 

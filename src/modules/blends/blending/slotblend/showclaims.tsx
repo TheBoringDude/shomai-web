@@ -1,36 +1,38 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { Dialog } from '@headlessui/react';
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid';
 import { useEffect, useState } from 'react';
 import Dialogs from '../../../../components/Dialogs';
 import { useCollection } from '../../../../lib/collections/colprovider';
+import { dapp } from '../../../../lib/waxnet';
 import { CLAIMASSET } from '../../../../typings/blends/claims';
-import { wax } from '../../../auth/cloudwallet';
-import getTransact from '../../../auth/getTransact';
-import { useAuth } from '../../../auth/provider';
 import { useBlending } from '../blending-provider';
 import ShowClaimsAsset from './showclaimsasset';
 
 type SlotBlendClaimProps = {
   open: boolean;
   onClose: () => void;
-  claimid: number
+  claimid: number;
 };
 
 const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
-  const { user } = useAuth();
+  const { user, rpc } = useWaxUser();
   const { collection } = useCollection();
   const { id } = useBlending();
 
   const [data, setData] = useState<CLAIMASSET | undefined>(undefined);
 
   const claimBlend = async (claim: CLAIMASSET) => {
-    const session = await getTransact(user);
+    if (!user) return;
+
+    const session = await user.session();
+    if (!session) return;
 
     await session
       .transact({
         actions: [
           {
-            account: process.env.NEXT_PUBLIC_CONTRACTNAME,
+            account: dapp,
             name: 'claimblslot',
             authorization: [
               {
@@ -54,7 +56,7 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
       if (data) return;
 
       setInterval(async () => {
-        const x = await wax.rpc.get_table_rows({
+        const x = await rpc?.get_table_rows({
           json: true,
           code: process.env.NEXT_PUBLIC_CONTRACTNAME,
           table: 'claimassets',
@@ -63,10 +65,12 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
           limit: 1
         });
 
+        if (!x) return;
+
         const _data = x.rows as CLAIMASSET[];
 
         setData(
-          _data.filter((i: CLAIMASSET) => i.blender === user.wallet && i.blenderid === id)[0]
+          _data.filter((i: CLAIMASSET) => i.blender === user?.wallet && i.blenderid === id)[0]
         );
       }, 3000);
     }
