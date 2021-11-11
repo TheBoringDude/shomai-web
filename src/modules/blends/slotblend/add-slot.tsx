@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SlotGenerator from '../../../components/SlotGenerator';
 import SlotGeneratorProvider from '../../../components/slotgenerator/provider';
 import { useCollection } from '../../../lib/collections/colprovider';
-import { SlotIngredients } from '../../../typings/blends/ingredients';
+import { SlotBlendAllIngredientProps, SlotIngredients } from '../../../typings/blends/ingredients';
 import { useSlotBlend } from './provider';
 
 const AddSlotIngredient = () => {
@@ -11,15 +11,66 @@ const AddSlotIngredient = () => {
   const { collection } = useCollection();
   const { ingredients, dispatchIngredients } = useSlotBlend();
 
-  const pick = (slot: SlotIngredients) => {
-    if (slot.schema === '') return;
+  const pick = (slot: SlotBlendAllIngredientProps) => {
+    if (slot.collection === '') return;
 
-    if (!slot.schema_only) {
-      if (slot.from === -1) return;
-      if (slot.attributes.length === 0) return;
+    let amount = slot.amount;
+    if (amount < 1) {
+      amount = 1;
     }
 
-    dispatchIngredients({ type: 'add', slot: slot });
+    switch (slot.type) {
+      case 0: {
+        if (!slot.schema) return;
+
+        const sl: SlotIngredients = {
+          type: 0,
+          collection: slot.collection,
+          amount: amount,
+          props: {
+            schema: slot.schema
+          }
+        };
+        dispatchIngredients({ type: 'add', slot: sl });
+
+        break;
+      }
+      case 1: {
+        if (slot.templates.length < 1) return;
+
+        const sl: SlotIngredients = {
+          type: 1,
+          collection: slot.collection,
+          amount: amount,
+          props: {
+            templates: slot.templates
+          }
+        };
+        dispatchIngredients({ type: 'add', slot: sl });
+
+        break;
+      }
+      case 2: {
+        if (slot.attributes.length < 1) return;
+
+        const sl: SlotIngredients = {
+          type: 2,
+          collection: slot.collection,
+          amount: amount,
+          props: {
+            schema: slot.schema,
+            require_all_attribs: slot.require_all_attribs,
+            attributes: slot.attributes
+          }
+        };
+        dispatchIngredients({ type: 'add', slot: sl });
+
+        break;
+      }
+      default:
+        return;
+    }
+
     setOpen(false);
   };
 

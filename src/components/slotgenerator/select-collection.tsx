@@ -29,7 +29,7 @@ const SlotSelectCollection = () => {
   };
 
   const search = async () => {
-    const q = inputCol?.current.value.trim();
+    const q = inputCol?.current?.value.trim();
     if (!q) return;
 
     if (q === state.collection) return;

@@ -31,7 +31,7 @@ const SetTargetOdds = ({ target }: SetTargetOddsProps) => {
             onSubmit={(e) => {
               e.preventDefault();
 
-              const v = oddsInput.current.valueAsNumber;
+              const v = oddsInput.current?.valueAsNumber ?? 0;
               if (v <= 0) return;
               if (v > 100) return;
 

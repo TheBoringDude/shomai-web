@@ -11,7 +11,7 @@ import SlotBlendingTargets from './targets';
 
 const SlotBlendingContainer = () => {
   const { user } = useWaxUser();
-  const { config, ingredients } = useSlotBlender();
+  const { config, config_target, ingredients } = useSlotBlender();
   const [open, setOpen] = useState(false);
   const { id, collection } = useBlending();
 
@@ -20,12 +20,14 @@ const SlotBlendingContainer = () => {
   console.log(claimid);
 
   const callBlend = async () => {
-    const assets = Object.values(ingredients).map((i) => i.assetid);
+    const assets = Object.values(ingredients).map((i) => i?.assetid);
 
     if (!user) return;
 
     const session = await user.session();
     if (!session) return;
+
+    console.log(assets);
 
     await session
       .transact({
@@ -74,7 +76,9 @@ const SlotBlendingContainer = () => {
           .then((r) => {
             console.log(r);
 
-            setOpen(true);
+            if (config_target.targets.length > 1) {
+              setOpen(true);
+            }
           })
           .catch((e) => console.error(e));
       });

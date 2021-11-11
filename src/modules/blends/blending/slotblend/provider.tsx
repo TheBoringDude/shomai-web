@@ -8,7 +8,7 @@ import {
   useReducer,
   useState
 } from 'react';
-import { SLOTBLENDS, SLOTBLENDS_TARGET } from '../../../../typings/blends/blends';
+import { SLOTBLENDSFROM_, SLOTBLENDS_TARGET } from '../../../../typings/blends/blends';
 import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
 import { useBlending } from '../blending-provider';
 import SlotBlendingReducer, { SlotBlendingActions } from './reducer';
@@ -18,9 +18,9 @@ type SlotBlendingProviderProps = {
 };
 
 type SlotBlendingContextProps = {
-  ingredients: Record<number, SlotAssetIngredient>;
+  ingredients: Record<number, SlotAssetIngredient | undefined>;
   dispatchIngredients: Dispatch<SlotBlendingActions>;
-  config: SLOTBLENDS;
+  config: SLOTBLENDSFROM_;
   config_target: SLOTBLENDS_TARGET;
 };
 
@@ -47,7 +47,7 @@ const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
   const { collection, id } = useBlending();
 
   const [ingredients, dispatchIngredients] = useReducer(SlotBlendingReducer, {});
-  const [config, setConfig] = useState<SLOTBLENDS | undefined>(undefined);
+  const [config, setConfig] = useState<SLOTBLENDSFROM_ | undefined>(undefined);
   const [configTarget, setConfigTarget] = useState<SLOTBLENDS_TARGET | undefined>(undefined);
 
   useEffect(() => {

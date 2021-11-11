@@ -16,33 +16,40 @@ const SlotSetterAttribs = ({ onClose }: SlotSetterAttribsProps) => {
   const [selected, setSelected] = useState<IAsset | undefined>(undefined);
 
   const data = useCallAPI<IAsset[]>(
-    GET_USER_ASSETS(config.collection, user?.wallet ?? '', config.schema)
+    GET_USER_ASSETS(
+      config.collection,
+      user?.wallet ?? '',
+      config.type === 0 || config.type === 2 ? config.schema : ''
+    )
   );
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         {data
           ?.filter((i) => !ignoreAssets?.includes(Number(i.asset_id)))
           .filter((i) => {
             let ok = false;
 
-            if (config.from === 0) {
-              // 0 === templates
-              for (const at of config.attributes) {
-                if (ok && config.anyof) break;
-
-                if (at.values[0] === i.template?.template_id) {
-                  ok = true;
-                }
+            if (config.type === 0) {
+              // schema
+              if (i.schema.schema_name === config.schema) {
+                ok = true;
               }
-            } else if (config.from === 1) {
-              // 1 == immutable_data
-              for (const at of config.attributes) {
-                if (ok && config.anyof) break;
+            } else if (config.type === 1) {
+              // template
+              if (config.templates.includes(Number(i.template?.template_id))) {
+                ok = true;
+              }
+            } else if (config.type === 2) {
+              // attribute
+              console.log(i);
 
-                for (const x of at.values) {
-                  if (i.data[at.attrib]?.includes(x)) {
+              for (const at of config.attributes) {
+                if (ok && config.require_all_attribs) break;
+
+                for (const x of at.allowed_values) {
+                  if (i.data[at.key]?.includes(x)) {
                     ok = true;
                   }
                 }

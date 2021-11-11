@@ -3,11 +3,11 @@ import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
 type SlotBlendingActions = {
   type: 'set-ingredient';
   index: number;
-  value: SlotAssetIngredient;
+  value: SlotAssetIngredient | undefined;
 };
 
 const SlotBlendingReducer = (
-  state: Record<number, SlotAssetIngredient>,
+  state: Record<number, SlotAssetIngredient | undefined>,
   action: SlotBlendingActions
 ) => {
   switch (action.type) {

@@ -1,16 +1,16 @@
 import { createContext, ReactNode, useContext } from 'react';
-import { SlotAssetIngredient, SlotIngredients } from '../../typings/blends/ingredients';
+import { SlotAssetIngredient, SlotBlendAllIngredientProps } from '../../typings/blends/ingredients';
 
 type SlotSetterProviderProps = {
   children: ReactNode;
-  config: SlotIngredients;
+  config: SlotBlendAllIngredientProps;
   defCollection: string;
   ignoreAssets: number[];
   pick: (sl: SlotAssetIngredient) => void;
 };
 
 type SlotSetterContextProps = {
-  config: SlotIngredients;
+  config: SlotBlendAllIngredientProps;
   defCollection: string;
   ignoreAssets: number[];
   pick: (sl: SlotAssetIngredient) => void;
@@ -20,10 +20,11 @@ const SlotSetterContext = createContext<SlotSetterContextProps>({
   config: {
     collection: '',
     schema: '',
-    schema_only: false,
-    from: -1,
-    anyof: false,
-    attributes: []
+    templates: [],
+    require_all_attribs: false,
+    attributes: [],
+    type: null,
+    amount: 0
   },
   defCollection: '',
   ignoreAssets: [],

@@ -6,7 +6,7 @@ type ListBoxProps<T> = {
   selected: T;
   showtext?: string;
   label: string;
-  setSelected: Dispatch<SetStateAction<T>>;
+  setSelected: Dispatch<SetStateAction<T>> | ((value: T) => void);
   children: ReactNode;
 };
 const ListBox = <T extends unknown>({

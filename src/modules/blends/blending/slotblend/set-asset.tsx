@@ -3,7 +3,11 @@ import { useState } from 'react';
 import SlotSetter from '../../../../components/SlotSetter';
 import SlotSetterProvider from '../../../../components/slotsetter/provider';
 import { useCollection } from '../../../../lib/collections/colprovider';
-import { SlotAssetIngredient, SlotIngredients } from '../../../../typings/blends/ingredients';
+import {
+  SlotAssetIngredient,
+  SlotBlendAllIngredientProps,
+  SlotIngredients
+} from '../../../../typings/blends/ingredients';
 import { useBlending } from '../blending-provider';
 import { useSlotBlender } from './provider';
 
@@ -29,10 +33,17 @@ const SlotSetAsset = ({ index, config }: SlotSetAssetProps) => {
     setOpen(false);
   };
 
+  const cfg = {
+    type: config.type,
+    collection: config.collection,
+    amount: config.amount,
+    ...config.props
+  };
+
   return (
     <SlotSetterProvider
       defCollection={collection}
-      config={config}
+      config={cfg as SlotBlendAllIngredientProps}
       ignoreAssets={ignoreAssets}
       pick={pick}
     >

@@ -26,6 +26,24 @@ const SlotCallAction = () => {
       })
       .sort((a, b) => b.odds - a.odds); // sort with odds in descending order
 
+    const _ingredients = ingredients.map((i) => {
+      return {
+        ...i,
+        props: [
+          i.type === 0
+            ? 'SlotBlendSchemaIngredient'
+            : i.type === 1
+            ? 'SlotBlendTemplateIngredient'
+            : i.type === 2
+            ? 'SlotBlendAttribIngredient'
+            : null,
+          i.props
+        ]
+      };
+    });
+
+    console.log(_ingredients);
+
     await session
       .transact({
         actions: [
@@ -42,11 +60,14 @@ const SlotCallAction = () => {
               author: user.wallet,
               collection: collection,
               targets: _targets,
-              ingredients,
+              ingredients: _ingredients,
               title
             }
           }
         ]
+      })
+      .then((r) => {
+        console.log(r);
       })
       .catch((e) => {
         console.error(e);

@@ -1,26 +1,13 @@
 import { Disclosure, Switch } from '@headlessui/react';
 import { ChevronUpIcon, XIcon } from '@heroicons/react/solid';
-import { useEffect, useState } from 'react';
-import ImmutableDataAttributesSlot from './attrib-data';
-import ImmutableTemplateAttributesSlot from './attrib-templates';
+import SlotAttributesSelect from './attributes-select';
 import { useSlotGenerator } from './provider';
 
-const AttributesSlot = () => {
-  const [state, setState] = useState(-1);
-
+const SlotAttributes = () => {
   const {
-    state: { attributes, anyof, from },
+    state: { attributes, require_all_attribs },
     dispatch
   } = useSlotGenerator();
-
-  useEffect(() => {
-    if (from !== state) {
-      // reset the attributes if `from` is changed
-      dispatch({ type: 'set', key: 'attributes', value: [] });
-
-      setState(from);
-    }
-  }, [dispatch, from, state]);
 
   return (
     <>
@@ -30,26 +17,22 @@ const AttributesSlot = () => {
         </label>
 
         <div className="inline-flex items-center">
-          {from === 0 ? (
-            <ImmutableTemplateAttributesSlot />
-          ) : from === 1 ? (
-            <ImmutableDataAttributesSlot />
-          ) : (
-            <></>
-          )}
+          <SlotAttributesSelect />
 
           <Switch
-            checked={anyof}
+            checked={require_all_attribs}
             title="Allow any of the attributes to match the slot"
-            onChange={() => dispatch({ type: 'set', key: 'anyof', value: !anyof })}
+            onChange={() =>
+              dispatch({ type: 'set', key: 'require_all_attribs', value: !require_all_attribs })
+            }
             className={`${
-              anyof ? 'bg-deep-champagne' : 'bg-gray-200'
+              require_all_attribs ? 'bg-deep-champagne' : 'bg-gray-200'
             } relative inline-flex items-center h-5 rounded-full w-11 ml-2`}
           >
-            <span className="sr-only">Enable notifications</span>
+            <span className="sr-only">Require all attributes to match</span>
             <span
               className={`${
-                anyof ? 'translate-x-6' : 'translate-x-1'
+                require_all_attribs ? 'translate-x-6' : 'translate-x-1'
               } inline-block w-4 h-4 transform bg-white rounded-full`}
             />
           </Switch>
@@ -63,7 +46,7 @@ const AttributesSlot = () => {
               <>
                 <div className="flex items-center">
                   <Disclosure.Button className="flex justify-between w-full px-4 py-2 my-1 text-sm font-medium text-left rounded-lg bg-sage">
-                    <span>{a.attrib}</span>
+                    <span>{a.key}</span>
                     <ChevronUpIcon
                       className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-purple-500`}
                     />
@@ -73,14 +56,18 @@ const AttributesSlot = () => {
                     className="hover:text-atomic-tangerine"
                     title="Remove Attribute"
                     onClick={() => {
-                      dispatch({ type: 'remove-attrib', index });
+                      dispatch({
+                        type: 'set',
+                        key: 'attributes',
+                        value: attributes.filter((_, idx) => idx !== index)
+                      });
                     }}
                   >
                     <XIcon className="w-4 h-4" />
                   </button>
                 </div>
                 <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm ">
-                  <strong>Allowed Values:</strong> {a.values.join()}
+                  <strong>Allowed Values:</strong> {a.allowed_values.join()}
                 </Disclosure.Panel>
               </>
             )}
@@ -91,4 +78,4 @@ const AttributesSlot = () => {
   );
 };
 
-export default AttributesSlot;
+export default SlotAttributes;

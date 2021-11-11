@@ -2,7 +2,6 @@ import { Dialog } from '@headlessui/react';
 import Dialogs from './Dialogs';
 import SlotSetterAttribs from './slotsetter/attribs';
 import { useSlotAssetSetter } from './slotsetter/provider';
-import SlotSetterSchemaOnly from './slotsetter/schemaOnly';
 
 type SlotSetterProps = {
   open: boolean;
@@ -23,11 +22,7 @@ const SlotSetter = ({ open, onClose }: SlotSetterProps) => {
       <Dialog.Description className="text-white mt-1">Set Asset for slot</Dialog.Description>
 
       <div className="mt-6">
-        {config.schema_only ? (
-          <SlotSetterSchemaOnly onClose={onClose} />
-        ) : (
-          <SlotSetterAttribs onClose={onClose} />
-        )}
+        <SlotSetterAttribs onClose={onClose} />
       </div>
     </Dialogs>
   );

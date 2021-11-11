@@ -20,6 +20,8 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
     return x !== undefined;
   };
 
+  if (!config) return <></>;
+
   return (
     <div
       key={index}
@@ -34,7 +36,7 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
       {isSet(index) ? (
         <button
           onClick={() => {
-            const ignore = ignoreAssets.filter((i) => i !== ingredients[index].assetid);
+            const ignore = ignoreAssets.filter((i) => i !== ingredients[index]?.assetid);
             setIgnoreAssets(ignore);
 
             dispatchIngredients({ type: 'set-ingredient', index, value: undefined });
@@ -51,8 +53,8 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
         <>
           <span className="z-10 -bottom-1 -left-2 absolute text-xs rounded-md bg-atomic-tangerine py-2 px-3">
             {isSet(index)
-              ? `#${ingredients[index].assetid}`
-              : `${ingredients[index].collection}  #${ingredients[index].template}`}
+              ? `#${ingredients[index]?.assetid}`
+              : `${ingredients[index]?.collection}  #${ingredients[index]?.template}`}
           </span>
           <Image
             src={`https://ipfs.io/ipfs/${ingredients[index]?.image}`}
@@ -64,19 +66,23 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
           />
         </>
       ) : (
-        <p className="flex flex-col tracking-wide">
-          <strong className="font-black text-lg">({config.collection})</strong>
-          {config.schema_only ? (
-            <span>{config.schema}</span>
-          ) : (
-            <>
-              <span className="text-sm my-1">
-                from: {config.from === 0 ? 'templates' : 'immutable_data'}
-              </span>
-              <span className="text-xs">[{config.attributes.length} attribute/s]</span>
-            </>
-          )}
-        </p>
+        <>
+          {/* <span className="absolute bottom-1 right-2 text-sm font-bold">x{config.amount}</span> */}
+
+          <p className="flex flex-col tracking-wide">
+            <strong className="font-black text-lg">({config.collection})</strong>
+
+            <small>
+              {config.type === 0
+                ? 'Schema Ingredient'
+                : config.type === 1
+                ? 'Template Ingredient'
+                : config.type === 2
+                ? 'Attribute Ingredient'
+                : ''}
+            </small>
+          </p>
+        </>
       )}
     </div>
   );

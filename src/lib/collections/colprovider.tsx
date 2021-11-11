@@ -1,6 +1,7 @@
 import { ICollection } from 'atomicassets/build/API/Explorer/Objects';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
+import EmptyComponent from '../../components/empty-component';
 import { AtomicRequest } from '../../typings/atomicrequest';
 import { fetcher } from '../fetcher';
 
@@ -10,11 +11,11 @@ interface ColProviderProps {
 }
 
 interface ColContextProps {
-  collection?: string;
+  collection: string;
   coldata?: ICollection;
 }
 
-const ColContext = createContext<ColContextProps>({});
+const ColContext = createContext<ColContextProps>({ collection: '' });
 
 const ColProvider = ({ children, collection }: ColProviderProps) => {
   // state collection data
@@ -36,6 +37,8 @@ const ColProvider = ({ children, collection }: ColProviderProps) => {
 
     setColdata(data.data);
   }, [coldata, data]);
+
+  if (!collection) return <EmptyComponent />;
 
   return <ColContext.Provider value={{ collection, coldata }}>{children}</ColContext.Provider>;
 };

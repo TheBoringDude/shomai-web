@@ -18,18 +18,76 @@ interface SlotAssetIngredient {
   name: string;
 }
 
-interface SlotIngredients {
+interface SlotBlendSchemaIngredientProps {
+  type: 0;
   collection: string;
+  amount: number;
+  props: {
+    schema: string;
+  };
+}
+
+interface SlotBlendTemplateIngredientProps {
+  type: 1;
+  collection: string;
+  amount: number;
+  props: {
+    templates: number[];
+  };
+}
+
+interface SlotBlendAttribIngredientProps {
+  type: 2;
+  collection: string;
+  amount: number;
+  props: {
+    schema: string;
+    require_all_attribs: boolean;
+    attributes: SlotIngredientAttributes[];
+  };
+}
+
+interface SlotBlendAllIngredientProps {
+  type: 0 | 1 | 2 | null;
+  collection: string;
+  amount: number;
   schema: string;
-  schema_only: boolean;
-  from: number;
-  anyof: boolean;
+  templates: number[];
+  require_all_attribs: boolean;
   attributes: SlotIngredientAttributes[];
+}
+type SlotIngredients =
+  | SlotBlendSchemaIngredientProps
+  | SlotBlendTemplateIngredientProps
+  | SlotBlendAttribIngredientProps;
+
+type SlotXIngredients = [
+  string,
+  (
+    | {
+        schema: string;
+        require_all_attribs: boolean;
+        attributes: SlotIngredientAttributes[];
+      }
+    | {
+        templates: number[];
+      }
+    | {
+        schema: string;
+      }
+  )
+];
+
+interface SlotAnotherIngredients {
+  type: 0 | 1 | 2 | null;
+  collection: string;
+  amount: number;
+  props: SlotXIngredients;
 }
 
 type SlotIngredientAttributes = {
-  attrib: string;
-  values: string[];
+  key: string;
+  allowed_values: string[];
 };
 
 export type {
@@ -37,5 +95,11 @@ export type {
   SimpleAssetIngredient,
   SlotIngredients,
   SlotIngredientAttributes,
-  SlotAssetIngredient
+  SlotAssetIngredient,
+  SlotBlendAttribIngredientProps,
+  SlotBlendSchemaIngredientProps,
+  SlotBlendTemplateIngredientProps,
+  SlotBlendAllIngredientProps,
+  SlotXIngredients,
+  SlotAnotherIngredients
 };

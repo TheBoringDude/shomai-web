@@ -34,7 +34,7 @@ const BlendPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-deep-champagne rounded-lg focus:outline-none">
+              <Menu.Items className="absolute z-30 right-0 w-56 mt-2 origin-top-right bg-deep-champagne border border-sage rounded-lg focus:outline-none">
                 <div className="py-3 px-2">
                   <Menu.Item>
                     <Link href={`/d/${collection}/new/simple`}>

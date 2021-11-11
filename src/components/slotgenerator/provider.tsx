@@ -1,17 +1,17 @@
 import { createContext, Dispatch, ReactNode, useContext, useReducer } from 'react';
-import { SlotIngredients } from '../../typings/blends/ingredients';
+import { SlotBlendAllIngredientProps } from '../../typings/blends/ingredients';
 import SlotGeneratorReducer, { SlotGeneratorReducerActions } from './reducer';
 
 type SlotGeneratorProviderProps = {
   children: ReactNode;
   defCollection: string;
-  pick: (slot: SlotIngredients) => void;
+  pick: (slot: SlotBlendAllIngredientProps) => void;
 };
 
-type SlotGeneratorContextProps<T extends keyof SlotIngredients> = {
+type SlotGeneratorContextProps<T extends keyof SlotBlendAllIngredientProps> = {
   defCollection: string;
-  pick: (slot: SlotIngredients) => void;
-  state: SlotIngredients;
+  pick: (slot: SlotBlendAllIngredientProps) => void;
+  state: SlotBlendAllIngredientProps;
   dispatch: Dispatch<SlotGeneratorReducerActions<T>>;
 };
 
@@ -19,11 +19,12 @@ const SlotGeneratorContext = createContext<SlotGeneratorContextProps<any>>({
   defCollection: '',
   pick: () => {},
   state: {
+    type: null,
     collection: '',
+    amount: 1,
     schema: '',
-    schema_only: false,
-    from: -1,
-    anyof: false,
+    templates: [],
+    require_all_attribs: false,
     attributes: []
   },
   dispatch: () => {}
@@ -31,11 +32,12 @@ const SlotGeneratorContext = createContext<SlotGeneratorContextProps<any>>({
 
 const SlotGeneratorProvider = ({ children, defCollection, pick }: SlotGeneratorProviderProps) => {
   const [state, dispatch] = useReducer(SlotGeneratorReducer, {
-    collection: defCollection, // default is the current collection
+    type: null,
+    collection: defCollection,
+    amount: 1,
     schema: '',
-    schema_only: false,
-    from: -1,
-    anyof: false,
+    templates: [],
+    require_all_attribs: false,
     attributes: []
   });
 
@@ -53,14 +55,14 @@ const SlotGeneratorProvider = ({ children, defCollection, pick }: SlotGeneratorP
   );
 };
 
-const useSlotGenerator = <T extends keyof SlotIngredients>() => {
+function useSlotGenerator<T extends keyof SlotBlendAllIngredientProps>() {
   const context = useContext<SlotGeneratorContextProps<T>>(SlotGeneratorContext);
   if (context === undefined) {
     throw new Error('<SlotGeneratorProvider></SlotGeneratorProvider>');
   }
 
   return context;
-};
+}
 
 export default SlotGeneratorProvider;
 export { SlotGeneratorContext, useSlotGenerator };

@@ -1,16 +1,15 @@
-import { SlotIngredientAttributes, SlotIngredients } from '../../typings/blends/ingredients';
+import { SlotBlendAllIngredientProps } from '../../typings/blends/ingredients';
 
-type SlotGeneratorReducerActions<T extends keyof SlotIngredients> =
+type SlotGeneratorReducerActions<T extends keyof SlotBlendAllIngredientProps> =
   | {
       type: 'set';
       key: T;
-      value: SlotIngredients[T];
+      value: SlotBlendAllIngredientProps[T];
     }
-  | { type: 'add-attrib'; attrib: SlotIngredientAttributes }
-  | { type: 'remove-attrib'; index: number };
+  | { type: 'reset' };
 
-const SlotGeneratorReducer = <T extends keyof SlotIngredients>(
-  state: SlotIngredients,
+const SlotGeneratorReducer = <T extends keyof SlotBlendAllIngredientProps>(
+  state: SlotBlendAllIngredientProps,
   action: SlotGeneratorReducerActions<T>
 ) => {
   switch (action.type) {
@@ -23,19 +22,15 @@ const SlotGeneratorReducer = <T extends keyof SlotIngredients>(
       return x;
     }
 
-    case 'add-attrib': {
+    case 'reset': {
       return {
         ...state,
-        attributes: [...state.attributes, action.attrib]
-      };
-    }
-
-    case 'remove-attrib': {
-      const newAttribs = state.attributes.filter((i, index) => index !== action.index);
-
-      return {
-        ...state,
-        attributes: newAttribs
+        type: null,
+        amount: 1,
+        schema: '',
+        templates: [],
+        require_all_attribs: false,
+        attributes: []
       };
     }
 

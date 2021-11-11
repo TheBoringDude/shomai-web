@@ -28,17 +28,20 @@ const SlotBlendIngredients = () => {
                 <XCircleIcon className="w-8 h-8" />
               </button>
 
+              <span className="absolute bottom-1 right-2 text-sm font-bold">x{i.amount}</span>
+
               <p className="flex flex-col tracking-wide">
                 <strong className="font-black text-lg">({i.collection})</strong>
-                {i.schema_only ? (
-                 <span>{i.schema}</span> 
-                ) : (
-                  <>
-                  <span className="text-sm my-1">
-                  from: {i.from === 0 ? 'templates' : 'immutable_data'}
-                </span>
-                <span className="text-xs">[{i.attributes.length} attribute/s]</span></>
-                )}
+
+                <small>
+                  {i.type === 0
+                    ? 'Schema Ingredient'
+                    : i.type === 1
+                    ? 'Template Ingredient'
+                    : i.type === 2
+                    ? 'Attribute Ingredient'
+                    : ''}
+                </small>
               </p>
             </div>
           ))}

@@ -16,7 +16,7 @@ const SlotBlendingTargets = () => {
   }, [config_target]);
 
   const data = useCallAPI<ITemplate[]>(
-    GET_COLLECTION_TEMPLATES(collection, null, target_templates)
+    GET_COLLECTION_TEMPLATES(collection, undefined, target_templates)
   );
 
   const getOdds = (t: number) => {

@@ -1,15 +1,17 @@
-import AttributesSlot from './attributes';
-import FromSlot from './from';
+import EmptyComponent from '../empty-component';
+import SlotAmount from './amount-input';
+import SlotAttributes from './attributes';
 import { useSlotGenerator } from './provider';
 import SchemaSlot from './schema';
-import SchemaOnlySlot from './schemaOnly';
 import SlotSelectCollection from './select-collection';
+import SlotSelectType from './select-type';
+import SlotTemplates from './templates';
 
 type SlotFormProps = {
   onClose: () => void;
 };
 const SlotForm = ({ onClose }: SlotFormProps) => {
-  const { state, pick } = useSlotGenerator();
+  const { state, pick, dispatch } = useSlotGenerator();
 
   return (
     <form
@@ -18,8 +20,14 @@ const SlotForm = ({ onClose }: SlotFormProps) => {
         e.preventDefault();
 
         pick(state);
+
+        dispatch({ type: 'reset' });
       }}
     >
+      <div className="flex flex-col my-2">
+        <SlotSelectType />
+      </div>
+
       <div className="flex flex-col my-2">
         <label htmlFor="collection" className="text-white">
           Collection
@@ -31,32 +39,31 @@ const SlotForm = ({ onClose }: SlotFormProps) => {
         </div>
       </div>
 
-      {state.collection !== '' && (
+      {state.type === 0 ? (
+        <div className="flex flex-col my-2">
+          <SchemaSlot />
+        </div>
+      ) : state.type === 1 ? (
+        <div className="flex flex-col my-2">
+          <SlotTemplates />
+        </div>
+      ) : state.type === 2 ? (
         <>
           <div className="flex flex-col my-2">
-            <div className="flex items-center">
-              <SchemaSlot />
-              <SchemaOnlySlot />
-            </div>
+            <SchemaSlot />
           </div>
 
-          {!state.schema_only && state.schema !== '' && (
-            <>
-              <div className="flex flex-col my-2">
-                <FromSlot />
-              </div>
-
-              {state.from !== -1 && (
-                <div className="flex flex-col my-2">
-                  <AttributesSlot />
-                </div>
-              )}
-            </>
-          )}
+          <div className="flex flex-col my-2">
+            <SlotAttributes />
+          </div>
         </>
+      ) : (
+        <EmptyComponent />
       )}
 
-      <div className="flex items-center justify-center mt-8">
+      <SlotAmount />
+
+      <div className="flex items-center justify-center mt-14">
         <button
           className="py-3 px-12 mx-1 rounded-lg bg-deep-champagne hover:bg-atomic-tangerine text-sm"
           type="submit"

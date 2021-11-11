@@ -9,7 +9,7 @@ import Dialogs from '../Dialogs';
 import AttribSelectSlot from './attrib-select';
 import { useSlotGenerator } from './provider';
 
-const ImmutableDataAttributesSlot = () => {
+const SlotAttributesSelect = () => {
   const {
     state: { collection, schema, attributes },
     dispatch
@@ -17,7 +17,7 @@ const ImmutableDataAttributesSlot = () => {
 
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<string[]>([]);
-  const [selected, setSelected] = useState<SchemaObject>(null);
+  const [selected, setSelected] = useState<SchemaObject | undefined>(undefined);
 
   const data = useCallAPI<ISchema>(schema ? GET_COLLECTION_SCHEMA(collection, schema) : null);
 
@@ -25,11 +25,15 @@ const ImmutableDataAttributesSlot = () => {
     if (values.length === 0 || !selected) return;
 
     dispatch({
-      type: 'add-attrib',
-      attrib: {
-        attrib: selected.name,
-        values
-      }
+      type: 'set',
+      key: 'attributes',
+      value: [
+        {
+          key: selected.name,
+          allowed_values: values
+        },
+        ...attributes
+      ]
     });
 
     setOpen(false);
@@ -42,7 +46,7 @@ const ImmutableDataAttributesSlot = () => {
         onClose={() => {
           setOpen(false);
         }}
-        className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gunmetal shadow-xl rounded-2xl"
+        className="inline-block w-full max-w-xl px-8 py-12 my-8 overflow-hidden text-left align-middle transition-all transform bg-gunmetal shadow-xl rounded-2xl"
       >
         <Dialog.Title as="h4" className="font-black text-white text-2xl">
           Add an Attribute
@@ -60,40 +64,44 @@ const ImmutableDataAttributesSlot = () => {
               showtext={selected ? selected.name : 'Choose key...'}
               label="Immutable Data Key"
             >
-              {data ? (
-                data.format
-                  .filter((i) => i.type === 'string') // only allow string values for now
-                  .map((f, index) => (
-                    <Listbox.Option
-                      key={index}
-                      className={({ active }) =>
-                        `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+              <Listbox.Options>
+                {data ? (
+                  data.format
+                    .filter((i) => i.type === 'string') // only allow string values for now
+                    .map((f, index) => (
+                      <Listbox.Option
+                        key={index}
+                        className={({ active }) =>
+                          `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
                               cursor-default select-none relative py-2 pl-10 pr-4`
-                      }
-                      value={f}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <span
-                            className={`${selected ? 'font-medium' : 'font-normal'} block truncate`}
-                          >
-                            {f.name}
-                          </span>
-                          {selected ? (
+                        }
+                        value={f}
+                      >
+                        {({ selected, active }) => (
+                          <>
                             <span
-                              className={`${active ? 'text-amber-600' : 'text-amber-600'}
-                                    absolute inset-y-0 left-0 flex items-center pl-3`}
+                              className={`${
+                                selected ? 'font-medium' : 'font-normal'
+                              } block truncate`}
                             >
-                              <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                              {f.name}
                             </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))
-              ) : (
-                <p>loading...</p>
-              )}
+                            {selected ? (
+                              <span
+                                className={`${active ? 'text-amber-600' : 'text-amber-600'}
+                                    absolute inset-y-0 left-0 flex items-center pl-3`}
+                              >
+                                <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))
+                ) : (
+                  <p>loading...</p>
+                )}
+              </Listbox.Options>
             </AttribSelectSlot>
           </div>
 
@@ -163,4 +171,4 @@ const ImmutableDataAttributesSlot = () => {
   );
 };
 
-export default ImmutableDataAttributesSlot;
+export default SlotAttributesSelect;
