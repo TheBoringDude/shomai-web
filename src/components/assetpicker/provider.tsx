@@ -8,7 +8,7 @@ type AssetProviderProps = {
 };
 
 type AssetContextProps = {
-  lockCollection: boolean;
+  lockCollection?: boolean;
   defCollection: string;
   collection: string;
   setCollection: Dispatch<SetStateAction<string>>;

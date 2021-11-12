@@ -33,7 +33,7 @@ const ManageSimpleSwapIngredient = ({ templateid, data }: ManageSimpleSwapIngred
 
       <span className="z-10 -bottom-1 -left-2 absolute text-xs rounded-md bg-atomic-tangerine py-2 px-3">
         {isSet(data.template_id)
-          ? `#${ingredient.assetid}`
+          ? `#${ingredient?.assetid}`
           : `${data.collection.collection_name}  #${data.template_id}`}
       </span>
       <Image

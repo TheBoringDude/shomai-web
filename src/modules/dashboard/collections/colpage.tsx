@@ -23,7 +23,7 @@ const CollectionPage = () => {
       <DashLayout title={joinString(colname)}>
         <div className="py-16">
           <div className="w-5/6 mx-auto">
-            <Tab.Group defaultIndex={tabmenus.indexOf(joinString(p)) ?? 0}>
+            <Tab.Group defaultIndex={tabmenus.indexOf(joinString(p ?? '')) ?? 0}>
               <ColHeader />
 
               <hr className="border-gray-400 my-8" />

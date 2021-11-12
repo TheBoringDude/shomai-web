@@ -25,7 +25,7 @@ const TemplatePicker = () => {
 
   useEffect(() => {
     if (template !== selected?.template_id) {
-      setTemplate(selected?.template_id);
+      setTemplate(selected?.template_id ?? '');
       setImage(selected?.immutable_data.img);
     }
   }, [collection, selected, schema, setTemplate, template, setImage]);
@@ -33,11 +33,11 @@ const TemplatePicker = () => {
   return (
     <>
       <ListBox
-        selected={selected ?? {}}
+        selected={selected}
         showtext={
           selected?.immutable_data.name
             ? selected.immutable_data.name + ` (#${selected?.template_id})`
-            : null
+            : undefined
         }
         setSelected={setSelected}
         label="Template ID"
