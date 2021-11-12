@@ -27,7 +27,7 @@ const ShowRefunds = ({ assets }: ShowRefundsProps) => {
           <li key={index} className="relative bg-charcoal py-1 px-2 rounded-xl">
             <span className="absolute text-sm bg-atomic-tangerine text-gunmetal font-black top-0 right-0 py-1 px-2 rounded-md z-30">
               {i.template_mint} /{' '}
-              {i.template.max_supply == '0' ? <>&infin;</> : i.template.max_supply}
+              {i.template?.max_supply == '0' ? <>&infin;</> : i.template?.max_supply}
             </span>
 
             <Image

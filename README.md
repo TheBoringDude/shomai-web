@@ -1,3 +1,3 @@
-# nextjs-tailwind-ts
+# shomai-web
 
-Just my personal starter for NextJS w/ Tailwind in Typescript
+A blending and swapping NFT dApp service provided by World of Cryptopups.
