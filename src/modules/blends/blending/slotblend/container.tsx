@@ -17,8 +17,6 @@ const SlotBlendingContainer = () => {
 
   const [claimid] = useState(genRand());
 
-  console.log(claimid);
-
   const callBlend = async () => {
     const assets = Object.values(ingredients).map((i) => i?.assetid);
 
@@ -88,7 +86,7 @@ const SlotBlendingContainer = () => {
     <div className="my-12 w-11/12 mx-auto">
       <SlotBlendClaim claimid={claimid} open={open} onClose={() => setOpen(false)} />
 
-      <h3 className="text-3xl text-center underline font-black tracking-wide text-deep-champagne">
+      <h3 className="text-2xl md:text-3xl text-center underline font-black tracking-wide text-deep-champagne">
         {config.title}
       </h3>
 

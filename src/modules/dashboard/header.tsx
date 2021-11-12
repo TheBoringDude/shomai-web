@@ -8,7 +8,11 @@ const DashHeader = () => {
   return (
     <header className="bg-gunmetal py-4">
       <nav className="mx-auto w-11/12 flex items-center justify-between">
-        <h1 className="font-black text-xl text-deep-champagne">shomai</h1>
+        <Link href="/d">
+          <a>
+            <h1 className="font-black text-xl text-deep-champagne">shomai</h1>
+          </a>
+        </Link>
 
         <ul className="hidden text-sm text-gray-100 md:flex items-center">
           <li className="mx-4 md:mx-8">
