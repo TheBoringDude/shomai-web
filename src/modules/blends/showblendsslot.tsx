@@ -99,8 +99,10 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
             <span className="absolute -top-1 -left-2 z-10 bg-deep-champagne py-2 px-3 rounded-sm font-bold text-xs text-gunmetal shadow-xl">
               #{i.blenderid}
             </span>
-            <div className="h-80 w-full px-8 text-center flex items-center justify-center">
-              <strong className="text-sage text-xl">{i.title}</strong>
+            <div className="h-80 w-full text-center flex items-center justify-center">
+              <strong className="text-gunmetal text-xl bg-sage px-8 py-20 rounded-lg">
+                {i.title}
+              </strong>
             </div>
           </div>
         ))}

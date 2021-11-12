@@ -5,9 +5,10 @@ import { useCollection } from '../../lib/collections/colprovider';
 
 type ColPageHeaderProps = {
   title: string;
+  description?: string;
 };
 
-const ColPageHeader = ({ title }: ColPageHeaderProps) => {
+const ColPageHeader = ({ title, description }: ColPageHeaderProps) => {
   const { collection, coldata: data } = useCollection();
 
   if (!data) return <EmptyComponent />;
@@ -33,7 +34,10 @@ const ColPageHeader = ({ title }: ColPageHeaderProps) => {
         </div>
       </div>
 
-      <h5 className="text-3xl font-black text-gray-200 tracking-wide">{title}</h5>
+      <div className="text-right">
+        <h5 className="text-3xl font-black text-gray-200 tracking-wide">{title}</h5>
+        <p className="text-gray-400 tracking-wide mt-1">{description}</p>
+      </div>
     </div>
   );
 };
