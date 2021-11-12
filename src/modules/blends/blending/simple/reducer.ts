@@ -3,11 +3,11 @@ import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
 type SimpleBlendingActions = {
   type: 'set-ingredient';
   index: number;
-  value: SimpleAssetIngredient;
+  value: SimpleAssetIngredient | undefined;
 };
 
 const SimpleBlendingReducer = (
-  state: Record<number, SimpleAssetIngredient>,
+  state: Record<number, SimpleAssetIngredient | undefined>,
   action: SimpleBlendingActions
 ) => {
   switch (action.type) {

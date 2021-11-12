@@ -30,13 +30,12 @@ const SimpleBlenderIngredients = () => {
 
   const callBlend = async () => {
     const vs = Object.values(ingredients);
-    const assets = vs.map((i) => i.assetid);
-    const _templates = vs.map((i) => i.template);
+    const assets = vs.map((i) => i?.assetid);
+    const _templates = vs.map((i) => i?.template);
 
     if (_templates.length !== config.ingredients.length) return;
 
     if (JSON.stringify(_templates.sort()) != JSON.stringify(config.ingredients.sort())) {
-      console.log('unequal!');
       return;
     }
 
@@ -102,7 +101,7 @@ const SimpleBlenderIngredients = () => {
     <div className="my-12 w-11/12 mx-auto">
       <h4 className="font-black text-2xl text-gray-100">Ingredients</h4>
 
-      <div className="grid grid-cols-4 gap-6 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center mt-6">
         {config.ingredients.map((i, index) => (
           <ManageIngredient key={index} index={index} templateid={i} data={data?.data} />
         ))}
@@ -113,7 +112,7 @@ const SimpleBlenderIngredients = () => {
       <div className="text-center">
         <h4 className="font-black text-2xl text-gray-100">Target</h4>
 
-        <div className="flex items-center justify-center mt-6">
+        <div className="flex flex-col md:flex-row items-center justify-center mt-6">
           {target && (
             <div className="bg-charcoal p-2 rounded-lg">
               <Image
@@ -126,7 +125,7 @@ const SimpleBlenderIngredients = () => {
             </div>
           )}
 
-          <div className="text-center ml-12">
+          <div className="text-center ml-0 md:ml-12 mt-4 md:mt-0">
             <button
               type="button"
               onClick={callBlend}

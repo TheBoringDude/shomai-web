@@ -11,7 +11,7 @@ const SlotBlendIngredients = () => {
       {/* add ingredients */}
       <div>
         <h4 className="font-black text-2xl text-gray-100">Ingredients</h4>
-        <div className="mt-6 grid grid-cols-4 gap-6 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center mt-6">
           {ingredients.map((i, index) => (
             <div
               key={index}

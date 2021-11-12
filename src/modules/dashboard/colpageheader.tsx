@@ -14,7 +14,7 @@ const ColPageHeader = ({ title, description }: ColPageHeaderProps) => {
   if (!data) return <EmptyComponent />;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col md:flex-row md:items-center justify-between">
       <div className="inline-flex items-center">
         <Image
           src={`https://ipfs.io/ipfs/${data.img}`}
@@ -22,7 +22,7 @@ const ColPageHeader = ({ title, description }: ColPageHeaderProps) => {
           height="80"
           width="80"
           objectFit="contain"
-          className="rounded-lg"
+          className="rounded-lg fixed"
         />
         <div className="ml-3 flex flex-col">
           <Link href={`/d/${collection}`}>
@@ -34,9 +34,9 @@ const ColPageHeader = ({ title, description }: ColPageHeaderProps) => {
         </div>
       </div>
 
-      <div className="text-right">
+      <div className="text-right mt-4 md:mt-0 w-full md:w-2/5 ml-auto">
         <h5 className="text-3xl font-black text-gray-200 tracking-wide">{title}</h5>
-        <p className="text-gray-400 tracking-wide mt-1">{description}</p>
+        <p className="text-gray-400 tracking-wide mt-1 truncate">{description}</p>
       </div>
     </div>
   );

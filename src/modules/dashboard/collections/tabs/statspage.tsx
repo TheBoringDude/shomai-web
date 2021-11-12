@@ -3,8 +3,8 @@ const StatsPage = () => {
     <div>
       <h5 className="text-2xl font-black tracking-wide text-white mb-4 underline">Statistics</h5>
 
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2 py-6 px-8 rounded-lg bg-atomic-tangerine">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        <div className="md:col-span-2 py-6 px-8 rounded-lg bg-atomic-tangerine">
           <p className="text-blueGray-800 mb-2 font-bold uppercase">Total Blends</p>
           <h4 className="mx-3 text-gunmetal font-black text-5xl tracking-wide">12</h4>
         </div>

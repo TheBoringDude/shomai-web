@@ -9,7 +9,7 @@ const Hero = () => {
             Blend <span className="text-atomic-tangerine">NFTs</span>
           </span>{' '}
           <br className="hidden md:block" />
-          to generate and craft a <br />
+          to generate and craft a <br className="hidden md:block" />
           better asset.
         </h2>
 

@@ -10,12 +10,12 @@ const Header = () => {
         </div>
 
         <ul className="text-white flex items-center text-sm">
-          <li className="ml-20">
+          <li className="ml-8 md:ml-20">
             <Link href="/">
               <a className="tracking-wide hover:text-atomic-tangerine">Home</a>
             </Link>
           </li>
-          <li className="ml-20">
+          <li className="ml-8 md:ml-20">
             <HomeLogin />
           </li>
         </ul>

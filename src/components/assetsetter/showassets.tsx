@@ -24,7 +24,7 @@ const ShowAsset = ({ onClose }: ShowAssetProps) => {
 
   return (
     <div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {data?.data
           // this prevents choosing already picked assets
           .filter((i) => !ignoreAssets?.includes(Number(i.asset_id)))

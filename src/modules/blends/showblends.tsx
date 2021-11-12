@@ -72,7 +72,7 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
     <div className="my-4">
       <h4 className="text-xl font-black uppercase tracking-wide text-sage mb-8">{title}</h4>
 
-      <div className="grid grid-cols-4 gap-6 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
         {data?.rows.map((i: SIMPLEBLENDS | SIMPLESWAPS, index) => (
           <div key={index} className="relative bg-gunmetal rounded-lg group">
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">

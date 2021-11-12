@@ -10,8 +10,8 @@ const DashHeader = () => {
       <nav className="mx-auto w-11/12 flex items-center justify-between">
         <h1 className="font-black text-xl text-deep-champagne">shomai</h1>
 
-        <ul className="text-sm text-gray-100 flex items-center">
-          <li className="mx-8">
+        <ul className="hidden text-sm text-gray-100 md:flex items-center">
+          <li className="mx-4 md:mx-8">
             {/* route to collection page if it is under it */}
             <Link href={`/d/${collection ? collection : ''}`}>
               <a className="hover:text-atomic-tangerine tracking-wide font-bold">Collection</a>
@@ -21,12 +21,12 @@ const DashHeader = () => {
           {/* show menus only if under a collection */}
           {collection && (
             <>
-              <li className="mx-8">
+              <li className="mx-4 md:mx-8">
                 <Link href={`/d/${collection}/my-nfts`}>
                   <a className="hover:text-atomic-tangerine tracking-wide font-bold">My NFTs</a>
                 </Link>
               </li>
-              <li className="mx-8">
+              <li className="mx-4 md:mx-8">
                 <Link href={`/d/${collection}/refunds`}>
                   <a className="hover:text-atomic-tangerine tracking-wide font-bold">ReFUND</a>
                 </Link>

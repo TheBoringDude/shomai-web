@@ -12,7 +12,7 @@ const GetCollection = () => {
   }
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col md:flex-row md:items-center justify-between">
       <div className="inline-flex items-center">
         <Image
           src={`https://ipfs.io/ipfs/${data.img}`}
@@ -29,7 +29,7 @@ const GetCollection = () => {
       </div>
 
       {blend && (
-        <div className="inline-flex flex-col items-center">
+        <div className="mt-4 md:mt-0 inline-flex flex-col items-end md:items-center">
           <h5 className="text-lg font-bold text-gray-300">{getBlendTypes(blend)}</h5>
           <strong className="text-2xl font-black text-deep-champagne">#{id}</strong>
         </div>

@@ -12,10 +12,10 @@ const SimpleSwap = () => {
       <SimpleSwapProvider>
         <BlendContainer title="Simple Swap" info="Swap a NFT asset to a different one.">
           <div className="w-11/12 mx-auto">
-            <div className="flex items-center justify-center">
+            <div className="flex flex-col md:flex-row items-center justify-center">
               <SimpleSwapIngredient />
 
-              <span className="text-sage">
+              <span className="text-sage my-10 md:my-0">
                 <SwitchHorizontalIcon className="h-10 w-10 mx-10" />
               </span>
 

@@ -7,9 +7,9 @@ type SimpleSwapProviderProps = {
 
 type SimpleSwapContextProps = {
   ingredient?: SimpleIngredients;
-  setIngredient: Dispatch<SetStateAction<SimpleIngredients>>;
+  setIngredient: Dispatch<SetStateAction<SimpleIngredients | undefined>>;
   target?: SimpleIngredients;
-  setTarget: Dispatch<SetStateAction<SimpleIngredients>>;
+  setTarget: Dispatch<SetStateAction<SimpleIngredients | undefined>>;
 };
 
 const SimpleSwapContext = createContext<SimpleSwapContextProps>({
@@ -18,8 +18,8 @@ const SimpleSwapContext = createContext<SimpleSwapContextProps>({
 });
 
 const SimpleSwapProvider = ({ children }: SimpleSwapProviderProps) => {
-  const [ingredient, setIngredient] = useState<SimpleIngredients>(undefined);
-  const [target, setTarget] = useState<SimpleIngredients>(undefined);
+  const [ingredient, setIngredient] = useState<SimpleIngredients | undefined>(undefined);
+  const [target, setTarget] = useState<SimpleIngredients | undefined>(undefined);
 
   return (
     <SimpleSwapContext.Provider value={{ ingredient, setIngredient, target, setTarget }}>

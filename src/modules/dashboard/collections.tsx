@@ -28,7 +28,7 @@ const ShowCollections = () => {
       <div className="w-5/6 mx-auto">
         <h3 className="text-3xl font-black text-white">Your Collections</h3>
 
-        <div className="w-11/12 mx-auto items-center justify-center grid grid-cols-3 gap-6 mt-12">
+        <div className="w-5/6 mx-auto items-center justify-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {data.data.map((col, index) => (
             <Link href={`/d/${col.collection_name}`} key={index}>
               <a className="flex flex-col text-center relative">

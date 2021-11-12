@@ -34,9 +34,9 @@ const AddIngredientSimple = () => {
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="border-2 border-sage rounded-xl h-64 w-52 flex items-center justify-center"
+        className="border-2 border-sage rounded-xl h-52 xl:h-64 flex items-center justify-center"
       >
-        <p className="text-center text-sage inline-flex flex-col items-center">
+        <p className="text-center text-sage inline-flex flex-col items-center mx-4">
           <PlusCircleIcon className="h-10 w-10" />
           <span className="text-xl font-black">Add Ingredient</span>
         </p>

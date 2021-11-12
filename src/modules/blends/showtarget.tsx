@@ -31,7 +31,7 @@ const ShowTarget = ({ collection, templateid }: ShowTargetProps) => {
   }
 
   return (
-    <div className="relative z-0 text-white text-center mb-4">
+    <div className="mt-4 md:mt-0 flex flex-col relative z-0 text-white text-center mb-4">
       <Image
         src={`https://ipfs.io/ipfs/${data.data.immutable_data.img}`}
         alt={data.data.immutable_data.name}

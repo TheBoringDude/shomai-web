@@ -6,7 +6,7 @@ const ColMenu = () => {
   const authorized = useAuthorized();
 
   return (
-    <Tab.List className="flex items-center text-sm text-white">
+    <Tab.List className="mt-6 lg:mt-0 flex items-center text-sm text-white">
       <Tab
         className={({ selected }) =>
           `flex items-center hover:bg-gunmetal hover:text-deep-champagne rounded-md py-2 px-6 duration-200 ${

@@ -28,8 +28,8 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
       className={`${
         isSet(index)
           ? `bg-charcoal p-2`
-          : `border-2 border-sage group h-64 text-sage px-6 text-center flex items-center justify-center`
-      } relative rounded-xl`}
+          : `border-2 border-sage group h-64 text-sage px-6 text-center`
+      } relative rounded-xl flex items-center justify-center`}
     >
       <PreviewSlotIngredient slot={config} />
 

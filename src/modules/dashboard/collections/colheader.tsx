@@ -9,7 +9,7 @@ const ColHeader = () => {
   if (!data) return <EmptyComponent />;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
       <div className="inline-flex items-center">
         <Image
           src={`https://ipfs.io/ipfs/${data.img}`}

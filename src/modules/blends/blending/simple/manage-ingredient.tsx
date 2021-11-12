@@ -26,12 +26,12 @@ const ManageIngredient = ({ templateid, data, index }: ManageIngredientProps) =>
   };
 
   return (
-    <div className="relative bg-charcoal rounded-xl p-2 group">
+    <div className="relative bg-charcoal rounded-xl p-2 group flex justify-center">
       {isSet(index) ? (
         <button
           type="button"
           onClick={() => {
-            const ignore = ignoreAssets.filter((i) => i !== ingredients[index].assetid);
+            const ignore = ignoreAssets.filter((i) => i !== ingredients[index]?.assetid);
             setIgnoreAssets(ignore);
 
             dispatchIngredients({
@@ -50,7 +50,7 @@ const ManageIngredient = ({ templateid, data, index }: ManageIngredientProps) =>
 
       <span className="z-10 -bottom-1 -left-2 absolute text-xs rounded-md bg-atomic-tangerine py-2 px-3">
         {isSet(index)
-          ? `#${ingredients[index].assetid}`
+          ? `#${ingredients[index]?.assetid}`
           : `${x.collection.collection_name}  #${x.template_id}`}
       </span>
       <Image

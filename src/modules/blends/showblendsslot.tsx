@@ -71,7 +71,7 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
     <div className="my-4">
       <h4 className="text-xl font-black uppercase tracking-wide text-sage mb-8">{title}</h4>
 
-      <div className="grid grid-cols-4 gap-6 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6 items-center">
         {data?.rows.map((i: SLOTBLENDS, index) => (
           <div key={index} className="relative bg-gunmetal rounded-lg group">
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">
@@ -99,10 +99,8 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
             <span className="absolute -top-1 -left-2 z-10 bg-deep-champagne py-2 px-3 rounded-sm font-bold text-xs text-gunmetal shadow-xl">
               #{i.blenderid}
             </span>
-            <div className="h-80 w-full text-center flex items-center justify-center">
-              <strong className="text-gunmetal text-xl bg-sage px-8 py-20 rounded-lg">
-                {i.title}
-              </strong>
+            <div className="h-80 w-11/12 mx-auto text-center flex items-center justify-center bg-sage my-8 rounded-lg">
+              <strong className="text-gunmetal text-xl">{i.title}</strong>
             </div>
           </div>
         ))}

@@ -80,8 +80,8 @@ const SimpleSwapBlendingContainer = () => {
   if (!data) return <></>;
 
   return (
-    <div className="my-12 w-11/12 mx-auto">
-      <div className="flex items-center justify-center">
+    <div className="my-12 w-4/5 md:w-full lg:w-11/12 mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-center">
         <div className="text-center">
           <h4 className="font-black text-2xl text-gray-100">Ingredient</h4>
 
@@ -90,14 +90,14 @@ const SimpleSwapBlendingContainer = () => {
           </div>
         </div>
 
-        <div className="text-center mx-10 inline-flex flex-col items-center">
+        <div className="text-center mx-8 lg:mx-10 inline-flex flex-col items-center my-10 md:my-0">
           <span className="text-sage mb-6">
-            <SwitchHorizontalIcon className="h-10 w-10" />
+            <SwitchHorizontalIcon className="h-8 lg:h-10 w-8 lg:w-10" />
           </span>
           <button
             type="button"
             onClick={callBlend}
-            className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
+            className="bg-deep-champagne hover:bg-atomic-tangerine text-sm lg:text-base py-2 md:py-3 px-6 lg:px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
           >
             <DuplicateIcon className="h-5 w-5" />
             Swap

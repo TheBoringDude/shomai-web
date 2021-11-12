@@ -18,7 +18,7 @@ type SimpleBlendContextProps = {
   ingredients: SimpleIngredients[];
   dispatchIngredients: Dispatch<SimpleBlendActions>;
   target?: SimpleIngredients;
-  setTarget: Dispatch<SetStateAction<SimpleIngredients>>;
+  setTarget: Dispatch<SetStateAction<SimpleIngredients | undefined>>;
 };
 
 const SimpleBlendContext = createContext<SimpleBlendContextProps>({
@@ -29,7 +29,7 @@ const SimpleBlendContext = createContext<SimpleBlendContextProps>({
 
 const SimpleBlendProvider = ({ children }: SimpleBlendProviderProps) => {
   const [state, dispatch] = useReducer(SimpleBlendReducer, []);
-  const [target, setTarget] = useState<SimpleIngredients>(undefined);
+  const [target, setTarget] = useState<SimpleIngredients | undefined>(undefined);
 
   return (
     <SimpleBlendContext.Provider

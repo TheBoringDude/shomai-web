@@ -19,7 +19,7 @@ type SimpleBlendingProviderProps = {
 };
 
 type SimpleBlendingContextProps = {
-  ingredients: Record<number, SimpleAssetIngredient>;
+  ingredients: Record<number, SimpleAssetIngredient | undefined>;
   dispatchIngredients: Dispatch<SimpleBlendingActions>;
   config: SIMPLEBLENDS;
 };
