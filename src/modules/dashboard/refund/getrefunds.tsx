@@ -10,7 +10,7 @@ import { RefundNFTAsset } from '../../../typings/refund';
 import ShowRefunds from './showrefunds';
 
 const GetRefundNFTs = () => {
-  const { user, rpc } = useWaxUser();
+  const { user, rpc, isLoggedIn } = useWaxUser();
   const { collection } = useCollection();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
   const [assets, setAssets] = useState<number[] | undefined>(undefined);
@@ -91,7 +91,7 @@ const GetRefundNFTs = () => {
     <div>
       <div className="text-center my-4">
         {/* show only the refund button if user is logged in and there are assets in it */}
-        {assets.length > 0 && user && (
+        {assets.length > 0 && isLoggedIn && (
           <button
             onClick={callRefund}
             title="Refund All NFTs"

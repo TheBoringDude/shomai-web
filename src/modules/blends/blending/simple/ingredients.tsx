@@ -18,7 +18,7 @@ import { useSimpleBlender } from './provider';
 const SimpleBlenderIngredients = () => {
   const { config, ingredients } = useSimpleBlender();
   const { collection, id } = useBlending();
-  const { user } = useWaxUser();
+  const { user, isLoggedIn } = useWaxUser();
 
   const { data } = useSWR<AtomicRequest<ITemplate[]>>(
     config ? GET_COLLECTION_TEMPLATES(collection, undefined, config.ingredients) : null,
@@ -141,16 +141,18 @@ const SimpleBlenderIngredients = () => {
             </div>
           )}
 
-          <div className="text-center ml-0 md:ml-12 mt-4 md:mt-0">
-            <button
-              type="button"
-              onClick={callBlend}
-              className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
-            >
-              <DuplicateIcon className="h-5 w-5" />
-              Blend
-            </button>
-          </div>
+          {isLoggedIn && (
+            <div className="text-center ml-0 md:ml-12 mt-4 md:mt-0">
+              <button
+                type="button"
+                onClick={callBlend}
+                className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
+              >
+                <DuplicateIcon className="h-5 w-5" />
+                Blend
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

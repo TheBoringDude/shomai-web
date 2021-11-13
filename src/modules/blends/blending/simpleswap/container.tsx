@@ -15,7 +15,7 @@ import { useSimpleSwapBlender } from './provider';
 const SimpleSwapBlendingContainer = () => {
   const { collection, id } = useBlending();
   const { config, ingredient } = useSimpleSwapBlender();
-  const { user } = useWaxUser();
+  const { user, isLoggedIn } = useWaxUser();
   const { data } = useSWR<AtomicRequest<ITemplate>>(
     config ? GET_COLLECTION_TEMPLATE(collection, config.ingredient) : null,
     fetcher
@@ -113,14 +113,16 @@ const SimpleSwapBlendingContainer = () => {
           <span className="text-sage mb-6">
             <SwitchHorizontalIcon className="h-8 lg:h-10 w-8 lg:w-10" />
           </span>
-          <button
-            type="button"
-            onClick={callBlend}
-            className="bg-deep-champagne hover:bg-atomic-tangerine text-sm lg:text-base py-2 md:py-3 px-6 lg:px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
-          >
-            <DuplicateIcon className="h-5 w-5" />
-            Swap
-          </button>
+          {isLoggedIn && (
+            <button
+              type="button"
+              onClick={callBlend}
+              className="bg-deep-champagne hover:bg-atomic-tangerine text-sm lg:text-base py-2 md:py-3 px-6 lg:px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
+            >
+              <DuplicateIcon className="h-5 w-5" />
+              Swap
+            </button>
+          )}
         </div>
 
         <div className="text-center">

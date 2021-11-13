@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { XCircleIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { SlotIngredients } from '../../../../typings/blends/ingredients';
@@ -13,6 +14,8 @@ type SlotManageIngredientProps = {
 const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
   const { dispatchIngredients, ingredients } = useSlotBlender();
   const { ignoreAssets, setIgnoreAssets } = useBlending();
+
+  const { isLoggedIn } = useWaxUser();
 
   const isSet = (t: number) => {
     const x = ingredients[t];
@@ -33,27 +36,28 @@ const SlotManageIngredient = ({ config, index }: SlotManageIngredientProps) => {
     >
       <PreviewSlotIngredient slot={config} />
 
-      {isSet(index) ? (
-        <>
-          <span className="z-20 absolute top-0 left-0 bg-deep-champagne text-gunmetal font-bold p-1 rounded-lg text-xs">
-            #{ingredients[index]?.mint}
-          </span>
+      {isLoggedIn &&
+        (isSet(index) ? (
+          <>
+            <span className="z-20 absolute top-0 left-0 bg-deep-champagne text-gunmetal font-bold p-1 rounded-lg text-xs">
+              #{ingredients[index]?.mint}
+            </span>
 
-          <button
-            onClick={() => {
-              const ignore = ignoreAssets.filter((i) => i !== ingredients[index]?.assetid);
-              setIgnoreAssets(ignore);
+            <button
+              onClick={() => {
+                const ignore = ignoreAssets.filter((i) => i !== ingredients[index]?.assetid);
+                setIgnoreAssets(ignore);
 
-              dispatchIngredients({ type: 'set-ingredient', index, value: undefined });
-            }}
-            className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
-          >
-            <XCircleIcon className="w-8 h-8" />
-          </button>
-        </>
-      ) : (
-        <SlotSetAsset config={config} index={index} />
-      )}
+                dispatchIngredients({ type: 'set-ingredient', index, value: undefined });
+              }}
+              className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
+            >
+              <XCircleIcon className="w-8 h-8" />
+            </button>
+          </>
+        ) : (
+          <SlotSetAsset config={config} index={index} />
+        ))}
 
       {isSet(index) ? (
         <>

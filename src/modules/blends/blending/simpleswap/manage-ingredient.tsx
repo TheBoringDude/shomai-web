@@ -1,3 +1,4 @@
+import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { ITemplate } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
@@ -11,25 +12,28 @@ type ManageSimpleSwapIngredientProps = {
 const ManageSimpleSwapIngredient = ({ templateid, data }: ManageSimpleSwapIngredientProps) => {
   const { ingredient, setIngredient } = useSimpleSwapBlender();
 
+  const { isLoggedIn } = useWaxUser();
+
   const isSet = (t: string) => {
     return t === String(ingredient?.template);
   };
 
   return (
     <div className="relative bg-charcoal rounded-xl p-2 group">
-      {isSet(data.template_id) ? (
-        <button
-          type="button"
-          onClick={() => {
-            setIngredient(undefined);
-          }}
-          className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
-        >
-          <XCircleIcon className="w-8 h-8" />
-        </button>
-      ) : (
-        <SetSimpleSwapAsset templateid={templateid} />
-      )}
+      {isLoggedIn &&
+        (isSet(data.template_id) ? (
+          <button
+            type="button"
+            onClick={() => {
+              setIngredient(undefined);
+            }}
+            className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
+          >
+            <XCircleIcon className="w-8 h-8" />
+          </button>
+        ) : (
+          <SetSimpleSwapAsset templateid={templateid} />
+        ))}
 
       <span className="z-10 -bottom-1 -left-2 absolute text-sm rounded-md bg-atomic-tangerine py-2 px-3">
         {isSet(data.template_id)

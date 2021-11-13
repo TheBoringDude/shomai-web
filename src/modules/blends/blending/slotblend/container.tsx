@@ -11,10 +11,10 @@ import SlotBlendClaim from './showclaims';
 import SlotBlendingTargets from './targets';
 
 const SlotBlendingContainer = () => {
-  const { user } = useWaxUser();
+  const { id, collection } = useBlending();
+  const { user, isLoggedIn } = useWaxUser();
   const { config, config_target, ingredients } = useSlotBlender();
   const [open, setOpen] = useState(false);
-  const { id, collection } = useBlending();
 
   const [claimid] = useState(genRand());
 
@@ -113,14 +113,16 @@ const SlotBlendingContainer = () => {
       <SlotBlendingTargets />
 
       <div className="text-center mt-12">
-        <button
-          type="button"
-          onClick={callBlend}
-          className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
-        >
-          <DuplicateIcon className="h-5 w-5" />
-          Blend
-        </button>
+        {isLoggedIn && (
+          <button
+            type="button"
+            onClick={callBlend}
+            className="bg-deep-champagne hover:bg-atomic-tangerine py-3 px-12 rounded-lg duration-300 inline-flex items-center font-black uppercase tracking-wide text-gunmetal"
+          >
+            <DuplicateIcon className="h-5 w-5" />
+            Blend
+          </button>
+        )}
       </div>
     </div>
   );
