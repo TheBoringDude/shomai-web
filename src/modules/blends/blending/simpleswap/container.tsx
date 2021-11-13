@@ -2,6 +2,7 @@ import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { DuplicateIcon, SwitchHorizontalIcon } from '@heroicons/react/solid';
 import { ITemplate } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import { GET_COLLECTION_TEMPLATE } from '../../../../lib/account/getauthcol';
 import { fetcher } from '../../../../lib/fetcher';
@@ -54,27 +55,45 @@ const SimpleSwapBlendingContainer = () => {
         ]
       })
       .then(async () =>
-        session.transact({
-          actions: [
-            {
-              account: dapp,
-              name: 'callswsimple',
-              authorization: [
-                {
-                  actor: user.wallet,
-                  permission: user.permission ?? 'active'
+        session
+          .transact({
+            actions: [
+              {
+                account: dapp,
+                name: 'callswsimple',
+                authorization: [
+                  {
+                    actor: user.wallet,
+                    permission: user.permission ?? 'active'
+                  }
+                ],
+                data: {
+                  blenderid: id,
+                  blender: user.wallet,
+                  scope: collection,
+                  asset: ingredient.assetid
                 }
-              ],
-              data: {
-                blenderid: id,
-                blender: user.wallet,
-                scope: collection,
-                asset: ingredient.assetid
               }
-            }
-          ]
-        })
-      );
+            ]
+          })
+          .then((r) => {
+            console.log(r);
+
+            toast.success('Swap is successful! You can check your asset in the My NFTs page.');
+          })
+          .catch((e) => {
+            console.error(e);
+
+            toast.error(
+              'Failed to swap. If problem persists, please report in the community server.'
+            );
+          })
+      )
+      .catch((e) => {
+        console.error(e);
+
+        toast.error('Failed to transfer assets for swap.');
+      });
   };
 
   if (!data) return <></>;

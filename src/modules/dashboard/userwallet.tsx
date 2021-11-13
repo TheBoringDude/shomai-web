@@ -3,6 +3,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { ArrowRightIcon, ChartSquareBarIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
+import { LinkButton } from '../../components/LinkButton';
 import { GET_WALLET_BALANCE } from '../../lib/account/getwallet';
 import { postFetcher } from '../../lib/fetcher';
 import AuthLogin from '../auth/login';
@@ -35,7 +36,7 @@ const UserWallet = () => {
     };
 
     f();
-  });
+  }, [user]);
 
   return (
     <>
@@ -75,13 +76,13 @@ const UserWallet = () => {
             <Menu.Items className="absolute z-20 right-0 w-56 mt-2 origin-top-right bg-deep-champagne divide-y rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1 px-4">
                 <Menu.Item>
-                  <button
-                    onClick={() => router.push('/d')}
+                  <LinkButton
+                    href="/d"
                     className="hover:bg-sage group flex rounded-md items-center w-full px-2 py-2 text-sm my-1"
                   >
                     <ChartSquareBarIcon className="w-5 h-5 mr-2" aria-hidden="true" />
                     My Collections
-                  </button>
+                  </LinkButton>
                 </Menu.Item>
                 <Menu.Item>
                   <button

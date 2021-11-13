@@ -1,10 +1,14 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { useCollection } from '../../../lib/collections/colprovider';
 import { dapp } from '../../../lib/waxnet';
 import { useSimpleBlend } from './provider';
 
 const CallAction = () => {
+  const router = useRouter();
+
   const { collection } = useCollection();
   const { user } = useWaxUser();
   const { ingredients, target } = useSimpleBlend();
@@ -18,26 +22,42 @@ const CallAction = () => {
 
     const _ingredients = ingredients.map((i) => Number(i.template));
 
-    await session.transact({
-      actions: [
-        {
-          account: dapp,
-          name: 'makeblsimple',
-          authorization: [
-            {
-              actor: user.wallet,
-              permission: user.permission ?? 'active'
+    await session
+      .transact({
+        actions: [
+          {
+            account: dapp,
+            name: 'makeblsimple',
+            authorization: [
+              {
+                actor: user.wallet,
+                permission: user.permission ?? 'active'
+              }
+            ],
+            data: {
+              author: user.wallet,
+              collection: target.collection,
+              target: Number(target.template),
+              ingredients: _ingredients
             }
-          ],
-          data: {
-            author: user.wallet,
-            collection: target.collection,
-            target: Number(target.template),
-            ingredients: _ingredients
           }
-        }
-      ]
-    });
+        ]
+      })
+      .then((r) => {
+        console.log(r);
+
+        // show toast success
+        toast.success('Successfully created a new simple blend.');
+
+        // route back to dashboard blends tab
+        router.push(`/d/${collection}?p=blends`);
+      })
+      .catch((e) => {
+        console.error(e);
+
+        // show toast error
+        toast.error(String(e));
+      });
   };
   return (
     <div className="mt-12 text-center flex items-center justify-center">

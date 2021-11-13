@@ -2,6 +2,7 @@ import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { Dialog } from '@headlessui/react';
 import { ArrowNarrowLeftIcon } from '@heroicons/react/solid';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Dialogs from '../../../../components/Dialogs';
 import { useCollection } from '../../../../lib/collections/colprovider';
 import { dapp } from '../../../../lib/waxnet';
@@ -21,6 +22,7 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
   const { id } = useBlending();
 
   const [data, setData] = useState<CLAIMASSET | undefined>(undefined);
+  const [claimed, setClaimed] = useState(false);
 
   const claimBlend = async (claim: CLAIMASSET) => {
     if (!user) return;
@@ -48,7 +50,19 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
           }
         ]
       })
-      .then(() => onClose());
+      .then((r) => {
+        console.log(r);
+
+        setClaimed(true);
+        toast.success('Sucessfully claimed blend asset!');
+
+        onClose();
+      })
+      .catch((e) => {
+        console.error(e);
+
+        toast.error('Failed to claim blend asset.');
+      });
   };
 
   useEffect(() => {
@@ -79,7 +93,11 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
   return (
     <Dialogs
       open={open}
-      onClose={onClose}
+      onClose={() => {
+        if (claimed) {
+          onClose();
+        }
+      }}
       className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-gunmetal shadow-xl rounded-2xl"
     >
       <Dialog.Title as="h4" className="font-black text-white text-2xl">
@@ -88,7 +106,7 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
       <Dialog.Description className="text-white mt-1">Claim your NFT from blend</Dialog.Description>
 
       <div className="mt-6">
-        {data && (
+        {data ? (
           <div className="flex items-center justify-center">
             <ShowClaimsAsset claim={data} />
 
@@ -100,6 +118,15 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
               <ArrowNarrowLeftIcon className="h-5 w-5 mr-2" />
               Claim
             </button>
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <div className="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         )}
       </div>

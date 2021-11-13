@@ -1,6 +1,7 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { DuplicateIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import genRand from '../../../../lib/claim';
 import { dapp } from '../../../../lib/waxnet';
 import { useBlending } from '../blending-provider';
@@ -77,8 +78,21 @@ const SlotBlendingContainer = () => {
             if (config_target.targets.length > 1) {
               setOpen(true);
             }
+
+            toast.info('Waiting for blend....');
           })
-          .catch((e) => console.error(e));
+          .catch((e) => {
+            console.error(e);
+
+            toast.error(
+              'Failed to blend. If problem persists, please report in the community server.'
+            );
+          });
+      })
+      .catch((e) => {
+        console.error(e);
+
+        toast.error('Failed to transfer assets for blending.');
       });
   };
 

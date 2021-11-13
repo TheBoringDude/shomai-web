@@ -2,19 +2,19 @@
     Just a <Link> wrapper button.
 */
 
-import { ReactNode } from 'react';
 import Link from 'next/link';
+import { AnchorHTMLAttributes } from 'react';
 
-type LinkButtonProps = {
+interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
-  className?: string;
-  children: ReactNode;
 };
 
-export const LinkButton = ({ href, className, children }: LinkButtonProps) => {
+export const LinkButton = (props: LinkButtonProps) => {
+  const {href, children} = props;
+
   return (
     <Link href={href}>
-      <a className={className}>{children}</a>
+      <a {...props}>{children}</a>
     </Link>
   );
 };

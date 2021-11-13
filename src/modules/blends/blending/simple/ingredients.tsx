@@ -2,6 +2,7 @@ import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { DuplicateIcon } from '@heroicons/react/solid';
 import { ITemplate } from 'atomicassets/build/API/Explorer/Objects';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import {
   GET_COLLECTION_TEMPLATE,
@@ -67,29 +68,44 @@ const SimpleBlenderIngredients = () => {
       })
       .then(
         async () =>
-          await session.transact({
-            actions: [
-              {
-                account: dapp,
-                name: 'callblsimple',
-                authorization: [
-                  {
-                    actor: user.wallet,
-                    permission: user.permission ?? 'active'
+          await session
+            .transact({
+              actions: [
+                {
+                  account: dapp,
+                  name: 'callblsimple',
+                  authorization: [
+                    {
+                      actor: user.wallet,
+                      permission: user.permission ?? 'active'
+                    }
+                  ],
+                  data: {
+                    blenderid: id,
+                    blender: user.wallet,
+                    scope: collection,
+                    assetids: assets
                   }
-                ],
-                data: {
-                  blenderid: id,
-                  blender: user.wallet,
-                  scope: collection,
-                  assetids: assets
                 }
-              }
-            ]
-          })
+              ]
+            })
+            .then((r) => {
+              console.log(r);
+
+              toast.success('Blend is successful! You can check your asset in the My NFTs page.');
+            })
+            .catch((e) => {
+              console.error(e);
+
+              toast.error(
+                'Failed to blend. If problem persists, please report in the community server.'
+              );
+            })
       )
       .catch((e) => {
         console.error(e);
+
+        toast.error('Failed to transfer assets for blending.');
       });
   };
 

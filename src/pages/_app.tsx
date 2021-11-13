@@ -1,5 +1,7 @@
 import WaxAuthProvider from '@cryptopuppie/next-waxauth';
 import type { AppProps } from 'next/app';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import DefaultLayout from '../layouts/Default';
 import { chainId, dapp, endpoint } from '../lib/waxnet';
 import '../styles/tailwind.css';
@@ -9,6 +11,14 @@ export default function ShomaiBlends({ Component, pageProps }: AppProps) {
     <WaxAuthProvider net={{ endpoint, chainId, dApp: dapp }}>
       <DefaultLayout>
         <Component {...pageProps} />
+
+        <ToastContainer
+          closeOnClick
+          autoClose={5000}
+          draggable
+          theme="colored"
+          className="text-sm"
+        />
       </DefaultLayout>
     </WaxAuthProvider>
   );

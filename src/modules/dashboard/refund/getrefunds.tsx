@@ -2,6 +2,7 @@ import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { ReceiptRefundIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import EmptyComponent from '../../../components/empty-component';
 import { useCollection } from '../../../lib/collections/colprovider';
 import { dapp } from '../../../lib/waxnet';
@@ -22,25 +23,36 @@ const GetRefundNFTs = () => {
     const session = await user.session();
     if (!session) return;
 
-    await session.transact({
-      actions: [
-        {
-          account: dapp,
-          name: 'refundnfts',
-          authorization: [
-            {
-              actor: user.wallet,
-              permission: user.permission ?? 'active'
+    await session
+      .transact({
+        actions: [
+          {
+            account: dapp,
+            name: 'refundnfts',
+            authorization: [
+              {
+                actor: user.wallet,
+                permission: user.permission ?? 'active'
+              }
+            ],
+            data: {
+              user: user.wallet,
+              scope: collection,
+              assetids: assets
             }
-          ],
-          data: {
-            user: user.wallet,
-            scope: collection,
-            assetids: assets
           }
-        }
-      ]
-    });
+        ]
+      })
+      .then((r) => {
+        console.log(r);
+
+        toast.success('All assets has been refunded back to your wallet.');
+      })
+      .catch((e) => {
+        console.error(e);
+
+        toast.error('Failed to refund assets.');
+      });
   };
 
   useEffect(() => {

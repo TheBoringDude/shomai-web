@@ -1,10 +1,14 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { useCollection } from '../../../lib/collections/colprovider';
 import { dapp } from '../../../lib/waxnet';
 import { useSimpleSwap } from './provider';
 
 const CallSimpleSwapAction = () => {
+  const router = useRouter();
+
   const { collection } = useCollection();
   const { user } = useWaxUser();
   const { ingredient, target } = useSimpleSwap();
@@ -17,26 +21,42 @@ const CallSimpleSwapAction = () => {
     const session = await user.session();
     if (!session) return;
 
-    await session.transact({
-      actions: [
-        {
-          account: dapp,
-          name: 'makeswsimple',
-          authorization: [
-            {
-              actor: user.wallet,
-              permission: user.permission ?? 'active'
+    await session
+      .transact({
+        actions: [
+          {
+            account: dapp,
+            name: 'makeswsimple',
+            authorization: [
+              {
+                actor: user.wallet,
+                permission: user.permission ?? 'active'
+              }
+            ],
+            data: {
+              author: user.wallet,
+              collection: target.collection,
+              target: Number(target.template),
+              ingredient: Number(ingredient.template)
             }
-          ],
-          data: {
-            author: user.wallet,
-            collection: target.collection,
-            target: Number(target.template),
-            ingredient: Number(ingredient.template)
           }
-        }
-      ]
-    });
+        ]
+      })
+      .then((r) => {
+        console.log(r);
+
+        // show toast success
+        toast.success('Successfully created a new simple swap.');
+
+        // route back to dashboard blends tab
+        router.push(`/d/${collection}?p=blends`);
+      })
+      .catch((e) => {
+        console.error(e);
+
+        // show toast error
+        toast.error(String(e));
+      });
   };
   return (
     <div className="mt-12 text-center flex items-center justify-center">

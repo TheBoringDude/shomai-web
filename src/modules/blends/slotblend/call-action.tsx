@@ -1,10 +1,14 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { useCollection } from '../../../lib/collections/colprovider';
 import { dapp } from '../../../lib/waxnet';
 import { useSlotBlend } from './provider';
 
 const SlotCallAction = () => {
+  const router = useRouter();
+
   const { collection } = useCollection();
   const { user } = useWaxUser();
   const { ingredients, targets, title } = useSlotBlend();
@@ -42,8 +46,6 @@ const SlotCallAction = () => {
       };
     });
 
-    console.log(_ingredients);
-
     await session
       .transact({
         actions: [
@@ -68,9 +70,18 @@ const SlotCallAction = () => {
       })
       .then((r) => {
         console.log(r);
+
+        // show toast success
+        toast.success('Successfully created a new slot blend.');
+
+        // route back to dashboard blends tab
+        router.push(`/d/${collection}?p=blends`);
       })
       .catch((e) => {
         console.error(e);
+
+        // show toast error
+        toast.error(String(e));
       });
   };
   return (

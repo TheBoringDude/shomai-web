@@ -2,7 +2,9 @@ import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { LinkIcon, TrashIcon } from '@heroicons/react/solid';
 import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useCollection } from '../../lib/collections/colprovider';
 import useAuthorized from '../../lib/hooks/useAuthorized';
 import { dapp } from '../../lib/waxnet';
@@ -15,8 +17,10 @@ type ShowBlendsSlotProps = {
   action: string;
 };
 const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => {
-  const { user, rpc } = useWaxUser();
+  const router = useRouter();
+
   const { collection } = useCollection();
+  const { user, rpc } = useWaxUser();
   const authorized = useAuthorized();
   const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
 
@@ -26,27 +30,41 @@ const ShowBlendsSlot = ({ title, table, type, action }: ShowBlendsSlotProps) => 
     const session = await user.session();
     if (!session) return;
 
-    await session
-      .transact({
-        actions: [
-          {
-            account: dapp,
-            name: action,
-            authorization: [
-              {
-                actor: user.wallet,
-                permission: user.permission ?? 'active'
+    try {
+      await session
+        .transact({
+          actions: [
+            {
+              account: dapp,
+              name: action,
+              authorization: [
+                {
+                  actor: user.wallet,
+                  permission: user.permission ?? 'active'
+                }
+              ],
+              data: {
+                user: user.wallet,
+                scope: col,
+                blenderid
               }
-            ],
-            data: {
-              user: user.wallet,
-              scope: col,
-              blenderid
             }
-          }
-        ]
-      })
-      .then(() => setData(undefined));
+          ]
+        })
+        .then((r) => {
+          console.log(r);
+
+          setData(undefined);
+
+          // show toast success
+          toast.success('Successfully removed blend.');
+        });
+    } catch (e) {
+      console.error(e);
+
+      // show toast error
+      toast.error(String(e));
+    }
   };
 
   useEffect(() => {
