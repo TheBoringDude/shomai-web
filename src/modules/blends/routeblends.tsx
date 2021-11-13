@@ -11,22 +11,24 @@ type RouteBlendsProps = {
 const RouteBlends = ({ children }: RouteBlendsProps) => {
   const router = useRouter();
   const { user, isLoggedIn } = useWaxUser();
-  const { coldata } = useCollection();
+  const { collection, coldata, servicelist } = useCollection();
   const mounted = useHasMounted();
 
   useEffect(() => {
     if (mounted) {
       if (!coldata) return;
+      if (!servicelist) return;
 
       // verify if user is authorized by collection
-      const authorized = coldata?.authorized_accounts.includes(user?.wallet ?? '');
+      const authorized = coldata.authorized_accounts.includes(user?.wallet ?? '');
+      const isWhitelisted = servicelist.whitelists.includes(collection);
 
-      if (!authorized) {
+      if (!authorized || !isWhitelisted) {
         // if not authorized, router push to the collections page
         router.push(`/d/${coldata.collection_name}?p=blends`);
       }
     }
-  }, [user, coldata, router, mounted, isLoggedIn]);
+  }, [user, coldata, router, mounted, isLoggedIn, servicelist, collection]);
 
   if (!user || !coldata) return <EmptyComponent />;
 
