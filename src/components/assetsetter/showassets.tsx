@@ -15,7 +15,7 @@ type ShowAssetProps = {
 const ShowAsset = ({ onClose }: ShowAssetProps) => {
   const { user } = useWaxUser();
   const { defCollection, templateid, pick, ignoreAssets } = useAssetSetter();
-  const [selected, setSelected] = useState<number | undefined>(undefined);
+  const [selected, setSelected] = useState<IAsset | undefined>(undefined);
 
   const { data } = useSWR<AtomicRequest<IAsset[]>>(
     GET_TEMPLATE_ASSETS(defCollection, templateid, user?.wallet ?? ''),
@@ -32,18 +32,20 @@ const ShowAsset = ({ onClose }: ShowAssetProps) => {
             <button
               key={index}
               type="button"
-              onClick={() => setSelected(Number(i.asset_id))}
+              onClick={() => setSelected(i)}
               className={`${
-                selected?.toString() === i.asset_id
-                  ? `border-2 border-deep-champagne rounded-xl`
-                  : ''
-              }`}
+                selected?.asset_id === i.asset_id ? `border-2 border-deep-champagne rounded-xl` : ''
+              } relative`}
             >
+              <span className="z-20 absolute top-0 right-0 bg-deep-champagne text-gunmetal font-bold p-1 rounded-lg text-xs">
+                #{i.template_mint}
+              </span>
+
               <Image
                 src={`https://ipfs.io/ipfs/${i.data.img}`}
                 alt={i.name}
-                height="200"
-                width="150"
+                height="250"
+                width="175"
                 objectFit="contain"
               />
             </button>
@@ -55,7 +57,7 @@ const ShowAsset = ({ onClose }: ShowAssetProps) => {
           onClick={() => {
             if (!selected) return;
 
-            pick(selected);
+            pick(Number(selected.asset_id), Number(selected.template_mint));
           }}
           className="py-3 px-12 mx-1 rounded-lg bg-deep-champagne hover:bg-atomic-tangerine text-sm"
           type="submit"

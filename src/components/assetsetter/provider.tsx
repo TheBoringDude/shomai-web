@@ -6,7 +6,7 @@ type AssetSetterProviderProps = {
   defCollection: string;
   templateid: number;
   ignoreAssets: number[];
-  pick: (assetid: number) => void;
+  pick: (assetid: number, mint: number) => void;
 };
 
 type AssetSetterContextProps = {
@@ -15,7 +15,7 @@ type AssetSetterContextProps = {
   defCollection: string;
   templateid: number;
   ignoreAssets: number[];
-  pick: (assetid: number) => void;
+  pick: (assetid: number, mint: number) => void;
 };
 
 const AssetSetterContext = createContext<AssetSetterContextProps>({

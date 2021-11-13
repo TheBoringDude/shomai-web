@@ -7,6 +7,7 @@ type SimpleIngredients = {
 
 type SimpleAssetIngredient = {
   assetid: number;
+  mint: number;
   template: number;
 };
 
@@ -16,6 +17,7 @@ interface SlotAssetIngredient {
   template: number;
   image: string;
   name: string;
+  mint: number;
 }
 
 interface SlotBlendSchemaIngredientProps {

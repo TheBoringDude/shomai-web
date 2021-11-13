@@ -16,7 +16,7 @@ const SetAsset = ({ templateid, index }: SetAssetProps) => {
   const { ignoreAssets, setIgnoreAssets } = useBlending();
   const [open, setOpen] = useState(false);
 
-  const pick = (asset: number) => {
+  const pick = (asset: number, mint: number) => {
     if (!asset) return;
 
     dispatchIngredients({
@@ -24,7 +24,8 @@ const SetAsset = ({ templateid, index }: SetAssetProps) => {
       index,
       value: {
         assetid: asset,
-        template: templateid
+        template: templateid,
+        mint
       }
     });
 
