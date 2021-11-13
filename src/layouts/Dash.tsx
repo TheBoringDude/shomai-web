@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import DashFooter from '../modules/dashboard/footer';
 import DashHeader from '../modules/dashboard/header';
 import ServiceInfo from '../modules/dashboard/serviceinfo';
 import PageLayout from './Page';
@@ -16,6 +17,8 @@ const DashLayout = ({ title, description, children }: DashLayoutProps) => {
       <ServiceInfo />
 
       {children}
+
+      <DashFooter />
     </PageLayout>
   );
 };
