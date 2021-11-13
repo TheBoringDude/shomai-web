@@ -22,15 +22,20 @@ const ManageSimpleSwapIngredient = ({ templateid, data }: ManageSimpleSwapIngred
     <div className="relative bg-charcoal rounded-xl p-2 group">
       {isLoggedIn &&
         (isSet(data.template_id) ? (
-          <button
-            type="button"
-            onClick={() => {
-              setIngredient(undefined);
-            }}
-            className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
-          >
-            <XCircleIcon className="w-8 h-8" />
-          </button>
+          <>
+            <span className="z-20 absolute top-0 left-0 bg-deep-champagne text-gunmetal font-bold p-1 rounded-lg text-xs">
+              #{ingredient?.mint}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setIngredient(undefined);
+              }}
+              className="absolute z-10 -top-2 -right-2 hover:scale-105 transform text-sage"
+            >
+              <XCircleIcon className="w-8 h-8" />
+            </button>
+          </>
         ) : (
           <SetSimpleSwapAsset templateid={templateid} />
         ))}

@@ -15,10 +15,10 @@ const SetSimpleSwapAsset = ({ templateid }: SetSimpleSwapAssetProps) => {
   const { ignoreAssets } = useBlending();
   const [open, setOpen] = useState(false);
 
-  const pick = (asset: number) => {
+  const pick = (asset: number, mint: number) => {
     if (!asset) return;
 
-    setIngredient({ assetid: asset, template: templateid });
+    setIngredient({ assetid: asset, template: templateid, mint });
 
     setOpen(false);
   };
