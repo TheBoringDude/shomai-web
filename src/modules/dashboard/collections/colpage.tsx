@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import DashLayout from '../../../layouts/Dash';
 import ColProvider from '../../../lib/collections/colprovider';
 import joinString from '../../../lib/joinstring';
+import DashProvider from '../dashprovider';
 import ColHeader from './colheader';
 import BlendPage from './tabs/blendpage';
 import SettingsPage from './tabs/settingspage';
@@ -21,27 +22,29 @@ const CollectionPage = () => {
   return (
     <ColProvider collection={joinString(colname)}>
       <DashLayout title={joinString(colname)}>
-        <div className="py-16">
-          <div className="w-5/6 mx-auto">
-            <Tab.Group defaultIndex={tabmenus.indexOf(joinString(p ?? '')) ?? 0}>
-              <ColHeader />
+        <DashProvider>
+          <div className="py-16">
+            <div className="w-5/6 mx-auto">
+              <Tab.Group defaultIndex={tabmenus.indexOf(joinString(p ?? '')) ?? 0}>
+                <ColHeader />
 
-              <hr className="border-gray-400 my-8" />
+                <hr className="border-gray-400 my-8" />
 
-              <Tab.Panels className="mt-6 w-11/12 mx-auto">
-                <Tab.Panel>
-                  <StatsPage />
-                </Tab.Panel>
-                <Tab.Panel>
-                  <BlendPage />
-                </Tab.Panel>
-                <Tab.Panel>
-                  <SettingsPage />
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
+                <Tab.Panels className="mt-6 w-11/12 mx-auto">
+                  <Tab.Panel>
+                    <StatsPage />
+                  </Tab.Panel>
+                  <Tab.Panel>
+                    <BlendPage />
+                  </Tab.Panel>
+                  <Tab.Panel>
+                    <SettingsPage />
+                  </Tab.Panel>
+                </Tab.Panels>
+              </Tab.Group>
+            </div>
           </div>
-        </div>
+        </DashProvider>
       </DashLayout>
     </ColProvider>
   );
