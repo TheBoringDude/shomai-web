@@ -1,30 +1,35 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { LinkIcon, TrashIcon } from '@heroicons/react/solid';
-import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { toast } from 'react-toastify';
+import { mutate } from 'swr';
 import { useCollection } from '../../lib/collections/colprovider';
 import useAuthorized from '../../lib/hooks/useAuthorized';
 import { dapp } from '../../lib/waxnet';
+import { BASEBLENDINFO_PROPS, COLLECTIONBLENDS_PROPS } from '../../typings/api';
 import { SIMPLEBLENDS, SIMPLESWAPS } from '../../typings/blends/blends';
+import { useDashboard } from '../dashboard/dashprovider';
 import ShowTarget from './showtarget';
 
 type ShowBlendsProps = {
-  title: string;
   table: string;
   type: string;
   action: string;
 };
-const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
-  const router = useRouter();
-
-  const { collection } = useCollection();
-  const { user, rpc } = useWaxUser();
+const ShowBlends = ({ table, type, action }: ShowBlendsProps) => {
+  const { user } = useWaxUser();
   const authorized = useAuthorized();
+  const { blends } = useDashboard();
+  const { collection } = useCollection();
 
-  const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
+  const _blend = useMemo(() => {
+    if (!blends) return;
+
+    return blends[table as keyof COLLECTIONBLENDS_PROPS] as
+      | BASEBLENDINFO_PROPS<SIMPLEBLENDS[]>
+      | BASEBLENDINFO_PROPS<SIMPLESWAPS[]>;
+  }, [blends, table]);
 
   const removeAction = async (col: string, blenderid: number) => {
     if (!user) return;
@@ -56,7 +61,7 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
         .then((r) => {
           console.log(r);
 
-          setData(undefined);
+          mutate(process.env.NEXT_PUBLIC_SHOMAI_API + `/blends/${collection}`);
 
           // show toast success
           toast.success('Successfully removed blend.');
@@ -69,30 +74,12 @@ const ShowBlends = ({ title, table, type, action }: ShowBlendsProps) => {
     }
   };
 
-  useEffect(() => {
-    const f = async () => {
-      if (data) return;
-
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        table: table,
-        scope: collection,
-        limit: 999
-      });
-
-      setData(x);
-    };
-
-    f();
-  }, [collection, data, rpc, table]);
-
   return (
     <div className="my-4">
-      <h4 className="text-xl font-black uppercase tracking-wide text-sage mb-8">{title}</h4>
+      <h4 className="text-xl font-black uppercase tracking-wide text-sage mb-8">{_blend?.info}</h4>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
-        {data?.rows.map((i: SIMPLEBLENDS | SIMPLESWAPS, index) => (
+        {_blend?.data.map((i, index) => (
           <div key={index} className="relative bg-gunmetal rounded-lg group">
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">
               <div className="inline-flex flex-col items-center">

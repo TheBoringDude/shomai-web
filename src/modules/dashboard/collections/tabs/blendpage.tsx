@@ -77,15 +77,15 @@ const BlendPage = () => {
       </div>
 
       <div>
-        <ShowBlendsSlot action="remblslot" title="Slot Blends" table="slotblenders" type="sl" />
+        <ShowBlendsSlot action="remblslot" table="slotblenders" type="sl" />
 
         <hr className="my-8 border-gunmetal" />
 
-        <ShowBlends action="remblsimple" title="Simple Blends" table="simblenders" type="sb" />
+        <ShowBlends action="remblsimple" table="simblenders" type="sb" />
 
         <hr className="my-8 border-gunmetal" />
 
-        <ShowBlends action="remswsimple" title="Simple Swaps" table="simswaps" type="sw" />
+        <ShowBlends action="remswsimple" table="simswaps" type="sw" />
       </div>
     </div>
   );
