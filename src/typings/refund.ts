@@ -1,5 +1,5 @@
 interface RefundNFTAsset {
-  assetid: number;
+  assetid: string;
   from: string;
   collection: string;
 }

@@ -1,19 +1,25 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { ReceiptRefundIcon } from '@heroicons/react/solid';
-import { GetTableRowsResult } from 'eosjs/dist/eosjs-rpc-interfaces';
-import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import useSWR, { mutate } from 'swr';
 import EmptyComponent from '../../../components/empty-component';
 import { useCollection } from '../../../lib/collections/colprovider';
+import { fetcher } from '../../../lib/fetcher';
 import { dapp } from '../../../lib/waxnet';
+import { APIRequest } from '../../../typings/api';
 import { RefundNFTAsset } from '../../../typings/refund';
 import ShowRefunds from './showrefunds';
 
 const GetRefundNFTs = () => {
-  const { user, rpc, isLoggedIn } = useWaxUser();
+  const { user, isLoggedIn } = useWaxUser();
   const { collection } = useCollection();
-  const [data, setData] = useState<GetTableRowsResult | undefined>(undefined);
-  const [assets, setAssets] = useState<number[] | undefined>(undefined);
+
+  const { data: assets } = useSWR<APIRequest<RefundNFTAsset[]>>(
+    collection && isLoggedIn
+      ? process.env.NEXT_PUBLIC_SHOMAI_API + `/refunds/${user?.wallet}?collection=${collection}`
+      : null,
+    fetcher
+  );
 
   const callRefund = async () => {
     if (!assets) return;
@@ -22,6 +28,8 @@ const GetRefundNFTs = () => {
 
     const session = await user.session();
     if (!session) return;
+
+    const _assets = assets.data?.map((r) => Number(r.assetid)) 
 
     await session
       .transact({
@@ -38,13 +46,17 @@ const GetRefundNFTs = () => {
             data: {
               user: user.wallet,
               scope: collection,
-              assetids: assets
+              assetids: _assets
             }
           }
         ]
       })
       .then((r) => {
         console.log(r);
+
+        mutate(
+          process.env.NEXT_PUBLIC_SHOMAI_API + `/refunds/${user?.wallet}?collection=${collection}`
+        );
 
         toast.success('All assets has been refunded back to your wallet.');
       })
@@ -55,43 +67,13 @@ const GetRefundNFTs = () => {
       });
   };
 
-  useEffect(() => {
-    const f = async () => {
-      if (!user) return;
-      if (data) return;
-
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        table: 'nftrefunds',
-        scope: user.wallet,
-        limit: 999
-      });
-
-      setData(x);
-    };
-
-    f();
-  }, [data, user, rpc]);
-
-  useEffect(() => {
-    if (!data) return;
-    if (!user) return;
-    if (assets) return;
-
-    const x = data.rows
-      .filter((i: RefundNFTAsset) => i.from == user.wallet)
-      .map((i: RefundNFTAsset) => i.assetid);
-    setAssets(x);
-  }, [assets, data, user]);
-
-  if (!data || !assets) return <EmptyComponent />;
+  if (!assets) return <EmptyComponent />;
 
   return (
     <div>
       <div className="text-center my-4">
         {/* show only the refund button if user is logged in and there are assets in it */}
-        {assets.length > 0 && isLoggedIn && (
+        {(assets.data?.length ?? 0 > 0) && isLoggedIn && (
           <button
             onClick={callRefund}
             title="Refund All NFTs"
@@ -102,7 +84,7 @@ const GetRefundNFTs = () => {
           </button>
         )}
       </div>
-      <ShowRefunds assets={assets} />
+      <ShowRefunds assets={assets.data?.map((r) => Number(r.assetid)) ?? []} />
     </div>
   );
 };
