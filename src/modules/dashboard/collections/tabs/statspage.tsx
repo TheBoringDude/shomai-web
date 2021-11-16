@@ -23,7 +23,7 @@ const StatsPage = () => {
         </div>
         <div className="py-6 px-8 rounded-lg bg-deep-champagne">
           <p className="text-blueGray-700 mb-2 font-bold uppercase">Blend Uses</p>
-          <h4 className="mx-3 text-charcoal font-black text-5xl tracking-wide">100</h4>
+          <h4 className="mx-3 text-charcoal font-black text-5xl tracking-wide">---</h4>
         </div>
 
         <div className="py-4 px-8 rounded-lg bg-gunmetal">
