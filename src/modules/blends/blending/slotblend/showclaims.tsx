@@ -27,12 +27,9 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
   const claimBlend = async (claim: CLAIMASSET) => {
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: dapp,
             name: 'claimblslot',
@@ -48,8 +45,12 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
               scope: collection
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then((r) => {
         console.log(r);
 

@@ -42,12 +42,9 @@ const SimpleBlenderIngredients = () => {
 
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: 'atomicassets',
             name: 'transfer',
@@ -64,13 +61,17 @@ const SimpleBlenderIngredients = () => {
               memo: collection
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then(
         async () =>
-          await session
-            .transact({
-              actions: [
+          await user
+            .transact(
+              [
                 {
                   account: dapp,
                   name: 'callblsimple',
@@ -87,8 +88,12 @@ const SimpleBlenderIngredients = () => {
                     assetids: assets
                   }
                 }
-              ]
-            })
+              ],
+              {
+                blocksBehind: 3,
+                expireSeconds: 1200
+              }
+            )
             .then((r) => {
               console.log(r);
 

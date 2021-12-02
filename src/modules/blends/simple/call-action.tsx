@@ -17,14 +17,11 @@ const CallAction = () => {
     if (!target) return;
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
     const _ingredients = ingredients.map((i) => Number(i.template));
 
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: dapp,
             name: 'makeblsimple',
@@ -41,8 +38,12 @@ const CallAction = () => {
               ingredients: _ingredients
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then((r) => {
         console.log(r);
 

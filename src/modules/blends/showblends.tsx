@@ -34,13 +34,10 @@ const ShowBlends = ({ table, type, action }: ShowBlendsProps) => {
   const removeAction = async (col: string, blenderid: number) => {
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
     try {
-      await session
-        .transact({
-          actions: [
+      await user
+        .transact(
+          [
             {
               account: dapp,
               name: action,
@@ -56,8 +53,12 @@ const ShowBlends = ({ table, type, action }: ShowBlendsProps) => {
                 blenderid
               }
             }
-          ]
-        })
+          ],
+          {
+            blocksBehind: 3,
+            expireSeconds: 1200
+          }
+        )
         .then((r) => {
           console.log(r);
 

@@ -23,14 +23,9 @@ const SlotBlendingContainer = () => {
 
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
-    console.log(assets);
-
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: 'atomicassets',
             name: 'transfer',
@@ -47,12 +42,16 @@ const SlotBlendingContainer = () => {
               memo: collection
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then(async () => {
-        await session
-          .transact({
-            actions: [
+        await user
+          .transact(
+            [
               {
                 account: dapp,
                 name: 'callblslot',
@@ -70,8 +69,12 @@ const SlotBlendingContainer = () => {
                   claim_id: claimid
                 }
               }
-            ]
-          })
+            ],
+            {
+              blocksBehind: 3,
+              expireSeconds: 1200
+            }
+          )
           .then((r) => {
             console.log(r);
 

@@ -26,14 +26,11 @@ const GetRefundNFTs = () => {
 
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
+    const _assets = assets.data?.map((r) => Number(r.assetid));
 
-    const _assets = assets.data?.map((r) => Number(r.assetid)) 
-
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: dapp,
             name: 'refundnfts',
@@ -49,8 +46,12 @@ const GetRefundNFTs = () => {
               assetids: _assets
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then((r) => {
         console.log(r);
 

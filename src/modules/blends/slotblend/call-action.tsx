@@ -18,9 +18,6 @@ const SlotCallAction = () => {
 
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
     const _targets = targets
       .map((t) => {
         return {
@@ -46,9 +43,9 @@ const SlotCallAction = () => {
       };
     });
 
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: dapp,
             name: 'makeblslot',
@@ -66,8 +63,12 @@ const SlotCallAction = () => {
               title
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then((r) => {
         console.log(r);
 

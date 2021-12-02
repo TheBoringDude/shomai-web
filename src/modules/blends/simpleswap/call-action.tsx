@@ -18,12 +18,9 @@ const CallSimpleSwapAction = () => {
     if (!ingredient) return;
     if (!user) return;
 
-    const session = await user.session();
-    if (!session) return;
-
-    await session
-      .transact({
-        actions: [
+    await user
+      .transact(
+        [
           {
             account: dapp,
             name: 'makeswsimple',
@@ -40,8 +37,12 @@ const CallSimpleSwapAction = () => {
               ingredient: Number(ingredient.template)
             }
           }
-        ]
-      })
+        ],
+        {
+          blocksBehind: 3,
+          expireSeconds: 1200
+        }
+      )
       .then((r) => {
         console.log(r);
 
