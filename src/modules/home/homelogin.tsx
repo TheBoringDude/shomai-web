@@ -70,7 +70,7 @@ const HomeLogin = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() => logout()}
+                      onClick={async () => await logout()}
                       className={`${
                         active ? 'bg-deep-champagne text-gunmetal' : 'text-white'
                       } group flex rounded-md items-center w-full px-2 py-2 text-sm my-1`}

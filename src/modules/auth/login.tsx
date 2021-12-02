@@ -1,4 +1,5 @@
 import { useAuthFunctions } from '@cryptopuppie/next-waxauth';
+import { toast } from 'react-toastify';
 import { SimpleModal } from 'unstyled-lightbox';
 
 type AuthLoginProps = {
@@ -23,9 +24,18 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
           {!(process.env.NEXT_PUBLIC_ISTESTNET === 'true') && (
             <button
               onClick={async () => {
-                loginWithCloudWallet();
+                // try to login
+                try {
+                  await loginWithCloudWallet();
 
-                onClose();
+                  toast.success('Successfully logged in!');
+
+                  // close modal
+                  onClose();
+                } catch (e) {
+                  console.error(e);
+                  toast.error(String(e));
+                }
               }}
               className="my-1 bg-gray-800 hover:bg-gray-900 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
               type="button"
@@ -36,9 +46,18 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
 
           <button
             onClick={async () => {
-              loginWithAnchor();
+              // try to login
+              try {
+                await loginWithAnchor();
 
-              onClose();
+                toast.success('Successfully logged in!');
+
+                // close modal
+                onClose();
+              } catch (e) {
+                console.error(e);
+                toast.error(String(e));
+              }
             }}
             className="my-1 bg-blue-600 hover:bg-blue-700 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
             type="button"
