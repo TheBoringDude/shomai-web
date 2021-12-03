@@ -10,6 +10,7 @@ import { dapp } from '../../lib/waxnet';
 import { BASEBLENDINFO_PROPS, COLLECTIONBLENDS_PROPS } from '../../typings/api';
 import { SIMPLEBLENDS, SIMPLESWAPS } from '../../typings/blends/blends';
 import { useDashboard } from '../dashboard/dashprovider';
+import ShowBlendConfig from './blendconfig/showblendconfig';
 import ShowTarget from './showtarget';
 
 type ShowBlendsProps = {
@@ -85,13 +86,17 @@ const ShowBlends = ({ table, type, action }: ShowBlendsProps) => {
             <div className="absolute hidden group-hover:bg-black/20 h-full w-full rounded-lg z-30 group-hover:flex items-center justify-center">
               <div className="inline-flex flex-col items-center">
                 {authorized && (
-                  <button
-                    type="button"
-                    onClick={async () => await removeAction(i.collection, i.blenderid)}
-                    className="bg-red-500 hover:bg-red-600 py-2 px-4 rounded-md text-white text-sm my-1 inline-flex items-center"
-                  >
-                    <TrashIcon className="h-5 w-5 mr-1" /> Remove
-                  </button>
+                  <>
+                    <ShowBlendConfig blenderid={i.blenderid} />
+
+                    <button
+                      type="button"
+                      onClick={async () => await removeAction(i.collection, i.blenderid)}
+                      className="bg-red-500 hover:bg-red-600 py-2 px-4 rounded-md text-white text-sm my-1 inline-flex items-center"
+                    >
+                      <TrashIcon className="h-5 w-5 mr-1" /> Remove
+                    </button>
+                  </>
                 )}
                 <Link href={`/d/${i.collection}/blends/${i.blenderid}-${type}`}>
                   <a
