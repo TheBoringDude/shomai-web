@@ -8,6 +8,7 @@ import { BlendConfigProps } from '../../../typings/blends/config';
 type BlendConfigProviderProps = {
   children: ReactNode;
   blenderid: number;
+  open: boolean;
 };
 
 type BlendConfigContextProps = {
@@ -17,10 +18,10 @@ type BlendConfigContextProps = {
 
 const BlendConfigContext = createContext<BlendConfigContextProps>({ blenderid: 0 });
 
-const BlendConfigProvider = ({ children, blenderid }: BlendConfigProviderProps) => {
+const BlendConfigProvider = ({ children, blenderid, open }: BlendConfigProviderProps) => {
   const { collection } = useCollection();
   const { data } = useSWR<APIRequest<BlendConfigProps | null>>(
-    blenderid !== 0
+    blenderid !== 0 && open
       ? process.env.NEXT_PUBLIC_SHOMAI_API +
           `/blendconfig?blenderid=${blenderid}&collection=${collection}`
       : null,

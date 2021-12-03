@@ -13,14 +13,15 @@ const BlendConfigDates = () => {
   const { collection } = useCollection();
   const { config, blenderid } = useBlendConfig();
 
-  const [enableStart, setEnableStart] = useState(config?.startdate === -1 ? false : true);
-  const [enableEnd, setEnableEnd] = useState(config?.enddate === -1 ? false : true);
   const [startdate, setStartDate] = useState<Date | null>(
     config && config?.startdate !== -1 ? new Date(config.startdate * 1000) : new Date()
   );
   const [enddate, setEndDate] = useState<Date | null>(
     config && config?.enddate !== -1 ? new Date(config.enddate * 1000) : new Date()
   );
+
+  const [enableStart, setEnableStart] = useState(config ? config.startdate !== -1 : false);
+  const [enableEnd, setEnableEnd] = useState(config ? config.enddate !== -1 : false);
 
   const update = async () => {
     if (!user) return;

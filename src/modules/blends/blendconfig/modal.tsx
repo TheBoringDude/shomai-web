@@ -9,7 +9,7 @@ type BlendConfigModalProps = {
 };
 const BlendConfigModal = ({ open, onClose, blenderid }: BlendConfigModalProps) => {
   return (
-    <BlendConfigProvider blenderid={blenderid}>
+    <BlendConfigProvider open={open} blenderid={blenderid}>
       <Dialogs
         open={open}
         onClose={onClose}
