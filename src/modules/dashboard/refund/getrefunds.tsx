@@ -74,7 +74,7 @@ const GetRefundNFTs = () => {
     <div>
       <div className="text-center my-4">
         {/* show only the refund button if user is logged in and there are assets in it */}
-        {(assets.data?.length ?? 0 > 0) && isLoggedIn && (
+        {(assets.data?.length ?? 0 > 0) && isLoggedIn ? (
           <button
             onClick={callRefund}
             title="Refund All NFTs"
@@ -83,6 +83,8 @@ const GetRefundNFTs = () => {
             <ReceiptRefundIcon className="h-5 w-5 mr-1" />
             Refund All
           </button>
+        ) : (
+          <p className="text-white">Nothing to refund...</p>
         )}
       </div>
       <ShowRefunds assets={assets.data?.map((r) => Number(r.assetid)) ?? []} />
