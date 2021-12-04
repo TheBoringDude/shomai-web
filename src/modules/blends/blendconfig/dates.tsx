@@ -51,10 +51,13 @@ const BlendConfigDates = () => {
     //   }
     // }
 
-    if (_startdate > _enddate) {
-      // TODO: show error in here
+    // check only if both are
+    if (enableStart) {
+      if (_startdate > _enddate) {
+        // TODO: show error in here
 
-      return;
+        return;
+      }
     }
 
     _startdate = enableStart ? _startdate : -1;

@@ -1,3 +1,5 @@
+// TODO: this component could be improved better for sure
+
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
 import { useEffect } from 'react';
 import Countdown from 'react-countdown';
@@ -220,6 +222,10 @@ const BlendConfigInfo = () => {
           date={new Date((userstats.last_used + config.maxusercooldown) * 1000)}
           onComplete={() => {
             checkConfig();
+
+            // TODO: need to do something in here
+
+            setDisabled(false);
           }}
           onStart={() => {
             checkConfig();
