@@ -6,7 +6,6 @@ const SlotBlending = () => {
   return (
     <BlendingPage>
       <SlotBlendingProvider>
-        <hr className="border-charcoal my-12" />
         <div>
           <SlotBlendingContainer />
         </div>

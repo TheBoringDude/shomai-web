@@ -6,7 +6,6 @@ const SimpleBlending = () => {
   return (
     <BlendingPage>
       <SimpleBlendingProvider>
-        <hr className="border-charcoal my-12" />
         <div>
           <SimpleBlenderIngredients />
         </div>

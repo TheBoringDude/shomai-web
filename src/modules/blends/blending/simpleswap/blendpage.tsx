@@ -6,7 +6,6 @@ const SimpleSwapBlending = () => {
   return (
     <BlendingPage>
       <SimpleSwapBlendingProvider>
-        <hr className="border-charcoal my-12" />
         <div>
           <SimpleSwapBlendingContainer />
         </div>

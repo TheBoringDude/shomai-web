@@ -34,15 +34,22 @@ const BlendConfigDates = () => {
 
     if (!_startdate || !_enddate) return;
 
-    if (now > _startdate) {
-      // TODO: show error in here
-      return;
-    }
-    if (now > _enddate) {
-      // TODO: show error in here
+    // if (config != null) {
+    //   const { startdate: istartdate, enddate: ienddate } = config;
 
-      return;
-    }
+    //   if (enableStart && enableEnd) {
+    //     if (istartdate !== _startdate && now > _startdate) {
+    //       // TODO: show error in here
+    //       return;
+    //     }
+    //     if (ienddate !== _enddate && now > _enddate) {
+    //       // TODO: show error in here
+
+    //       return;
+    //     }
+
+    //   }
+    // }
 
     if (_startdate > _enddate) {
       // TODO: show error in here
