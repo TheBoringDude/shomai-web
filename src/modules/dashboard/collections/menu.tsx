@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react';
-import { ChartBarIcon, DuplicateIcon } from '@heroicons/react/solid';
+import { ChartBarIcon, ChartPieIcon, DuplicateIcon } from '@heroicons/react/solid';
 import useAuthorized from '../../../lib/hooks/useAuthorized';
 
 const ColMenu = () => {
@@ -28,9 +28,21 @@ const ColMenu = () => {
         <DuplicateIcon className="h-4 w-4" />
         <span className="ml-1">Blends</span>
       </Tab>
-      {/* 
+
       {authorized && (
-        <Tab
+        <>
+          <Tab
+            className={({ selected }) =>
+              `flex items-center hover:bg-gunmetal hover:text-deep-champagne rounded-md py-2 px-6 duration-200 ${
+                selected ? 'bg-gunmetal text-deep-champagne' : ''
+              }`
+            }
+          >
+            <ChartPieIcon className="h-4 w-4" />
+            <span className="ml-1">Resources</span>
+          </Tab>
+
+          {/* <Tab
           className={({ selected }) =>
             `flex items-center hover:bg-gunmetal hover:text-deep-champagne rounded-md py-2 px-6 duration-200 ${
               selected ? 'bg-gunmetal text-deep-champagne' : ''
@@ -39,8 +51,9 @@ const ColMenu = () => {
         >
           <CogIcon className="h-4 w-4" />
           <span className="ml-1">Settings</span>
-        </Tab>
-      )} */}
+        </Tab> */}
+        </>
+      )}
     </Tab.List>
   );
 };

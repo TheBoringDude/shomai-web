@@ -12,6 +12,12 @@ interface BASEBLENDINFO_PROPS<T> {
   data: T;
 }
 
+export interface ChainRequestProps<T> {
+  rows: T[];
+  more: boolean;
+  next_key: string;
+}
+
 type COLLECTIONBLENDS_PROPS = {
   simblenders: BASEBLENDINFO_PROPS<SIMPLEBLENDS[]>;
   simswaps: BASEBLENDINFO_PROPS<SIMPLESWAPS[]>;

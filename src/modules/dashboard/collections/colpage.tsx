@@ -6,6 +6,7 @@ import joinString from '../../../lib/joinstring';
 import DashProvider from '../dashprovider';
 import ColHeader from './colheader';
 import BlendPage from './tabs/blendpage';
+import ResourcesPage from './tabs/resourcespage';
 import SettingsPage from './tabs/settingspage';
 import StatsPage from './tabs/statspage';
 
@@ -36,6 +37,9 @@ const CollectionPage = () => {
                   </Tab.Panel>
                   <Tab.Panel>
                     <BlendPage />
+                  </Tab.Panel>
+                  <Tab.Panel>
+                    <ResourcesPage />
                   </Tab.Panel>
                   <Tab.Panel>
                     <SettingsPage />
