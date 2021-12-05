@@ -10,7 +10,7 @@ const DashHeader = () => {
       <nav className="mx-auto w-11/12 flex items-center justify-between">
         <Link href="/d">
           <a>
-            <h1 className="font-black text-xl text-deep-champagne">shomai</h1>
+            <h1 className="font-black text-2xl text-deep-champagne">shomai</h1>
           </a>
         </Link>
 

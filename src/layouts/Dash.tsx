@@ -16,7 +16,7 @@ const DashLayout = ({ title, description, children }: DashLayoutProps) => {
 
       <ServiceInfo />
 
-      {children}
+      <div className="min-h-screen">{children}</div>
 
       <DashFooter />
     </PageLayout>
