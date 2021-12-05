@@ -52,8 +52,6 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
         }
       )
       .then((r) => {
-        console.log(r);
-
         setClaimed(true);
         toast.success('Sucessfully claimed blend asset!');
 
@@ -70,13 +68,27 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
     if (open) {
       if (data) return;
 
-      setInterval(async () => {
+      let done = false;
+
+      const interval = setInterval(async () => {
+        if (claimed) return;
+
+        if (!open) {
+          clearInterval(interval);
+          return;
+        }
+        if (done) {
+          clearInterval(interval);
+          return;
+        }
+
         const x = await rpc?.get_table_rows({
           json: true,
           code: process.env.NEXT_PUBLIC_CONTRACTNAME,
           table: 'claimassets',
           scope: collection,
           lower_bound: claimid,
+          upper_bound: claimid,
           limit: 1
         });
 
@@ -84,12 +96,17 @@ const SlotBlendClaim = ({ open, onClose, claimid }: SlotBlendClaimProps) => {
 
         const _data = x.rows as CLAIMASSET[];
 
-        setData(
-          _data.filter((i: CLAIMASSET) => i.blender === user?.wallet && i.blenderid === id)[0]
-        );
+        const value = _data.filter(
+          (i: CLAIMASSET) => i.blender === user?.wallet && i.blenderid === id
+        )[0];
+        if (value != null) {
+          done = true;
+        }
+
+        setData(value);
       }, 3000);
     }
-  });
+  }, [claimed, claimid, collection, data, id, open, rpc, user?.wallet]);
 
   return (
     <Dialogs
