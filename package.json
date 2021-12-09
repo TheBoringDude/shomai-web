@@ -18,7 +18,7 @@
     "anchor-link-browser-transport": "^3.2.5",
     "atomicassets": "^1.4.2",
     "eosjs": "^22.1.0",
-    "next": "^12.0.3",
+    "next": "^12.0.5",
     "next-seo": "^4.28.1",
     "react": "17.0.2",
     "react-countdown": "^2.3.2",
