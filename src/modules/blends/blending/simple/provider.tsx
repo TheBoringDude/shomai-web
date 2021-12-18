@@ -1,14 +1,7 @@
-import { useWaxUser } from '@cryptopuppie/next-waxauth';
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-  useState
-} from 'react';
+import { useGetTableRows } from '@cryptopuppie/useeoschain';
+import { createContext, Dispatch, ReactNode, useContext, useReducer } from 'react';
 import EmptyComponent from '../../../../components/empty-component';
+import { dapp } from '../../../../lib/waxnet';
 import { SIMPLEBLENDS } from '../../../../typings/blends/blends';
 import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
 import { useBlending } from '../blending-provider';
@@ -37,31 +30,18 @@ const SimpleBlendingContext = createContext<SimpleBlendingContextProps>({
 });
 
 const SimpleBlendingProvider = ({ children }: SimpleBlendingProviderProps) => {
-  const { rpc } = useWaxUser();
-
   const { id, collection } = useBlending();
 
   const [state, dispatch] = useReducer(SimpleBlendingReducer, {});
-  const [config, setConfig] = useState<SIMPLEBLENDS | undefined>(undefined);
-
-  useEffect(() => {
-    const f = async () => {
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        scope: collection,
-        table: 'simblenders',
-        limit: 1,
-        lower_bound: id
-      });
-
-      if (!x) return;
-
-      setConfig(x.rows[0]);
-    };
-
-    f();
-  }, [collection, id, rpc]);
+  const data = useGetTableRows<SIMPLEBLENDS>({
+    code: dapp,
+    scope: collection,
+    table: 'simblenders',
+    limit: 1,
+    lower_bound: String(id),
+    upper_bound: String(id)
+  });
+  const config = data?.rows[0];
 
   if (!config) return <EmptyComponent />;
 

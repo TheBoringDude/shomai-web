@@ -1,13 +1,7 @@
-import { useWaxUser } from '@cryptopuppie/next-waxauth';
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-  useState
-} from 'react';
+import { useGetTableRows } from '@cryptopuppie/useeoschain';
+import { createContext, Dispatch, ReactNode, useContext, useReducer } from 'react';
+import EmptyComponent from '../../../../components/empty-component';
+import { dapp } from '../../../../lib/waxnet';
 import { SLOTBLENDSFROM_, SLOTBLENDS_TARGET } from '../../../../typings/blends/blends';
 import { SlotAssetIngredient } from '../../../../typings/blends/ingredients';
 import { useBlending } from '../blending-provider';
@@ -42,50 +36,30 @@ const SlotBlendingContext = createContext<SlotBlendingContextProps>({
 });
 
 const SlotBlendingProvider = ({ children }: SlotBlendingProviderProps) => {
-  const { rpc } = useWaxUser();
-
   const { collection, id } = useBlending();
 
   const [ingredients, dispatchIngredients] = useReducer(SlotBlendingReducer, {});
-  const [config, setConfig] = useState<SLOTBLENDSFROM_ | undefined>(undefined);
-  const [configTarget, setConfigTarget] = useState<SLOTBLENDS_TARGET | undefined>(undefined);
+  const data = useGetTableRows<SLOTBLENDSFROM_>({
+    code: dapp,
+    scope: collection,
+    table: 'slotblenders',
+    limit: 1,
+    lower_bound: String(id),
+    upper_bound: String(id)
+  });
+  const xdata = useGetTableRows<SLOTBLENDS_TARGET>({
+    code: dapp,
+    scope: collection,
+    table: 'targetpools',
+    limit: 1,
+    lower_bound: String(id),
+    upper_bound: String(id)
+  });
 
-  useEffect(() => {
-    const fx = async () => {
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        scope: collection,
-        table: 'slotblenders',
-        limit: 1,
-        lower_bound: id
-      });
+  const config = data?.rows[0];
+  const configTarget = xdata?.rows[0];
 
-      if (!x) return;
-
-      setConfig(x.rows[0]);
-    };
-
-    const fy = async () => {
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        scope: collection,
-        table: 'targetpools',
-        limit: 1,
-        lower_bound: id
-      });
-
-      if (!x) return;
-
-      setConfigTarget(x.rows[0]);
-    };
-
-    fx();
-    fy();
-  }, [collection, id, rpc]);
-
-  if (!config || !configTarget) return <></>;
+  if (!config || !configTarget) return <EmptyComponent />;
 
   return (
     <SlotBlendingContext.Provider

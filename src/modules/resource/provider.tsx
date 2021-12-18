@@ -1,10 +1,9 @@
+import { useGetTableRows } from '@cryptopuppie/useeoschain';
 import { createContext, ReactNode, useContext } from 'react';
 import useSWR from 'swr';
-import { chainrequest } from '../../lib/chain';
 import { useCollection } from '../../lib/collections/colprovider';
 import { fetcher } from '../../lib/fetcher';
-import { endpoint } from '../../lib/waxnet';
-import { APIRequest, ChainRequestProps } from '../../typings/api';
+import { APIRequest } from '../../typings/api';
 import { RamBalanceProps, RamMarketProps } from '../../typings/ram';
 
 type ResourceProviderProps = {
@@ -20,24 +19,11 @@ const ResourceContext = createContext<ResourceContextProps>({});
 
 const ResourceProvider = ({ children }: ResourceProviderProps) => {
   const { collection } = useCollection();
-
-  const { data: rammarket } = useSWR<ChainRequestProps<RamMarketProps>>(
-    endpoint + '/v1/chain/get_table_rows',
-    (url) =>
-      chainrequest(url, {
-        json: true,
-        code: 'eosio',
-        scope: 'eosio',
-        table: 'rammarket',
-        lower_bound: '',
-        upper_bound: '',
-        index_position: 1,
-        key_type: '',
-        limit: 10,
-        reverse: false,
-        show_payer: false
-      })
-  );
+  const rammarket = useGetTableRows<RamMarketProps>({
+    code: 'eosio',
+    scope: 'eosio',
+    table: 'rammarket'
+  });
 
   const { data } = useSWR<APIRequest<RamBalanceProps>>(
     collection

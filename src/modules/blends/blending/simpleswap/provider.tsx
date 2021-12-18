@@ -1,14 +1,8 @@
 import { useWaxUser } from '@cryptopuppie/next-waxauth';
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import { useGetTableRows } from '@cryptopuppie/useeoschain';
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 import EmptyComponent from '../../../../components/empty-component';
+import { dapp } from '../../../../lib/waxnet';
 import { SIMPLESWAPS } from '../../../../typings/blends/blends';
 import { SimpleAssetIngredient } from '../../../../typings/blends/ingredients';
 import { useBlending } from '../blending-provider';
@@ -40,26 +34,15 @@ const SimpleSwapBlendingProvider = ({ children }: SimpleSwapBlendingProviderProp
   const { id, collection } = useBlending();
 
   const [ingredient, setIngredient] = useState<SimpleAssetIngredient | undefined>(undefined);
-  const [config, setConfig] = useState<SIMPLESWAPS | undefined>(undefined);
-
-  useEffect(() => {
-    const f = async () => {
-      const x = await rpc?.get_table_rows({
-        json: true,
-        code: process.env.NEXT_PUBLIC_CONTRACTNAME,
-        scope: collection,
-        table: 'simswaps',
-        limit: 1,
-        lower_bound: id
-      });
-
-      if (!x) return;
-
-      setConfig(x.rows[0]);
-    };
-
-    f();
-  }, [collection, id, rpc]);
+  const data = useGetTableRows<SIMPLESWAPS>({
+    code: dapp,
+    scope: collection,
+    table: 'simswaps',
+    limit: 1,
+    lower_bound: String(id),
+    upper_bound: String(id)
+  });
+  const config = data?.rows[0];
 
   if (!config) return <EmptyComponent />;
 
