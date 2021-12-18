@@ -29,13 +29,13 @@ const GetCollection = () => {
               <h3 className="text-3xl sm:text-4xl ">{data.collection_name}</h3>
             </a>
           </Link>
-          <p className="text-xl mt-2 font-bold text-gray-300">{data.name}</p>
+          <p className="text-xl mt-2 font-bold text-neutral-300">{data.name}</p>
         </div>
       </div>
 
       {blend && (
         <div className="mt-4 md:mt-0 inline-flex flex-col items-end md:items-center">
-          <h5 className="text-lg font-bold text-gray-300">{getBlendTypes(blend)}</h5>
+          <h5 className="text-lg font-bold text-neutral-300">{getBlendTypes(blend)}</h5>
           <strong className="text-2xl font-black text-deep-champagne">#{id}</strong>
         </div>
       )}

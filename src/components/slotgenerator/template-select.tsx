@@ -65,7 +65,7 @@ const SlotTemplatesSelect = () => {
                       <Listbox.Option
                         key={index}
                         className={({ active }) =>
-                          `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                          `${active ? 'text-amber-900 bg-amber-100' : 'text-neutral-900'}
                               cursor-default select-none relative py-2 pl-10 pr-4`
                         }
                         value={f}

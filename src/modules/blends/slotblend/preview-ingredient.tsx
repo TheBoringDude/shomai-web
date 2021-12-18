@@ -26,13 +26,13 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
           <Disclosure>
             {({ open }) => (
               <>
-                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                   <span>Collection</span>
                   <ChevronUpIcon
                     className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-deep-champagne`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                   {slot.collection}
                 </Disclosure.Panel>
               </>
@@ -43,7 +43,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
             <Disclosure as="div" className="mt-2">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                  <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                     <span>Schema</span>
                     <ChevronUpIcon
                       className={`${
@@ -51,7 +51,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                       } w-5 h-5 text-deep-champagne`}
                     />
                   </Disclosure.Button>
-                  <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                  <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                     {slot.props.schema}
                   </Disclosure.Panel>
                 </>
@@ -61,7 +61,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
             <Disclosure as="div" className="mt-2">
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                  <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                     <span>Templates</span>
                     <ChevronUpIcon
                       className={`${
@@ -69,7 +69,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                       } w-5 h-5 text-deep-champagne`}
                     />
                   </Disclosure.Button>
-                  <Disclosure.Panel className="px-4 pb-2 font-black text-gray-500">
+                  <Disclosure.Panel className="px-4 pb-2 font-black text-neutral-500">
                     <div className="mx-auto w-11/12">
                       {slot.props.templates.map((t, index) => (
                         <div
@@ -89,7 +89,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
               <Disclosure as="div" className="mt-2">
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                       <span>Schema</span>
                       <ChevronUpIcon
                         className={`${
@@ -97,7 +97,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                         } w-5 h-5 text-deep-champagne`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                       {slot.props.schema}
                     </Disclosure.Panel>
                   </>
@@ -106,7 +106,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
               <Disclosure as="div" className="mt-2">
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                       <span>Attributes</span>
                       <ChevronUpIcon
                         className={`${
@@ -114,13 +114,13 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                         } w-5 h-5 text-deep-champagne`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pb-2 font-black text-gray-500">
+                    <Disclosure.Panel className="px-4 pb-2 font-black text-neutral-500">
                       <div className="mx-auto w-11/12">
                         {slot.props.attributes.map((i, index) => (
                           <Disclosure key={index} as="div" className="mt-2">
                             {({ open }) => (
                               <>
-                                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                                   <span>{i.key}</span>
                                   <ChevronUpIcon
                                     className={`${
@@ -128,7 +128,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                                     } w-5 h-5 text-deep-champagne`}
                                   />
                                 </Disclosure.Button>
-                                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                                   {i.allowed_values.join()}
                                 </Disclosure.Panel>
                               </>
@@ -149,13 +149,13 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
           <Disclosure as="div" className="mt-2">
             {({ open }) => (
               <>
-                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                   <span>Schema Only?</span>
                   <ChevronUpIcon
                     className={`${open ? 'transform rotate-180' : ''} w-5 h-5 text-deep-champagne`}
                   />
                 </Disclosure.Button>
-                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                   {JSON.stringify(slot.schema_only)}
                 </Disclosure.Panel>
               </>
@@ -167,7 +167,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
               <Disclosure as="div" className="mt-2">
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                       <span>From</span>
                       <ChevronUpIcon
                         className={`${
@@ -175,7 +175,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                         } w-5 h-5 text-deep-champagne`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                       {slot.from === 0
                         ? `templates`
                         : slot.from === 1
@@ -188,7 +188,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
               <Disclosure as="div" className="mt-2">
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                       <span>Attributes</span>
                       <ChevronUpIcon
                         className={`${
@@ -196,13 +196,13 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                         } w-5 h-5 text-deep-champagne`}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel className="px-4 pb-2 font-black text-gray-500">
+                    <Disclosure.Panel className="px-4 pb-2 font-black text-neutral-500">
                       <div className="mx-auto w-11/12">
                         {slot.attributes.map((i, index) => (
                           <Disclosure key={index} as="div" className="mt-2">
                             {({ open }) => (
                               <>
-                                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-coolGray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
+                                <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-bold text-left bg-sage text-gray-700 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-opacity-75">
                                   <span>{i.attrib}</span>
                                   <ChevronUpIcon
                                     className={`${
@@ -210,7 +210,7 @@ const PreviewSlotIngredient = ({ slot }: PreviewSlotIngredientProps) => {
                                     } w-5 h-5 text-deep-champagne`}
                                   />
                                 </Disclosure.Button>
-                                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-gray-500">
+                                <Disclosure.Panel className="px-4 pt-4 pb-2 font-black text-neutral-500">
                                   {i.values.join()}
                                 </Disclosure.Panel>
                               </>

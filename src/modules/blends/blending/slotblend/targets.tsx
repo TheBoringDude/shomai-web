@@ -25,7 +25,7 @@ const SlotBlendingTargets = () => {
 
   return (
     <div className="">
-      <h4 className="text-2xl text-gray-100 font-black">Targets</h4>
+      <h4 className="text-2xl text-neutral-100 font-black">Targets</h4>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center mt-6">
         {data?.map((i, index) => (
           <div key={index} className="flex justify-center relative bg-charcoal rounded-xl p-2">

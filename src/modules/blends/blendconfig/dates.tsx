@@ -118,7 +118,7 @@ const BlendConfigDates = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-11/12 mt-4 mx-auto">
         <div className="my-1 md:my-0">
           <div className="flex items-center justify-between mb-1">
-            <p className="text-gray-200">Start Date</p>
+            <p className="text-neutral-200">Start Date</p>
             <Switch
               checked={enableStart}
               onChange={setEnableStart}
@@ -147,7 +147,7 @@ const BlendConfigDates = () => {
 
         <div className="my-1 md:my-0">
           <div className="flex items-center justify-between mb-1">
-            <p className="text-gray-200">End Date</p>
+            <p className="text-neutral-200">End Date</p>
             <Switch
               checked={enableEnd}
               onChange={setEnableEnd}

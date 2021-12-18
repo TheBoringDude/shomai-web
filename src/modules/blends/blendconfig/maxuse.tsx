@@ -95,7 +95,7 @@ const BlendConfigMaxUses = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-11/12 mt-4 mx-auto">
         <div className="my-1 sm:my-0">
-          <p className="text-gray-200 mb-1">Maximum Use</p>
+          <p className="text-neutral-200 mb-1">Maximum Use</p>
           <input
             defaultValue={`${config ? config.maxuse : -1}`}
             ref={inputMaxUse}
@@ -107,7 +107,7 @@ const BlendConfigMaxUses = () => {
         </div>
 
         <div className="my-1 sm:my-0">
-          <p className="text-gray-200 mb-1">Max User Use</p>
+          <p className="text-neutral-200 mb-1">Max User Use</p>
           <input
             defaultValue={`${config ? config.maxuseruse : -1}`}
             ref={inputMaxUserUse}
@@ -119,7 +119,7 @@ const BlendConfigMaxUses = () => {
         </div>
 
         <div className="my-1 sm:my-0">
-          <p className="text-gray-200 mb-1">Max User Cooldown</p>
+          <p className="text-neutral-200 mb-1">Max User Cooldown</p>
           <input
             defaultValue={`${config ? config.maxusercooldown : -1}`}
             ref={inputMaxUserCooldown}

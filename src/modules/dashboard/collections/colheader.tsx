@@ -21,7 +21,7 @@ const ColHeader = () => {
         />
         <div className="ml-3 flex flex-col">
           <h3 className="text-4xl font-black text-atomic-tangerine">{data.collection_name}</h3>
-          <p className="text-xl mt-2 font-bold text-gray-300">{data.name}</p>
+          <p className="text-xl mt-2 font-bold text-neutral-300">{data.name}</p>
         </div>
       </div>
 

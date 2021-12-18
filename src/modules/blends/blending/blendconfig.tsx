@@ -251,11 +251,11 @@ const BlendConfigInfo = () => {
 
       <div className="mt-4 flex flex-wrap items-center justify-between">
         <ul className="m-1">
-          <li className="text-gray-300">
+          <li className="text-neutral-300">
             <span className="lowercase">Maximum use: </span>{' '}
             <strong>{config.maxuse === -1 ? <>&infin;</> : config.maxuse}</strong>
           </li>
-          <li className="text-gray-300">
+          <li className="text-neutral-300">
             <span className="lowercase">Maximum user use: </span>{' '}
             <strong>{config.maxuseruse === -1 ? <>&infin;</> : config.maxuseruse}</strong>
           </li>

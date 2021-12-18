@@ -107,7 +107,7 @@ const SimpleSwapBlendingContainer = () => {
     <div className="my-12 w-4/5 md:w-full lg:w-11/12 mx-auto">
       <div className="flex flex-col md:flex-row items-center justify-center">
         <div className="text-center">
-          <h4 className="font-black text-2xl text-gray-100">Ingredient</h4>
+          <h4 className="font-black text-2xl text-neutral-100">Ingredient</h4>
 
           <div className="mt-6">
             <ManageSimpleSwapIngredient templateid={config.ingredient} data={data?.data} />
@@ -131,7 +131,7 @@ const SimpleSwapBlendingContainer = () => {
         </div>
 
         <div className="text-center">
-          <h4 className="font-black text-2xl text-gray-100">Target</h4>
+          <h4 className="font-black text-2xl text-neutral-100">Target</h4>
 
           <div className="flex items-center justify-center mt-6">
             {target && (

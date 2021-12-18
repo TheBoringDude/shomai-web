@@ -27,15 +27,15 @@ const StatsPage = () => {
         </div>
 
         <div className="py-4 px-8 rounded-lg bg-gunmetal">
-          <p className="text-gray-400 text-sm uppercase tracking-wide">Simple Blend</p>
+          <p className="text-neutral-400 text-sm uppercase tracking-wide">Simple Blend</p>
           <h4 className="text-3xl font-black text-white">{blends?.simblenders.data.length}</h4>
         </div>
         <div className="py-4 px-8 rounded-lg bg-gunmetal">
-          <p className="text-gray-400 text-sm uppercase tracking-wide">Slot Blend</p>
+          <p className="text-neutral-400 text-sm uppercase tracking-wide">Slot Blend</p>
           <h4 className="text-3xl font-black text-white">{blends?.slotblenders.data.length}</h4>
         </div>
         <div className="py-4 px-8 rounded-lg bg-gunmetal">
-          <p className="text-gray-400 text-sm uppercase tracking-wide">Swap (not blend)</p>
+          <p className="text-neutral-400 text-sm uppercase tracking-wide">Swap (not blend)</p>
           <h4 className="text-3xl font-black text-white">{blends?.simswaps.data.length}</h4>
         </div>
       </div>

@@ -37,7 +37,7 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
                   toast.error(String(e));
                 }
               }}
-              className="my-1 bg-gray-800 hover:bg-gray-900 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
+              className="my-1 bg-gray-800 hover:bg-gray-900 text-neutral-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
               type="button"
             >
               Login with Wax Cloud Wallet
@@ -59,7 +59,7 @@ const AuthLogin = ({ open, onClose }: AuthLoginProps) => {
                 toast.error(String(e));
               }
             }}
-            className="my-1 bg-blue-600 hover:bg-blue-700 text-gray-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
+            className="my-1 bg-blue-600 hover:bg-blue-700 text-neutral-100 uppercase py-3 rounded-md px-4 text-lg font-black tracking-wide"
             type="button"
           >
             Login with Anchor

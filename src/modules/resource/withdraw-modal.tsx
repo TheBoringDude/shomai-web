@@ -78,7 +78,7 @@ const WithdrawRamModal = ({ open, onClose }: WithdrawRamModalProps) => {
       <div className="mt-6 w-11/12 mx-auto">
         <div>
           <div className="flex flex-col my-2">
-            <label htmlFor="rambytes" className="text-gray-300 mb-1">
+            <label htmlFor="rambytes" className="text-neutral-300 mb-1">
               Bytes:
             </label>
             <input
@@ -93,7 +93,7 @@ const WithdrawRamModal = ({ open, onClose }: WithdrawRamModalProps) => {
           </div>
 
           <div className="flex flex-col my-2">
-            <label htmlFor="rambytes" className="text-gray-300 mb-1">
+            <label htmlFor="rambytes" className="text-neutral-300 mb-1">
               Recipient:
             </label>
             <input

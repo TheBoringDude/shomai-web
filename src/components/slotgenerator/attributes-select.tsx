@@ -72,7 +72,7 @@ const SlotAttributesSelect = () => {
                       <Listbox.Option
                         key={index}
                         className={({ active }) =>
-                          `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                          `${active ? 'text-amber-900 bg-amber-100' : 'text-neutral-900'}
                               cursor-default select-none relative py-2 pl-10 pr-4`
                         }
                         value={f}
@@ -121,7 +121,7 @@ const SlotAttributesSelect = () => {
               <input
                 type="text"
                 name="values"
-                className="bg-deep-champagne focus:outline-none placeholder-coolGray-700 text-sm"
+                className="bg-deep-champagne focus:outline-none placeholder-gray-700 text-sm"
                 onKeyDown={(e) => {
                   if (e.key === 'Backspace') {
                     const value = e.currentTarget.value.trim();

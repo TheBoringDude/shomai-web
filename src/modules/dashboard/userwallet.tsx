@@ -59,7 +59,7 @@ const UserWallet = () => {
                   />
                 </>
               ) : (
-                <strong className="text-xs text-gray-200 uppercase tracking-wide">Login</strong>
+                <strong className="text-xs text-neutral-200 uppercase tracking-wide">Login</strong>
               )}
             </Menu.Button>
           </div>

@@ -30,13 +30,13 @@ const ColPageHeader = ({ title, description }: ColPageHeaderProps) => {
               <h3 className="text-3xl sm:text-4xl ">{data.collection_name}</h3>
             </a>
           </Link>
-          <p className="text-xl mt-2 font-bold text-gray-300">{data.name}</p>
+          <p className="text-xl mt-2 font-bold text-neutral-300">{data.name}</p>
         </div>
       </div>
 
       <div className="text-right mt-4 md:mt-0 w-full md:w-2/5 ml-auto">
-        <h5 className="text-3xl font-black text-gray-200 tracking-wide">{title}</h5>
-        <p className="text-gray-400 tracking-wide mt-1 truncate">{description}</p>
+        <h5 className="text-3xl font-black text-neutral-200 tracking-wide">{title}</h5>
+        <p className="text-neutral-400 tracking-wide mt-1 truncate">{description}</p>
       </div>
     </div>
   );

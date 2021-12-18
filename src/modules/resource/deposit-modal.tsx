@@ -102,10 +102,10 @@ const DepositRamModal = ({ open, onClose }: DepositRamModalProps) => {
           />
 
           <div className="mt-2">
-            <p className="text-gray-200 text-sm">
+            <p className="text-neutral-200 text-sm">
               Approximate bytes: <strong>{calcBytes()} bytes</strong>
             </p>
-            <p className="text-gray-200 text-sm">
+            <p className="text-neutral-200 text-sm">
               Approximate NFTs to be minted: <strong>{calcNFTs()} NFTs</strong>
             </p>
           </div>

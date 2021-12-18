@@ -10,7 +10,7 @@ const SimpleSwapTarget = () => {
     <>
       {/* add target */}
       <div className="text-center">
-        <h4 className="font-black text-2xl text-gray-100">Target</h4>
+        <h4 className="font-black text-2xl text-neutral-100">Target</h4>
         <div className="mt-6">
           {target ? (
             <div className="relative bg-charcoal rounded-xl p-2">

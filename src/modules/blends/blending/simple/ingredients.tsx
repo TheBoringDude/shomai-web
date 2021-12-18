@@ -120,7 +120,7 @@ const SimpleBlenderIngredients = () => {
 
   return (
     <div className="my-12 w-11/12 mx-auto">
-      <h4 className="font-black text-2xl text-gray-100">Ingredients</h4>
+      <h4 className="font-black text-2xl text-neutral-100">Ingredients</h4>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center mt-6">
         {config.ingredients.map((i, index) => (
@@ -131,7 +131,7 @@ const SimpleBlenderIngredients = () => {
       <hr className="my-12 border-charcoal" />
 
       <div className="text-center">
-        <h4 className="font-black text-2xl text-gray-100">Target</h4>
+        <h4 className="font-black text-2xl text-neutral-100">Target</h4>
 
         <div className="flex flex-col md:flex-row items-center justify-center mt-6">
           {target && (

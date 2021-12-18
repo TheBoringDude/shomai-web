@@ -16,7 +16,7 @@ const MultiBlend = () => {
         <div className="w-11/12 mx-auto">
           {/* add ingredients */}
           <div>
-            <h4 className="font-black text-2xl text-gray-100">Ingredients</h4>
+            <h4 className="font-black text-2xl text-neutral-100">Ingredients</h4>
             <div className="mt-6">
               <button
                 type="button"
@@ -34,7 +34,7 @@ const MultiBlend = () => {
 
           {/* add target */}
           <div>
-            <h4 className="font-black text-2xl text-gray-100">Target</h4>
+            <h4 className="font-black text-2xl text-neutral-100">Target</h4>
             <div className="mt-6">
               <button
                 type="button"
@@ -55,7 +55,7 @@ const MultiBlend = () => {
               Create Blend
             </button>
             <Link href={`/d/${collection}`}>
-              <a className="bg-charcoal text-gray-100 py-3 px-8 rounded-lg mx-1">Cancel</a>
+              <a className="bg-charcoal text-neutral-100 py-3 px-8 rounded-lg mx-1">Cancel</a>
             </Link>
           </div>
         </div>

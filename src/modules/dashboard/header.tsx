@@ -14,7 +14,7 @@ const DashHeader = () => {
           </a>
         </Link>
 
-        <ul className="hidden text-sm text-gray-100 md:flex items-center">
+        <ul className="hidden text-sm text-neutral-100 md:flex items-center">
           <li className="mx-4 md:mx-8">
             {/* route to collection page if it is under it */}
             <Link href={`/d/${collection ? collection : ''}`}>

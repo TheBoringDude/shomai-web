@@ -10,7 +10,7 @@ const SimpleSwapIngredient = () => {
     <>
       {/* add target */}
       <div className="text-center">
-        <h4 className="font-black text-2xl text-gray-100">Ingredient</h4>
+        <h4 className="font-black text-2xl text-neutral-100">Ingredient</h4>
         <div className="mt-6">
           {ingredient ? (
             <div className="relative bg-charcoal rounded-xl p-2">

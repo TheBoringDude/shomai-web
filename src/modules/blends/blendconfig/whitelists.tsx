@@ -97,7 +97,7 @@ const BlendConfigWhitelists = () => {
       <div className="w-11/12 mt-4 mx-auto">
         <div>
           <div className="mb-1 flex items-center justify-between">
-            <p className="text-gray-200">List of names for whitelist</p>
+            <p className="text-neutral-200">List of names for whitelist</p>
             <Switch
               checked={enable}
               onChange={setEnable}

@@ -72,7 +72,7 @@ const SlotForm = ({ onClose }: SlotFormProps) => {
         </button>
 
         <button
-          className="py-3 px-12 mx-1 rounded-lg bg-charcoal text-gray-300 text-sm"
+          className="py-3 px-12 mx-1 rounded-lg bg-charcoal text-neutral-300 text-sm"
           type="reset"
           onClick={onClose}
         >

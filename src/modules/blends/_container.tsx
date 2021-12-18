@@ -15,7 +15,7 @@ const BlendContainer = ({ children, title, info }: BlendContaineProps) => {
     <div className="w-11/12 mx-auto">
       <div className="m-12 bg-gunmetal rounded-xl py-12 px-14 relative">
         <Link href={`/d/${collection}?p=blends`}>
-          <a className="inline-flex items-center text-gray-300 hover:text-gray-200 hover:underline text-sm absolute top-4 left-6">
+          <a className="inline-flex items-center text-neutral-300 hover:text-neutral-200 hover:underline text-sm absolute top-4 left-6">
             <ArrowNarrowLeftIcon className="h-4 w-5 mr-1" /> Return to Collection
           </a>
         </Link>
@@ -24,7 +24,7 @@ const BlendContainer = ({ children, title, info }: BlendContaineProps) => {
           <h3 className="text-white text-3xl font-black">
             Create a new <span className="text-atomic-tangerine">{title}</span>
           </h3>
-          <p className="text-gray-200 mt-1 tracking-wide">{info}</p>
+          <p className="text-neutral-200 mt-1 tracking-wide">{info}</p>
         </div>
 
         <hr className="border-gray-400 my-6" />

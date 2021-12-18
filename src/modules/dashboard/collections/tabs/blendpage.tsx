@@ -40,21 +40,21 @@ const BlendPage = () => {
                 <div className="py-3 px-2">
                   <Menu.Item>
                     <Link href={`/d/${collection}/new/simple`}>
-                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      <a className="hover:bg-sage text-neutral-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Simple Blend
                       </a>
                     </Link>
                   </Menu.Item>
                   {/* <Menu.Item>
                     <Link href={`/d/${collection}/new/multi`}>
-                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      <a className="hover:bg-sage text-neutral-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Multi Blend
                       </a>
                     </Link>
                   </Menu.Item> */}
                   <Menu.Item>
                     <Link href={`/d/${collection}/new/slot`}>
-                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      <a className="hover:bg-sage text-neutral-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Slot Blend
                       </a>
                     </Link>
@@ -64,7 +64,7 @@ const BlendPage = () => {
 
                   <Menu.Item>
                     <Link href={`/d/${collection}/new/swap`}>
-                      <a className="hover:bg-sage text-gray-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
+                      <a className="hover:bg-sage text-neutral-900 group flex rounded-md items-center w-full px-4 py-2 text-sm">
                         Swap
                       </a>
                     </Link>
