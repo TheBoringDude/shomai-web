@@ -1,45 +1,30 @@
 import { useAuthFunctions, useWaxUser } from '@cryptopuppie/next-waxauth';
+import { useGetCurrencyBalance } from '@cryptopuppie/useeoschain';
 import { Menu, Transition } from '@headlessui/react';
 import { ArrowRightIcon, ChartSquareBarIcon, ChevronDownIcon } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { LinkButton } from '../../components/LinkButton';
-import { GET_WALLET_BALANCE } from '../../lib/account/getwallet';
-import { postFetcher } from '../../lib/fetcher';
 import AuthLogin from '../auth/login';
 
 const UserWallet = () => {
-  const router = useRouter();
-
   const { user, isLoggedIn } = useWaxUser();
   const { logout } = useAuthFunctions();
 
-  const [data, setData] = useState<string | undefined>(undefined);
   const [open, setOpen] = useState(false);
+  const data = useGetCurrencyBalance(
+    user ? { code: 'eosio.token', account: user.wallet } : undefined
+  );
 
-  useEffect(() => {
-    const f = async () => {
-      if (!user) return;
+  let bal = data ? data[0] : data;
+  if (bal != null) {
+    const x = bal.split(' ');
 
-      const x: string[] = await postFetcher(GET_WALLET_BALANCE(), {
-        account: user.wallet,
-        code: 'eosio.token',
-        symbol: 'WAX'
-      });
-
-      const z = x[0];
-      const bal = z?.split(' ');
-
-      if (z && bal) {
-        setData(String(Number(bal[0]).toFixed(2)) + ' ' + bal[1]);
-      }
-    };
-
-    f();
-  }, [user]);
+    // calculate balance (reduce decimal points) to avoid it extending usage in space
+    bal = String(Number(x[0]).toFixed(2)) + ' ' + x[1];
+  }
 
   return (
-    <>
+    <div>
       <AuthLogin open={open} onClose={() => setOpen(false)} />
 
       {isLoggedIn ? (
@@ -51,7 +36,7 @@ const UserWallet = () => {
                   <div className="inline-flex flex-col">
                     <strong className="text-atomic-tangerine text-sm">{user?.wallet}</strong>
 
-                    <span className="text-xs text-sage font-bold tracking-tight">( {data} )</span>
+                    <span className="text-xs text-sage font-bold tracking-tight">( {bal} )</span>
                   </div>
                   <ChevronDownIcon
                     className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
@@ -107,7 +92,7 @@ const UserWallet = () => {
           Login
         </button>
       )}
-    </>
+    </div>
   );
 };
 
